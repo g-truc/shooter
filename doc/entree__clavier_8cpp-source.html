@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): entree_clavier.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>entree_clavier.cpp</h1><a href="entree__clavier_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="ctrl__fenetre_8h.html">ctrl_fenetre.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="entree__clavier_8h.html">entree_clavier.h</a>"</span>
+00012 
+<a name="l00013"></a><a class="code" href="classCEntreeClavier.html#a1">00013</a> <a class="code" href="classCEntreeClavier.html#a0">CEntreeClavier::CEntreeClavier</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> unPositionX, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> unPositionY)
+00014 {
+00015         m_unPositionX = unPositionX;
+00016         m_unPositionY = unPositionY;
+00017         m_bTirer = <span class="keyword">false</span>;
+00018         m_bHaut = <span class="keyword">false</span>;
+00019         m_bBas = <span class="keyword">false</span>;
+00020         m_bGauche = <span class="keyword">false</span>;
+00021         m_bDroit = <span class="keyword">false</span>;
+00022         m_Timer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00023 }
+00024 
+<a name="l00025"></a><a class="code" href="classCEntreeClavier.html#a2">00025</a> <span class="keywordtype">void</span> <a class="code" href="classCEntreeClavier.html#a2">CEntreeClavier::Event</a> (SDL_KeyboardEvent *pEvent)
+00026 {
+00027         <span class="keywordflow">switch</span> (pEvent-&gt;type)
+00028         {
+00029         <span class="keywordflow">default</span>:
+00030                 <span class="keywordflow">break</span>;
+00031         <span class="comment">// Evénement produit quand le joueur relache une touche</span>
+00032         <span class="keywordflow">case</span> SDL_KEYUP:
+00033                 <span class="keywordflow">if</span> (pEvent-&gt;keysym.sym == SDLK_SPACE
+00034                         || pEvent-&gt;keysym.sym == SDLK_KP_ENTER
+00035                         || pEvent-&gt;keysym.sym == SDLK_KP0)
+00036                         m_bTirer = <span class="keyword">false</span>;
+00037                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pEvent-&gt;keysym.sym == SDLK_KP8
+00038                         || pEvent-&gt;keysym.sym == SDLK_UP)
+00039                         m_bHaut = <span class="keyword">false</span>;
+00040                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pEvent-&gt;keysym.sym == SDLK_KP2
+00041                         || pEvent-&gt;keysym.sym == SDLK_DOWN)
+00042                         m_bBas = <span class="keyword">false</span>;
+00043                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pEvent-&gt;keysym.sym == SDLK_KP6
+00044                         || pEvent-&gt;keysym.sym == SDLK_RIGHT)
+00045                         m_bDroit = <span class="keyword">false</span>;
+00046                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pEvent-&gt;keysym.sym == SDLK_KP4
+00047                         || pEvent-&gt;keysym.sym == SDLK_LEFT)
+00048                         m_bGauche = <span class="keyword">false</span>;
+00049                 <span class="keywordflow">break</span>;
+00050         <span class="comment">// Evénement produit quand le joueur presse une touche</span>
+00051         <span class="keywordflow">case</span> SDL_KEYDOWN:
+00052                 <span class="keywordflow">if</span> (pEvent-&gt;keysym.sym == SDLK_SPACE
+00053                         || pEvent-&gt;keysym.sym == SDLK_KP_ENTER
+00054                         || pEvent-&gt;keysym.sym == SDLK_KP0)
+00055                         m_bTirer = <span class="keyword">true</span>;
+00056                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pEvent-&gt;keysym.sym == SDLK_KP8
+00057                         || pEvent-&gt;keysym.sym == SDLK_UP)
+00058                         m_bHaut = <span class="keyword">true</span>;
+00059                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pEvent-&gt;keysym.sym == SDLK_KP2
+00060                         || pEvent-&gt;keysym.sym == SDLK_DOWN)
+00061                         m_bBas = <span class="keyword">true</span>;
+00062                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pEvent-&gt;keysym.sym == SDLK_KP6
+00063                         || pEvent-&gt;keysym.sym == SDLK_RIGHT)
+00064                         m_bDroit = <span class="keyword">true</span>;
+00065                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pEvent-&gt;keysym.sym == SDLK_KP4
+00066                         || pEvent-&gt;keysym.sym == SDLK_LEFT)
+00067                         m_bGauche = <span class="keyword">true</span>;
+00068                 <span class="keywordflow">break</span>;
+00069         }
+00070 }
+00071 
+00072 <span class="comment">// Détermine la position du joueur sur l'écran en s'assurant qu'il ne sorte pas de l'écran</span>
+<a name="l00073"></a><a class="code" href="classCEntreeClavier.html#a3">00073</a> <a class="code" href="util_8h.html#a3">CVecteur</a> <a class="code" href="classCEntreeClavier.html#a3">CEntreeClavier::GetPosition</a> ()
+00074 {
+00075         <span class="keywordflow">if</span> (m_Timer.<a class="code" href="classCTimer.html#a2">GetTime</a> () &gt; 0.01f)
+00076         {
+00077                 m_Timer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00078 
+00079                 <span class="comment">// Déplacement suivant les touches pressés</span>
+00080                 <span class="keywordflow">if</span> (m_bHaut)
+00081                         m_unPositionY += <a class="code" href="entree__clavier_8h.html#a0">CLAVIER_VITESSE_DEPLACEMENT</a>;
+00082                 <span class="keywordflow">if</span> (m_bBas)
+00083                         m_unPositionY -= <a class="code" href="entree__clavier_8h.html#a0">CLAVIER_VITESSE_DEPLACEMENT</a>;
+00084                 <span class="keywordflow">if</span> (m_bGauche)
+00085                         m_unPositionX -= <a class="code" href="entree__clavier_8h.html#a0">CLAVIER_VITESSE_DEPLACEMENT</a>;
+00086                 <span class="keywordflow">if</span> (m_bDroit)
+00087                         m_unPositionX += <a class="code" href="entree__clavier_8h.html#a0">CLAVIER_VITESSE_DEPLACEMENT</a>;
+00088 
+00089                 <span class="comment">// Contrôle la position du joueur sur l'écran</span>
+00090                 <span class="keywordflow">if</span> (m_unPositionY &gt; (<a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - 32))
+00091                         m_unPositionY = <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - 32;
+00092                 <span class="keywordflow">if</span> (m_unPositionY &lt; (0 + 32))
+00093                         m_unPositionY = 0 + 32;
+00094                 <span class="keywordflow">if</span> (m_unPositionX &gt; (<a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> - 32))
+00095                         m_unPositionX = <a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> - 32;
+00096                 <span class="keywordflow">if</span> (m_unPositionX &lt; (0 + 32))
+00097                         m_unPositionX = 0 + 32;
+00098         }
+00099 
+00100         <span class="keywordflow">return</span> <a class="code" href="util_8h.html#a3">CVecteur</a> (m_unPositionX, m_unPositionY);
+00101 }
+00102 
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

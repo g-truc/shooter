@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): Référence du fichier util.h</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>Référence du fichier util.h</h1>Quelques déclarations de fonctions utiles. <a href="#_details">Plus de détails...</a>
+<p>
+<code>#include "<a class="el" href="util__timer_8h-source.html">util_timer.h</a>"</code><br>
+<code>#include "../lib/gtl/include/gtl.h"</code><br>
+<code>#include &lt;math.h&gt;</code><br>
+
+<p>
+<a href="util_8h-source.html">Aller au code source de ce fichier.</a><table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Macros</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>#define&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="util_8h.html#a0">M_PI</a>&nbsp;&nbsp;&nbsp;3.14519f</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>#define&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="util_8h.html#a1">SQR</a>(<a class="el" href="glext_8h.html#a2249">x</a>)&nbsp;&nbsp;&nbsp;((<a class="el" href="glext_8h.html#a2249">x</a>) * (<a class="el" href="glext_8h.html#a2249">x</a>))</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Define réalisant un carré.  <a href="#a1"></a><br></td></tr>
+<tr><td colspan=2><br><h2>Typedefs</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>typedef gtl::CColor3&lt; float &gt;&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="util_8h.html#a2">CCouleur</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>typedef gtl::CVector2&lt; float &gt;&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="util_8h.html#a3">CVecteur</a></td></tr>
+
+<tr><td colspan=2><br><h2>Fonctions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>float&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="util_8h.html#a4">RandFloat</a> (float fMin, float fMax)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Recherche d'un nombre flottant 'aléatoirement'.  <a href="#a4"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="util_8h.html#a5">RandInt</a> (int iMin, int iMax)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Recherche d'un nombre entié 'aléatoirement'.  <a href="#a5"></a><br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>Description détaillée</h2>
+Quelques déclarations de fonctions utiles. 
+<p>
+<dl compact><dt><b>Auteur:</b></dt><dd>Groove (<a href="http://www.g-truc.net">http://www.g-truc.net</a>) / Code(r) (<a href="http://www.codermag.com">http://www.codermag.com</a>) </dd></dl>
+<dl compact><dt><b>Date:</b></dt><dd>12/05/2004</dd></dl>
+
+<p>
+Définition dans le fichier <a class="el" href="util_8h-source.html">util.h</a>.<hr><h2>Documentation des macro</h2>
+<a class="anchor" name="a0" doxytag="util.h::M_PI" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define M_PI&nbsp;&nbsp;&nbsp;3.14519f          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="util_8h-source.html#l00018">18</a> du fichier <a class="el" href="util_8h-source.html">util.h</a>.
+<p>
+Référencé par <a class="el" href="fx__explosion_8cpp-source.html#l00041">CExplosion::Init()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a1" doxytag="util.h::SQR" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define SQR          </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top"><a class="el" href="glext_8h.html#a2249">x</a>&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap>&nbsp;&nbsp;&nbsp;((<a class="el" href="glext_8h.html#a2249">x</a>) * (<a class="el" href="glext_8h.html#a2249">x</a>))</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Define réalisant un carré. 
+<p>
+Définition à la ligne <a class="el" href="util_8h-source.html#l00027">27</a> du fichier <a class="el" href="util_8h-source.html">util.h</a>.
+<p>
+Référencé par <a class="el" href="fx__particule_8cpp-source.html#l00031">CParticule::GetPosition()</a>, et <a class="el" href="entite_8cpp-source.html#l00022">CEntite::Update()</a>.    </td>
+  </tr>
+</table>
+<hr><h2>Documentation des typedef</h2>
+<a class="anchor" name="a2" doxytag="util.h::CCouleur" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> typedef gtl::CColor3&lt;float&gt; <a class="el" href="util_8h.html#a2">CCouleur</a>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="util_8h-source.html#l00029">29</a> du fichier <a class="el" href="util_8h-source.html">util.h</a>.
+<p>
+Référencé par <a class="el" href="fx__fumee_8cpp-source.html#l00023">CFumee::Create()</a>, <a class="el" href="fx__explosion_8cpp-source.html#l00023">CExplosion::Create()</a>, <a class="el" href="fx__etoile_8cpp-source.html#l00026">CEtoile::Create()</a>, <a class="el" href="type__joueur_8h-source.html#l00036">CTypeJoueur::GetCouleur()</a>, <a class="el" href="type__arme_8h-source.html#l00058">CTypeArme::GetCouleur()</a>, <a class="el" href="fx_8h-source.html#l00060">CParticleSystem::GetCouleur()</a>, <a class="el" href="entite__joueur_8h-source.html#l00060">CEntiteJoueur::GetCouleur()</a>, <a class="el" href="type__joueur_8h-source.html#l00043">CTypeJoueur::SetCouleur()</a>, et <a class="el" href="type__arme_8h-source.html#l00069">CTypeArme::SetCouleur()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a3" doxytag="util.h::CVecteur" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> typedef gtl::CVector2&lt;float&gt; <a class="el" href="util_8h.html#a3">CVecteur</a>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="util_8h-source.html#l00030">30</a> du fichier <a class="el" href="util_8h-source.html">util.h</a>.
+<p>
+Référencé par <a class="el" href="type__arme_8cpp-source.html#l00019">CTypeArme::AddAncrage()</a>, <a class="el" href="fx__particule_8cpp-source.html#l00012">CParticule::CParticule()</a>, <a class="el" href="fx__explosion_8cpp-source.html#l00023">CExplosion::Create()</a>, <a class="el" href="entite__ennemi_8cpp-source.html#l00038">CEntiteEnnemi::Create()</a>, <a class="el" href="entite__bonus_8cpp-source.html#l00028">CEntiteBonus::Create()</a>, <a class="el" href="entite__arme_8cpp-source.html#l00033">CEntiteArme::Create()</a>, <a class="el" href="entite_8h-source.html#l00063">CEntite::Deplacer()</a>, <a class="el" href="fx_8cpp-source.html#l00056">CParticleSystem::EstDansEcran()</a>, <a class="el" href="entite_8cpp-source.html#l00038">CEntite::EstDansEcran()</a>, <a class="el" href="type_8h-source.html#l00038">CType::GetAcceleration()</a>, <a class="el" href="type__arme_8cpp-source.html#l00031">CTypeArme::GetAncrageParIndex()</a>, <a class="el" href="fx__particule_8cpp-source.html#l00031">CParticule::GetPosition()</a>, <a class="el" href="entree__clavier_8cpp-source.html#l00073">CEntreeClavier::GetPosition()</a>, <a class="el" href="entree_8h-source.html#l00040">CEntree::GetPosition()</a>, <a class="el" href="entite_8h-source.html#l00065">CEntite::GetPosition()</a>, <a class="el" href="type__joueur_8h-source.html#l00071">CTypeJoueur::GetPositionSpawn()</a>, <a class="el" href="type_8h-source.html#l00036">CType::GetVitesse()</a>, <a class="el" href="fx__explosion_8cpp-source.html#l00041">CExplosion::Init()</a>, <a class="el" href="ctrl__jeu_8cpp-source.html#l00318">CGameManager::PositionnerJoueur()</a>, <a class="el" href="type_8h-source.html#l00053">CType::SetAcceleration()</a>, <a class="el" href="entite_8h-source.html#l00067">CEntite::SetPosition()</a>, <a class="el" href="type__joueur_8h-source.html#l00069">CTypeJoueur::SetPositionSpawn()</a>, <a class="el" href="type_8h-source.html#l00051">CType::SetVitesse()</a>, <a class="el" href="fx__fumee_8cpp-source.html#l00048">CFumee::Update()</a>, et <a class="el" href="fx__etoile_8cpp-source.html#l00049">CEtoile::Update()</a>.    </td>
+  </tr>
+</table>
+<hr><h2>Documentation des fonctions</h2>
+<a class="anchor" name="a4" doxytag="util.h::RandFloat" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> float RandFloat           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">float&nbsp;</td>
+          <td class="mdname" nowrap> <em>fMin</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>float&nbsp;</td>
+          <td class="mdname" nowrap> <em>fMax</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Recherche d'un nombre flottant 'aléatoirement'. 
+<p>
+Définition à la ligne <a class="el" href="util_8cpp-source.html#l00014">14</a> du fichier <a class="el" href="util_8cpp-source.html">util.cpp</a>.
+<p>
+Référencé par <a class="el" href="entite__ennemi_8cpp-source.html#l00038">CEntiteEnnemi::Create()</a>, <a class="el" href="entite__bonus_8cpp-source.html#l00028">CEntiteBonus::Create()</a>, <a class="el" href="entite__arme_8cpp-source.html#l00033">CEntiteArme::Create()</a>, <a class="el" href="fx__explosion_8cpp-source.html#l00041">CExplosion::Init()</a>, <a class="el" href="fx__etoile_8cpp-source.html#l00049">CEtoile::Update()</a>, et <a class="el" href="fx__fumee_8cpp-source.html#l00048">CFumee::Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a5" doxytag="util.h::RandInt" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> int RandInt           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">int&nbsp;</td>
+          <td class="mdname" nowrap> <em>iMin</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>int&nbsp;</td>
+          <td class="mdname" nowrap> <em>iMax</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Recherche d'un nombre entié 'aléatoirement'. 
+<p>
+Définition à la ligne <a class="el" href="util_8cpp-source.html#l00020">20</a> du fichier <a class="el" href="util_8cpp-source.html">util.cpp</a>.
+<p>
+Référencé par <a class="el" href="xml__niveau_8cpp-source.html#l00050">CXMLNiveau::GetTypeBonusArme()</a>, <a class="el" href="xml__niveau_8cpp-source.html#l00056">CXMLNiveau::GetTypeBonusBouclier()</a>, et <a class="el" href="xml__niveau_8cpp-source.html#l00062">CXMLNiveau::GetTypeEnnemi()</a>.    </td>
+  </tr>
+</table>
+<hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:37:06 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

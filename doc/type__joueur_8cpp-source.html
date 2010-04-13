@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): type_joueur.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>type_joueur.cpp</h1><a href="type__joueur_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="type__joueur_8h.html">type_joueur.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="texture__manager_8h.html">texture_manager.h</a>"</span>
+00012 
+<a name="l00013"></a><a class="code" href="classCTypeJoueur.html#a0">00013</a> <a class="code" href="classCTypeJoueur.html#a0">CTypeJoueur::CTypeJoueur</a> ()
+00014 {
+00015         m_uiScore = 0;
+00016         m_fTaille = 16;
+00017         m_uiNiveau = 0;
+00018 }
+00019 
+<a name="l00020"></a><a class="code" href="classCTypeJoueur.html#a1">00020</a> <a class="code" href="classCTypeJoueur.html#a1">CTypeJoueur::~CTypeJoueur</a> ()
+00021 {
+00022         <a class="code" href="classCTextureManager.html#e0">CTextureManager::Instance</a> ()-&gt;<a class="code" href="classCTextureManager.html#a2">Delete</a> (m_pTexture);
+00023         <a class="code" href="classCTextureManager.html#e0">CTextureManager::Instance</a> ()-&gt;<a class="code" href="classCTextureManager.html#a2">Delete</a> (m_pTextureBouclier);
+00024 <span class="comment">/*      CAffichage *pAffichage = CAffichage::Instance ();</span>
+00025 <span class="comment">        pAffichage-&gt;DechargerImage (m_uiTexture);</span>
+00026 <span class="comment">        pAffichage-&gt;DechargerImage (m_uiTextureBouclier);</span>
+00027 <span class="comment">*/</span>
+00028 }
+00029 
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

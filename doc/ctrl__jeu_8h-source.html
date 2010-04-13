@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): ctrl_jeu.h Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>ctrl_jeu.h</h1><a href="ctrl__jeu_8h.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#ifndef CTRL_JEU_H</span>
+00011 <span class="preprocessor"></span><span class="preprocessor">#define CTRL_JEU_H</span>
+00012 <span class="preprocessor"></span>
+00013 <span class="preprocessor">#include "<a class="code" href="xml__niveau_8h.html">xml_niveau.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="entite__joueur_8h.html">entite_joueur.h</a>"</span>
+00015 <span class="preprocessor">#include "<a class="code" href="type__joueur_8h.html">type_joueur.h</a>"</span>
+00016 
+<a name="l00017"></a><a class="code" href="ctrl__jeu_8h.html#a0">00017</a> <span class="preprocessor">#define TEMPS_ENTRE_NIVEAU 5.0f</span>
+00018 <span class="preprocessor"></span>
+<a name="l00019"></a><a class="code" href="ctrl__jeu_8h.html#a1">00019</a> <span class="preprocessor">#define FICHIER_SON_EXPLOSION "./data/joueur/explosion.wav"</span>
+<a name="l00020"></a><a class="code" href="ctrl__jeu_8h.html#a2">00020</a> <span class="preprocessor"></span><span class="preprocessor">#define FIFHIER_TEXTURE_JOUEUR1 "./data/joueur/joueur1.tga"</span>
+<a name="l00021"></a><a class="code" href="ctrl__jeu_8h.html#a3">00021</a> <span class="preprocessor"></span><span class="preprocessor">#define FIFHIER_TEXTURE_JOUEUR2 "./data/joueur/joueur2.tga"</span>
+<a name="l00022"></a><a class="code" href="ctrl__jeu_8h.html#a4">00022</a> <span class="preprocessor"></span><span class="preprocessor">#define FIFHIER_TEXTURE_BOUCLIER "./data/joueur/bouclier.tga"</span>
+00023 <span class="preprocessor"></span>
+<a name="l00025"></a><a class="code" href="ctrl__jeu_8h.html#a12">00025</a> <span class="keyword">typedef</span> <span class="keyword">enum</span>
+00026 {
+00027         <a class="code" href="ctrl__jeu_8h.html#a12a5">ETAT_NULL</a> = 0,
+00028         <a class="code" href="ctrl__jeu_8h.html#a12a6">ETAT_JEU_JEU</a>,
+00029         <a class="code" href="ctrl__jeu_8h.html#a12a7">ETAT_JEU_VICTOIRE</a>,
+00030         <a class="code" href="ctrl__jeu_8h.html#a12a8">ETAT_JEU_DEFAITE</a>,
+00031 } <a class="code" href="ctrl__jeu_8h.html#a12">EEtatJeu</a>;
+00032 
+<a name="l00034"></a><a class="code" href="ctrl__jeu_8h.html#a13">00034</a> <span class="keyword">typedef</span> <span class="keyword">enum</span>
+00035 {
+00036         <a class="code" href="ctrl__jeu_8h.html#a13a9">JOUEUR_NULL</a> = 0,
+00037         <a class="code" href="ctrl__jeu_8h.html#a13a10">JOUEUR_1</a>,
+00038         <a class="code" href="ctrl__jeu_8h.html#a13a11">JOUEUR_2</a>
+00039 } <a class="code" href="ctrl__jeu_8h.html#a13">EJoueur</a>;
+00040 
+<a name="l00042"></a><a class="code" href="classCGameManager.html">00042</a> <span class="keyword">class </span><a class="code" href="classCGameManager.html">CGameManager</a>
+00043 {
+00044 <span class="keyword">private</span>:
+00045         <span class="keyword">static</span> <a class="code" href="classCGameManager.html">CGameManager</a> *m_pGameManager;
+00046 
+00047         <a class="code" href="classCTypeJoueur.html">CTypeJoueur</a> m_TypeJoueur[2];
+00048         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_uiTypeJoueur;
+00049 
+00050         <a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a> *m_pJoueur1;
+00051         <a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a> *m_pJoueur2;
+00052 
+00053         <a class="code" href="classCXMLNiveau.html">CXMLNiveau</a> m_XMLNiveaux;
+00054         <span class="keywordtype">bool</span> m_bNiveau;
+00055         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_uiNiveau;
+00056         <a class="code" href="classCTimer.html">CTimer</a> m_NiveauTimer;
+00057         <a class="code" href="ctrl__jeu_8h.html#a12">EEtatJeu</a> m_Etat;
+00058 
+00059         <a class="code" href="classCTimer.html">CTimer</a> m_BonusArmeTimer;
+00060         <a class="code" href="classCTimer.html">CTimer</a> m_BonusBouclierTimer;
+00061         <a class="code" href="classCTimer.html">CTimer</a> m_EnnemiTimer;
+00062 
+00063         <span class="keywordtype">void</span> UpdateEntite ();
+00064         <span class="keywordtype">void</span> GererNiveau ();
+00065         <span class="keywordtype">void</span> <a class="code" href="classCGameManager.html#a2">InitJoueur</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur2);
+00066         <span class="keywordtype">void</span> EnregistrerScore ();
+00067 
+00068         <a class="code" href="classCGameManager.html">CGameManager</a> ();
+00069         ~<a class="code" href="classCGameManager.html">CGameManager</a> ();
+00070 
+00071 <span class="keyword">public</span>:
+00073         <span class="keyword">static</span> <a class="code" href="classCGameManager.html">CGameManager</a>* <a class="code" href="classCGameManager.html#e0">Instance</a> ();
+00075         <span class="keyword">static</span> <span class="keywordtype">void</span>     <a class="code" href="classCGameManager.html#e1">Kill</a> ();
+00077         <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classCGameManager.html#e2">IsCreate</a> ();
+00078 
+00079         <span class="keywordtype">void</span> <a class="code" href="classCGameManager.html#a0">Update</a> ();
+00080         <span class="keywordtype">bool</span> <a class="code" href="classCGameManager.html#a1">Init</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur2);
+00081         <span class="keywordtype">void</span> <a class="code" href="classCGameManager.html#a2">InitJoueur</a> (<a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a>* pJoueur);
+00082         <span class="keywordtype">void</span> <a class="code" href="classCGameManager.html#a3">Tirer</a> (<a class="code" href="ctrl__jeu_8h.html#a13">EJoueur</a> Joueur, <span class="keywordtype">bool</span> bTire);
+00083         <span class="keywordtype">void</span> <a class="code" href="classCGameManager.html#a4">PositionnerJoueur</a> (<a class="code" href="ctrl__jeu_8h.html#a13">EJoueur</a> Joueur, <a class="code" href="util_8h.html#a3">CVecteur</a> Position);
+00084 };
+00085 
+00086 <span class="preprocessor">#endif //CTRL_JEU_H</span>
+00087 <span class="preprocessor"></span>
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

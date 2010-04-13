@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): type_arme.h Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>type_arme.h</h1><a href="type__arme_8h.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#ifndef TYPE_ARME_H</span>
+00011 <span class="preprocessor"></span><span class="preprocessor">#define TYPE_ARME_H</span>
+00012 <span class="preprocessor"></span>
+00013 <span class="preprocessor">#include "<a class="code" href="util_8h.html">util.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="type_8h.html">type.h</a>"</span>
+00015 <span class="preprocessor">#include &lt;vector&gt;</span>
+00016 <span class="preprocessor">#include &lt;string&gt;</span>
+00017 
+<a name="l00019"></a><a class="code" href="type__arme_8h.html#a3">00019</a> <span class="keyword">typedef</span> <span class="keyword">enum</span>
+00020 {
+00021         <a class="code" href="type__arme_8h.html#a3a0">ARME_MODE_NULL</a> = 0,
+00022         <a class="code" href="type__arme_8h.html#a3a1">ARME_MODE_DROIT</a>,
+00023         <a class="code" href="type__arme_8h.html#a3a2">ARME_MODE_ALLEATOIRE</a>,
+00024 } <a class="code" href="type__arme_8h.html#a3">EArmeMode</a>;
+00025 
+<a name="l00028"></a><a class="code" href="classCTypeArme.html">00028</a> <span class="keyword">class </span><a class="code" href="classCTypeArme.html">CTypeArme</a> : <span class="keyword">public</span> <a class="code" href="classCType.html">CType</a>
+00029 {
+00030 <span class="keyword">private</span>:
+00031         std::vector&lt;CVecteur&gt; m_Ancrages;
+00032         std::string m_szSonTire;
+00033         <span class="keywordtype">int</span> m_iDommage;
+00034         <span class="keywordtype">float</span> m_fPrecision;
+00035         <span class="keywordtype">float</span> m_fCadence;
+00036         <a class="code" href="util_8h.html#a2">CCouleur</a> m_Couleur;
+00037         <span class="keywordtype">bool</span> m_bFumee;
+00038 
+00039 <span class="keyword">public</span>:
+<a name="l00040"></a><a class="code" href="classCTypeArme.html#a0">00040</a>         <a class="code" href="classCTypeArme.html#a0">CTypeArme</a> () {}
+00041         <span class="keyword">virtual</span> <a class="code" href="classCTypeArme.html#a1">~CTypeArme</a> ();
+00042 
+00045         <span class="keywordtype">void</span> <a class="code" href="classCTypeArme.html#a2">AddAncrage</a> (<span class="keyword">const</span> <a class="code" href="util_8h.html#a3">CVecteur</a> &amp; <a class="code" href="glext_8h.html#a2268">v</a>);
+00047         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classCTypeArme.html#a3">GetAncrageNombre</a> () const;
+00049         <a class="code" href="util_8h.html#a3">CVecteur</a> GetAncrageParIndex (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i) const;
+00050 
+<a name="l00052"></a><a class="code" href="classCTypeArme.html#a5">00052</a>         <span class="keywordtype">float</span> GetCadence ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_fCadence;}
+<a name="l00054"></a><a class="code" href="classCTypeArme.html#a6">00054</a>         <span class="keywordtype">int</span> <a class="code" href="classCTypeArme.html#a6">GetDommage</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_iDommage;}
+<a name="l00056"></a><a class="code" href="classCTypeArme.html#a7">00056</a>         <span class="keywordtype">float</span> <a class="code" href="classCTypeArme.html#a7">GetPrecision</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_fPrecision;}
+<a name="l00058"></a><a class="code" href="classCTypeArme.html#a8">00058</a>         <a class="code" href="util_8h.html#a2">CCouleur</a> <a class="code" href="classCTypeArme.html#a8">GetCouleur</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_Couleur;}
+<a name="l00060"></a><a class="code" href="classCTypeArme.html#a9">00060</a>         <span class="keywordtype">bool</span> <a class="code" href="classCTypeArme.html#a9">GetFumee</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_bFumee;}
+00061 
+<a name="l00063"></a><a class="code" href="classCTypeArme.html#a10">00063</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeArme.html#a10">SetCadence</a> (<span class="keywordtype">float</span> fCadence) {m_fCadence = fCadence;}
+<a name="l00065"></a><a class="code" href="classCTypeArme.html#a11">00065</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeArme.html#a11">SetDommage</a> (<span class="keywordtype">int</span> iDommage) {m_iDommage = iDommage;}
+<a name="l00067"></a><a class="code" href="classCTypeArme.html#a12">00067</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeArme.html#a12">SetPrecision</a> (<span class="keywordtype">float</span> fPrecision) {m_fPrecision = fPrecision;}
+<a name="l00069"></a><a class="code" href="classCTypeArme.html#a13">00069</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeArme.html#a13">SetCouleur</a> (<a class="code" href="util_8h.html#a2">CCouleur</a> Couleur) {m_Couleur = Couleur;} 
+<a name="l00071"></a><a class="code" href="classCTypeArme.html#a14">00071</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeArme.html#a14">SetFumee</a> (<span class="keywordtype">bool</span> bFumee) {m_bFumee = bFumee;}
+00072 };
+00073 
+00074 <span class="preprocessor">#endif //TYPE_ARME_H</span>
+00075 <span class="preprocessor"></span>
+00076 
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

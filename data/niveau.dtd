@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!ELEMENT jeu (bonus-armes, bonus-boucliers, ennemis, niveaux)>
+
+<!ELEMENT bonus-armes (bonus-arme+)>
+
+<!ELEMENT bonus-arme (arme)>
+<!ATTLIST bonus-arme
+	index NMTOKEN #REQUIRED
+	taille NMTOKEN #REQUIRED
+	acceleration-x NMTOKEN #REQUIRED
+	acceleration-y NMTOKEN #REQUIRED
+	vitesse-x NMTOKEN #REQUIRED
+	vitesse-y NMTOKEN #REQUIRED
+	texture CDATA #REQUIRED
+	son CDATA #REQUIRED>
+
+<!ELEMENT bonus-boucliers (bonus-bouclier+)>
+
+<!ELEMENT bonus-bouclier EMPTY>
+<!ATTLIST bonus-bouclier
+	index NMTOKEN #REQUIRED
+	bouclier NMTOKEN #REQUIRED
+	taille NMTOKEN #REQUIRED
+	acceleration-x NMTOKEN #REQUIRED
+	acceleration-y NMTOKEN #REQUIRED
+	vitesse-x NMTOKEN #REQUIRED
+	vitesse-y NMTOKEN #REQUIRED
+	texture CDATA #REQUIRED
+	son CDATA #REQUIRED>
+
+<!ELEMENT ennemis (ennemi+)>
+
+<!ELEMENT ennemi (arme?)>
+<!ATTLIST ennemi 
+	index NMTOKEN #REQUIRED
+	dommage NMTOKEN #REQUIRED
+	bouclier NMTOKEN #REQUIRED
+	taille NMTOKEN #REQUIRED
+	point NMTOKEN #REQUIRED
+	acceleration-x NMTOKEN #REQUIRED
+	acceleration-y NMTOKEN #REQUIRED
+	vitesse-x NMTOKEN #REQUIRED
+	vitesse-y NMTOKEN #REQUIRED
+	texture CDATA #REQUIRED
+	son CDATA #REQUIRED>
+
+<!ELEMENT arme (ancrage+)>
+<!ATTLIST arme 
+	rouge NMTOKEN #REQUIRED
+	vert NMTOKEN #REQUIRED
+	bleu NMTOKEN #REQUIRED
+	fumee NMTOKEN #REQUIRED
+	taille NMTOKEN #REQUIRED
+	dommage NMTOKEN #REQUIRED
+	cadence NMTOKEN #REQUIRED
+	precision NMTOKEN #REQUIRED
+	acceleration-x NMTOKEN #REQUIRED
+	acceleration-y NMTOKEN #REQUIRED
+	vitesse-x NMTOKEN #REQUIRED
+	vitesse-y NMTOKEN #REQUIRED
+	texture CDATA #REQUIRED
+	son CDATA #IMPLIED>
+
+<!ELEMENT ancrage EMPTY>
+<!ATTLIST ancrage
+	x NMTOKEN #REQUIRED
+	y NMTOKEN #REQUIRED>
+
+<!ELEMENT niveaux (niveau+)>
+
+<!ELEMENT niveau (index-armes, index-boucliers, index-ennemis)>
+<!ATTLIST niveau index NMTOKEN #REQUIRED>
+<!ATTLIST niveau temps NMTOKEN #REQUIRED>
+
+<!ELEMENT index-armes (index-arme+)>
+<!ATTLIST index-armes frequence NMTOKEN #REQUIRED>
+
+<!ELEMENT index-arme EMPTY>
+<!ATTLIST index-arme index NMTOKEN #REQUIRED>
+
+<!ELEMENT index-boucliers (index-bouclier+)>
+<!ATTLIST index-boucliers frequence NMTOKEN #REQUIRED>
+
+<!ELEMENT index-bouclier EMPTY>
+<!ATTLIST index-bouclier index NMTOKEN #REQUIRED>
+
+<!ELEMENT index-ennemis (index-ennemi+)>
+<!ATTLIST index-ennemis
+	frequence NMTOKEN #REQUIRED
+	nombre NMTOKEN #REQUIRED>
+
+<!ELEMENT index-ennemi EMPTY>
+<!ATTLIST index-ennemi index NMTOKEN #REQUIRED>

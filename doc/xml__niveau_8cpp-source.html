@@ -1,0 +1,657 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): xml_niveau.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>xml_niveau.cpp</h1><a href="xml__niveau_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span><span class="comment">// /!\ Reportez vous au magazine pour plus d'informations car pour expliquer le parcours d'un fichier XML il faut un dessin !</span>
+00010 
+00011 <span class="preprocessor">#include "<a class="code" href="xml__niveau_8h.html">xml_niveau.h</a>"</span>
+00012 <span class="preprocessor">#include "<a class="code" href="affichage_8h.html">affichage.h</a>"</span>
+00013 <span class="preprocessor">#include "<a class="code" href="texture__manager_8h.html">texture_manager.h</a>"</span>
+00014 
+<a name="l00015"></a><a class="code" href="classCXMLNiveau.html#a0">00015</a> <a class="code" href="classCXMLNiveau.html#a0">CXMLNiveau::CXMLNiveau</a> ()
+00016 {
+00017 
+00018 }
+00019 
+00020 <span class="comment">// On libère les données sauvées dans les différents dictionnaires.</span>
+00021 <span class="comment">// En fait, la plus part des données dynamiques sont sauvés ici car elles proviennent du fichier XML</span>
+<a name="l00022"></a><a class="code" href="classCXMLNiveau.html#a1">00022</a> <a class="code" href="classCXMLNiveau.html#a1">CXMLNiveau::~CXMLNiveau</a> ()
+00023 {
+00024 <span class="comment">/*      CAffichage *pAffichage = CAffichage::Instance ();</span>
+00025 <span class="comment"></span>
+00026 <span class="comment">        for (std::map&lt;unsigned int, CTypeBonusArme*&gt;::iterator it = m_TypeBonusArme.begin ();</span>
+00027 <span class="comment">                it != m_TypeBonusArme.end (); it++)</span>
+00028 <span class="comment">        {</span>
+00029 <span class="comment">                pAffichage-&gt;DechargerImage (it-&gt;second-&gt;GetTexture ());</span>
+00030 <span class="comment">                delete it-&gt;second;</span>
+00031 <span class="comment">        }</span>
+00032 <span class="comment"></span>
+00033 <span class="comment">        for (std::map&lt;unsigned int, CTypeBonusBouclier*&gt;::iterator it = m_TypeBonusBouclier.begin ();</span>
+00034 <span class="comment">                it != m_TypeBonusBouclier.end (); it++)</span>
+00035 <span class="comment">        {</span>
+00036 <span class="comment">                pAffichage-&gt;DechargerImage (it-&gt;second-&gt;GetTexture ());</span>
+00037 <span class="comment">                delete it-&gt;second;</span>
+00038 <span class="comment">        }</span>
+00039 <span class="comment"></span>
+00040 <span class="comment">        for (std::map&lt;unsigned int, CTypeEnnemi*&gt;::iterator it = m_TypeEnnemi.begin ();</span>
+00041 <span class="comment">                it != m_TypeEnnemi.end (); it++)</span>
+00042 <span class="comment">        {</span>
+00043 <span class="comment">                pAffichage-&gt;DechargerImage (it-&gt;second-&gt;GetTexture ());</span>
+00044 <span class="comment">                delete it-&gt;second;</span>
+00045 <span class="comment">        }</span>
+00046 <span class="comment">*/</span>
+00047 }
+00048 
+00049 <span class="comment">// Recherche d'un type de bonus d'armes alléatoirement</span>
+<a name="l00050"></a><a class="code" href="classCXMLNiveau.html#a7">00050</a> <a class="code" href="classCTypeBonusArme.html">CTypeBonusArme</a>* <a class="code" href="classCXMLNiveau.html#a7">CXMLNiveau::GetTypeBonusArme</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNiveau)<span class="keyword"> const</span>
+00051 <span class="keyword"></span>{
+00052         <span class="keywordflow">return</span> m_Niveaux[uiNiveau].m_TypeBonusArme[<a class="code" href="util_8h.html#a5">RandInt</a> (0, m_Niveaux[uiNiveau].m_TypeBonusArme.size ())];
+00053 }
+00054 
+00055 <span class="comment">// Recherche d'un type de bonus de boucliers alléatoirement</span>
+<a name="l00056"></a><a class="code" href="classCXMLNiveau.html#a8">00056</a> <a class="code" href="classCTypeBonusBouclier.html">CTypeBonusBouclier</a>* <a class="code" href="classCXMLNiveau.html#a8">CXMLNiveau::GetTypeBonusBouclier</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNiveau)<span class="keyword"> const</span>
+00057 <span class="keyword"></span>{
+00058         <span class="keywordflow">return</span> m_Niveaux[uiNiveau].m_TypeBonusBouclier[<a class="code" href="util_8h.html#a5">RandInt</a> (0, m_Niveaux[uiNiveau].m_TypeBonusBouclier.size ())];
+00059 }
+00060 
+00061 <span class="comment">// Recherche d'un type d'ennemis alléatoirement</span>
+<a name="l00062"></a><a class="code" href="classCXMLNiveau.html#a9">00062</a> <a class="code" href="classCTypeEnnemi.html">CTypeEnnemi</a>* <a class="code" href="classCXMLNiveau.html#a9">CXMLNiveau::GetTypeEnnemi</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNiveau)<span class="keyword"> const</span>
+00063 <span class="keyword"></span>{
+00064         <span class="keywordflow">return</span> m_Niveaux[uiNiveau].m_TypeEnnemi[<a class="code" href="util_8h.html#a5">RandInt</a> (0, m_Niveaux[uiNiveau].m_TypeEnnemi.size ())];
+00065 }
+00066 
+00067 <span class="comment">// Retourne le nombre d'ennemis dans le niveau uiNiveau</span>
+<a name="l00068"></a><a class="code" href="classCXMLNiveau.html#a2">00068</a> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classCXMLNiveau.html#a2">CXMLNiveau::GetEnnemiNombre</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNiveau)<span class="keyword"> const</span>
+00069 <span class="keyword"></span>{
+00070         <span class="keywordflow">return</span> m_Niveaux[uiNiveau].m_uiEnnemiNombre;
+00071 }
+00072 
+00073 <span class="comment">// Retourne le nombre de niveau</span>
+<a name="l00074"></a><a class="code" href="classCXMLNiveau.html#a3">00074</a> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classCXMLNiveau.html#a3">CXMLNiveau::GetNiveauNombre</a> ()<span class="keyword"> const</span>
+00075 <span class="keyword"></span>{
+00076         <span class="keywordflow">return</span> m_Niveaux.size ();
+00077 }
+00078 
+00079 <span class="comment">// Retourne la fréquence de création d'entités de type bonus d'armes</span>
+<a name="l00080"></a><a class="code" href="classCXMLNiveau.html#a5">00080</a> <span class="keywordtype">float</span> <a class="code" href="classCXMLNiveau.html#a5">CXMLNiveau::GetBonusArmeFrequence</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNiveau)<span class="keyword"> const</span>
+00081 <span class="keyword"></span>{
+00082         <span class="keywordflow">return</span> m_Niveaux[uiNiveau].m_fBonusArmeFrequence;
+00083 }
+00084 
+00085 <span class="comment">// Retourne la fréquence de création d'entités de type bonus de boucliers</span>
+<a name="l00086"></a><a class="code" href="classCXMLNiveau.html#a6">00086</a> <span class="keywordtype">float</span> <a class="code" href="classCXMLNiveau.html#a6">CXMLNiveau::GetBonusBouclierFrequence</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNiveau)<span class="keyword"> const</span>
+00087 <span class="keyword"></span>{
+00088         <span class="keywordflow">return</span> m_Niveaux[uiNiveau].m_fBonusBouclierFrequence;
+00089 }
+00090 
+00091 <span class="comment">// Retourne la fréquence de création d'entités de type ennemis</span>
+<a name="l00092"></a><a class="code" href="classCXMLNiveau.html#a4">00092</a> <span class="keywordtype">float</span> <a class="code" href="classCXMLNiveau.html#a4">CXMLNiveau::GetEnnemiFrequence</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNiveau)<span class="keyword"> const</span>
+00093 <span class="keyword"></span>{
+00094         <span class="keywordflow">return</span> m_Niveaux[uiNiveau].m_fEnnemiFrequence;
+00095 }
+00096 
+00097 <span class="comment">// Chargement du fichier XML contenant les niveaux</span>
+<a name="l00098"></a><a class="code" href="classCXMLNiveau.html#a10">00098</a> <span class="keywordtype">bool</span> <a class="code" href="classCXMLNiveau.html#a10">CXMLNiveau::Charger</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* szFilename)
+00099 {
+00100         <span class="comment">// Parse le document XML et créé l'arbre DOM</span>
+00101         xmlDoc* pDocument = xmlParseFile (szFilename);
+00102 
+00103         <span class="comment">// Validation du document XML avec sa DTD</span>
+00104         <span class="keywordflow">if</span> (!Validation (pDocument))
+00105         {
+00106                 xmlFreeDoc (pDocument);
+00107                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+00108         }
+00109 
+00110         <span class="comment">// Récupère l'élément racine du document</span>
+00111         xmlNode* pJeu = xmlDocGetRootElement (pDocument);
+00112         <span class="keywordflow">if</span> ((!xmlStrcmp (pJeu-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"jeu"</span>)))
+00113                 Jeu (pJeu);
+00114 
+00115         <span class="comment">// Libère la mémoire réservé pour l'arbre DOM</span>
+00116         xmlFreeDoc (pDocument);
+00117 
+00118         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+00119 }
+00120 
+00121 <span class="comment">// Validation du document XML avec sa DTD</span>
+00122 <span class="keywordtype">bool</span> CXMLNiveau::Validation (xmlDoc* pDocument)
+00123 {
+00124         <span class="comment">// Création d'un contexte de validation pour la sortie des erreurs</span>
+00125         xmlValidCtxt Contexte;
+00126         Contexte.userData = (<span class="keywordtype">void</span> *) stderr;
+00127         Contexte.error    = (xmlValidityErrorFunc) fprintf;
+00128         Contexte.warning  = (xmlValidityWarningFunc) fprintf;
+00129 
+00130         <span class="keywordflow">return</span> xmlValidateDocument (&amp;Contexte, pDocument) == 1;
+00131 }
+00132 
+00133 <span class="comment">// Parcours un élément 'jeu'</span>
+00134 <span class="keywordtype">void</span> CXMLNiveau::Jeu (xmlNode* pNode)
+00135 {
+00136         <span class="comment">// Parcours des éléments fils</span>
+00137         xmlNode* pChild = pNode-&gt;children;
+00138         <span class="keywordflow">if</span> (pChild)
+00139         {
+00140                 <span class="keywordflow">do</span>
+00141                 {
+00142                         <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00143                         {
+00144                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"bonus-armes"</span>)))
+00145                                         BonusArmes (pChild);
+00146                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"bonus-boucliers"</span>)))
+00147                                         BonusBoucliers (pChild);
+00148                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"ennemis"</span>)))
+00149                                         Ennemis (pChild);
+00150                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"niveaux"</span>)))
+00151                                         Niveaux (pChild);
+00152                         }
+00153                 }
+00154                 <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00155         }
+00156 }
+00157 
+00158 <span class="comment">// Parcours un élement 'bonus-armes'</span>
+00159 <span class="keywordtype">void</span> CXMLNiveau::BonusArmes (xmlNode* pNode)
+00160 {
+00161         <span class="comment">// Parcours des éléments fils</span>
+00162         xmlNode* pChild = pNode-&gt;children;
+00163         <span class="keywordflow">do</span>
+00164         {
+00165                 <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00166                         <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"bonus-arme"</span>)))
+00167                                 m_TypeBonusArme.insert (BonusArme (pChild));
+00168         }
+00169         <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00170 }
+00171 
+00172 <span class="comment">// Parcours un élément 'bonus-arme'</span>
+00173 std::pair&lt;unsigned int, CTypeBonusArme*&gt; CXMLNiveau::BonusArme (xmlNode* pNode)
+00174 {
+00175         <a class="code" href="classCTypeBonusArme.html">CTypeBonusArme</a> *pTypeBonusArme = <span class="keyword">new</span> <a class="code" href="classCTypeBonusArme.html">CTypeBonusArme</a>;
+00176         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiIndex = 0;
+00177         <a class="code" href="util_8h.html#a3">CVecteur</a> Vitesse, Acceleration;
+00178 
+00179         <span class="comment">// Parcours des attributs</span>
+00180         xmlAttribute* pAttribute = ((xmlElement*)pNode)-&gt;attributes;
+00181         <span class="keywordflow">if</span> (pAttribute)
+00182         {
+00183                 <span class="keywordflow">do</span>
+00184                 {
+00185                         <span class="keywordflow">if</span> (pAttribute-&gt;type == XML_ATTRIBUTE_NODE)
+00186                         {
+00187                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"index"</span>)))
+00188                                         uiIndex = atoi ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00189                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"taille"</span>)))
+00190                                         pTypeBonusArme-&gt;<a class="code" href="classCType.html#a12">SetTaille</a> ((<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00191                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"acceleration-x"</span>)))
+00192                                         Acceleration (gtl::X) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00193                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"acceleration-y"</span>)))
+00194                                         Acceleration (gtl::Y) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00195                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"vitesse-x"</span>)))
+00196                                         Vitesse (gtl::X) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00197                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"vitesse-y"</span>)))
+00198                                         Vitesse (gtl::Y) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00199                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"texture"</span>)))
+00200                                         pTypeBonusArme-&gt;<a class="code" href="classCType.html#a7">SetTexture</a> (CTextureManager::Instance ()-&gt;Texture2D ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00201                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"son"</span>)))
+00202                                         pTypeBonusArme-&gt;<a class="code" href="classCType.html#a13">SetSon</a> ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00203                         }
+00204                 }
+00205                 <span class="keywordflow">while</span> ((pAttribute = (xmlAttribute*) pAttribute-&gt;next) != 0);
+00206         }
+00207 
+00208         pTypeBonusArme-&gt;<a class="code" href="classCType.html#a9">SetAcceleration</a> (Acceleration);
+00209         pTypeBonusArme-&gt;<a class="code" href="classCType.html#a8">SetVitesse</a> (Vitesse);
+00210 
+00211         <span class="comment">// Parcours des éléments fils</span>
+00212         xmlNode* pChild = pNode-&gt;children;
+00213         <span class="keywordflow">if</span> (pChild)
+00214         {
+00215                 <span class="keywordflow">do</span>
+00216                 {
+00217                         <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00218                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"arme"</span>)))
+00219                                         pTypeBonusArme-&gt;<a class="code" href="classCTypeBonusArme.html#a3">SetArme</a> (Arme (pChild));
+00220                 }
+00221                 <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00222         }
+00223 
+00224         <span class="keywordflow">return</span> std::make_pair&lt;unsigned int, CTypeBonusArme*&gt; (uiIndex, pTypeBonusArme);
+00225 }
+00226 
+00227 <span class="comment">// Parcours un élément 'ancrage'</span>
+00228 <a class="code" href="util_8h.html#a3">CVecteur</a> CXMLNiveau::Ancrage (xmlNode* pNode)
+00229 {
+00230         <a class="code" href="util_8h.html#a3">CVecteur</a> Ancrage;
+00231 
+00232         <span class="comment">// Parcours des attributs</span>
+00233         xmlAttribute* pAttribute = ((xmlElement*) pNode)-&gt;attributes;
+00234         <span class="keywordflow">if</span> (pAttribute)
+00235         {
+00236                 <span class="keywordflow">do</span>
+00237                 {
+00238                         <span class="keywordflow">if</span> (pAttribute-&gt;type == XML_ATTRIBUTE_NODE)
+00239                         {
+00240                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"x"</span>)))
+00241                                         Ancrage (gtl::X) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00242                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"y"</span>)))
+00243                                         Ancrage (gtl::Y) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00244                         }
+00245                 }
+00246                 <span class="keywordflow">while</span> ((pAttribute = (xmlAttribute*) pAttribute-&gt;next) != 0);
+00247         }
+00248         <span class="keywordflow">return</span> Ancrage;
+00249 }
+00250 
+00251 <span class="comment">// Parcours un élément 'bonus-boucliers'</span>
+00252 <span class="keywordtype">void</span> CXMLNiveau::BonusBoucliers (xmlNode* pNode)
+00253 {
+00254         <span class="comment">// Parcours des éléments</span>
+00255         xmlNode* pChild = pNode-&gt;children;
+00256         <span class="keywordflow">if</span> (pChild)
+00257         {
+00258                 <span class="keywordflow">do</span>
+00259                 {
+00260                         <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00261                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"bonus-bouclier"</span>)))
+00262                                         m_TypeBonusBouclier.insert (BonusBouclier (pChild));
+00263                 }
+00264                 <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00265         }
+00266 }
+00267 
+00268 <span class="comment">// Parcours un élément 'bonus-bouclier'</span>
+00269 std::pair&lt;unsigned int, CTypeBonusBouclier*&gt; CXMLNiveau::BonusBouclier (xmlNode* pNode)
+00270 {
+00271         <a class="code" href="classCTypeBonusBouclier.html">CTypeBonusBouclier</a> *pTypeBonusBouclier = <span class="keyword">new</span> <a class="code" href="classCTypeBonusBouclier.html">CTypeBonusBouclier</a>;
+00272         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiIndex = 0;
+00273         <a class="code" href="util_8h.html#a3">CVecteur</a> Vitesse, Acceleration;
+00274 
+00275         <span class="comment">// Parcours des attributs</span>
+00276         xmlAttribute* pAttribute = ((xmlElement*) pNode)-&gt;attributes;
+00277         <span class="keywordflow">if</span> (pAttribute)
+00278         {
+00279                 <span class="keywordflow">do</span>
+00280                 {
+00281                         <span class="keywordflow">if</span> (pAttribute-&gt;type == XML_ATTRIBUTE_NODE)
+00282                         {
+00283                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"index"</span>)))
+00284                                         uiIndex = atoi ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00285                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"taille"</span>)))
+00286                                         pTypeBonusBouclier-&gt;<a class="code" href="classCType.html#a12">SetTaille</a> ((<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00287                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"acceleration-x"</span>)))
+00288                                         Acceleration (gtl::X) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00289                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"acceleration-y"</span>)))
+00290                                         Acceleration (gtl::Y) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00291                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"vitesse-x"</span>)))
+00292                                         Vitesse (gtl::X) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00293                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"vitesse-y"</span>)))
+00294                                         Vitesse (gtl::Y) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00295                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"texture"</span>)))
+00296                                         pTypeBonusBouclier-&gt;<a class="code" href="classCType.html#a7">SetTexture</a> (CTextureManager::Instance ()-&gt;Texture2D ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00297                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"bouclier"</span>)))
+00298                                         pTypeBonusBouclier-&gt;<a class="code" href="classCTypeBonusBouclier.html#a3">SetBonusBouclier</a> (atoi ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00299                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"son"</span>)))
+00300                                         pTypeBonusBouclier-&gt;<a class="code" href="classCType.html#a13">SetSon</a> ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00301                         }
+00302                 }
+00303                 <span class="keywordflow">while</span> ((pAttribute = (xmlAttribute*) pAttribute-&gt;next) != 0);
+00304         }
+00305 
+00306         pTypeBonusBouclier-&gt;<a class="code" href="classCType.html#a9">SetAcceleration</a> (Acceleration);
+00307         pTypeBonusBouclier-&gt;<a class="code" href="classCType.html#a8">SetVitesse</a> (Vitesse);
+00308 
+00309         <span class="keywordflow">return</span> std::make_pair&lt;unsigned int, CTypeBonusBouclier*&gt; (uiIndex, pTypeBonusBouclier);
+00310 }
+00311 
+00312 <span class="comment">// Parcours un élément 'ennemis'</span>
+00313 <span class="keywordtype">void</span> CXMLNiveau::Ennemis (xmlNode* pNode)
+00314 {
+00315         <span class="comment">// Parcours des éléments</span>
+00316         xmlNode* pChild = pNode-&gt;children;
+00317         <span class="keywordflow">if</span> (pChild)
+00318         {
+00319                 <span class="keywordflow">do</span>
+00320                 {
+00321                         <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00322                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"ennemi"</span>)))
+00323                                         m_TypeEnnemi.insert (Ennemi (pChild));
+00324                 }
+00325                 <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00326         }
+00327 }
+00328 
+00329 <span class="comment">// Parcours un élément 'ennemi'</span>
+00330 std::pair&lt;unsigned int, CTypeEnnemi*&gt; CXMLNiveau::Ennemi (xmlNode* pNode)
+00331 {
+00332         <a class="code" href="classCTypeEnnemi.html">CTypeEnnemi</a> *pTypeEnnemi = <span class="keyword">new</span> <a class="code" href="classCTypeEnnemi.html">CTypeEnnemi</a>;
+00333         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiIndex = 0;
+00334         <a class="code" href="util_8h.html#a3">CVecteur</a> Vitesse, Acceleration;
+00335 
+00336         <span class="comment">// Parcours des attributs</span>
+00337         xmlAttribute* pAttribute = ((xmlElement*)pNode)-&gt;attributes;
+00338         <span class="keywordflow">if</span> (pAttribute)
+00339         {
+00340                 <span class="keywordflow">do</span>
+00341                 {
+00342                         <span class="keywordflow">if</span> (pAttribute-&gt;type == XML_ATTRIBUTE_NODE)
+00343                         {
+00344                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"index"</span>)))
+00345                                         uiIndex = atoi ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00346                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"taille"</span>)))
+00347                                         pTypeEnnemi-&gt;<a class="code" href="classCType.html#a12">SetTaille</a> ((<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00348                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"dommage"</span>)))
+00349                                         pTypeEnnemi-&gt;<a class="code" href="classCTypeEnnemi.html#a6">SetDommage</a> (atoi ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00350                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"bouclier"</span>)))
+00351                                         pTypeEnnemi-&gt;<a class="code" href="classCType.html#a10">SetBouclier</a> (atoi ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00352                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"point"</span>)))
+00353                                         pTypeEnnemi-&gt;<a class="code" href="classCTypeEnnemi.html#a7">SetPoint</a> (atoi ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00354                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"acceleration-x"</span>)))
+00355                                         Acceleration (gtl::X) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00356                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"acceleration-y"</span>)))
+00357                                         Acceleration (gtl::Y) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00358                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"vitesse-x"</span>)))
+00359                                         Vitesse (gtl::X) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00360                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"vitesse-y"</span>)))
+00361                                         Vitesse (gtl::Y) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00362                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"texture"</span>)))
+00363                                         pTypeEnnemi-&gt;<a class="code" href="classCType.html#a7">SetTexture</a> (CTextureManager::Instance ()-&gt;Texture2D ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00364                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"son"</span>)))
+00365                                         pTypeEnnemi-&gt;<a class="code" href="classCType.html#a13">SetSon</a> ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00366                         }
+00367                 }
+00368                 <span class="keywordflow">while</span> ((pAttribute = (xmlAttribute*) pAttribute-&gt;next) != 0);
+00369         }
+00370 
+00371         pTypeEnnemi-&gt;<a class="code" href="classCType.html#a9">SetAcceleration</a> (Acceleration);
+00372         pTypeEnnemi-&gt;<a class="code" href="classCType.html#a8">SetVitesse</a> (Vitesse);
+00373 
+00374         <span class="comment">// Parcours des éléments</span>
+00375         xmlNode* pChild = pNode-&gt;children;
+00376         <span class="keywordflow">if</span> (pChild)
+00377         {
+00378                 <span class="keywordflow">do</span>
+00379                 {
+00380                         <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00381                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar*)<span class="stringliteral">"arme"</span>)))
+00382                                         pTypeEnnemi-&gt;<a class="code" href="classCTypeEnnemi.html#a5">SetTypeArme</a> (Arme (pChild));
+00383                 }
+00384                 <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00385         }
+00386 
+00387         <span class="keywordflow">return</span> std::make_pair&lt;unsigned int, CTypeEnnemi*&gt; (uiIndex, pTypeEnnemi);
+00388 }
+00389 
+00390 <span class="comment">// Parcours un élément 'arme'</span>
+00391 <a class="code" href="classCTypeArme.html">CTypeArme</a>* CXMLNiveau::Arme (xmlNode* pNode)
+00392 {
+00393         <a class="code" href="classCTypeArme.html">CTypeArme</a> *pTypeArme = <span class="keyword">new</span> <a class="code" href="classCTypeArme.html">CTypeArme</a>;
+00394 
+00395         <a class="code" href="util_8h.html#a3">CVecteur</a> Acceleration;
+00396         <a class="code" href="util_8h.html#a3">CVecteur</a> Vitesse;
+00397         <a class="code" href="util_8h.html#a2">CCouleur</a> Couleur;
+00398 
+00399         <span class="comment">// Parcours des attributs</span>
+00400         xmlAttribute* pAttribute = ((xmlElement*) pNode)-&gt;attributes;
+00401         <span class="keywordflow">if</span> (pAttribute)
+00402         {
+00403                 <span class="keywordflow">do</span>
+00404                 {
+00405                         <span class="keywordflow">if</span> (pAttribute-&gt;type == XML_ATTRIBUTE_NODE)
+00406                         {
+00407                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"dommage"</span>)))
+00408                                         pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a11">SetDommage</a> (atoi ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00409                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"cadence"</span>)))
+00410                                         pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a10">SetCadence</a> ((<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00411                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"taille"</span>)))
+00412                                         pTypeArme-&gt;<a class="code" href="classCType.html#a12">SetTaille</a> ((<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00413                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"precision"</span>)))
+00414                                         pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a12">SetPrecision</a> ((<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00415                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"acceleration-x"</span>)))
+00416                                         Acceleration (gtl::X) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00417                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"acceleration-y"</span>)))
+00418                                         Acceleration (gtl::Y) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00419                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"vitesse-x"</span>)))
+00420                                         Vitesse (gtl::X) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00421                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"vitesse-y"</span>)))
+00422                                         Vitesse (gtl::Y) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00423                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"texture"</span>)))
+00424                                         pTypeArme-&gt;<a class="code" href="classCType.html#a7">SetTexture</a> (CTextureManager::Instance ()-&gt;Texture2D ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name)));
+00425                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"son"</span>)))
+00426                                         pTypeArme-&gt;<a class="code" href="classCType.html#a13">SetSon</a> ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00427                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"fumee"</span>)))
+00428                                         pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a14">SetFumee</a> (!xmlStrcmp (xmlGetProp (pNode, pAttribute-&gt;name), (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"oui"</span>));
+00429                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"rouge"</span>)))
+00430                                         Couleur (gtl::R) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00431                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"vert"</span>)))
+00432                                         Couleur (gtl::G) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00433                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"bleu"</span>)))
+00434                                         Couleur (gtl::B) = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00435                         }
+00436                 }
+00437                 <span class="keywordflow">while</span> ((pAttribute = (xmlAttribute*) pAttribute-&gt;next) != 0);
+00438         }
+00439 
+00440         pTypeArme-&gt;<a class="code" href="classCType.html#a9">SetAcceleration</a> (Acceleration);
+00441         pTypeArme-&gt;<a class="code" href="classCType.html#a8">SetVitesse</a> (Vitesse);
+00442         pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a13">SetCouleur</a> (Couleur);
+00443 
+00444         <span class="comment">// Parcours des éléments</span>
+00445         xmlNode* pChild = pNode-&gt;children;
+00446         <span class="keywordflow">if</span> (pChild)
+00447         {
+00448                 <span class="keywordflow">do</span>
+00449                 {
+00450                         <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00451                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"ancrage"</span>)))
+00452                                         pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a2">AddAncrage</a> (Ancrage (pChild));
+00453                 }
+00454                 <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00455         }
+00456 
+00457         <span class="keywordflow">return</span> pTypeArme;
+00458 }
+00459 
+00460 <span class="comment">// Parcours un élément 'niveaux'</span>
+00461 <span class="keywordtype">void</span> CXMLNiveau::Niveaux (xmlNode* pNode)
+00462 {
+00463         <span class="comment">// Parcours des éléments</span>
+00464         xmlNode* pChild = pNode-&gt;children;
+00465         <span class="keywordflow">if</span> (pChild)
+00466         {
+00467                 <span class="keywordflow">do</span>
+00468                 {
+00469                         <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00470                                 <span class="keywordflow">if</span> (!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"niveau"</span>))
+00471                                         m_Niveaux.push_back (Niveau (pChild));
+00472                 }
+00473                 <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00474         }
+00475 }
+00476 
+00477 <span class="comment">// Parcours un élément 'niveau'</span>
+00478 <a class="code" href="structSNiveau.html">SNiveau</a> CXMLNiveau::Niveau (xmlNode* pNode)
+00479 {
+00480         <a class="code" href="structSNiveau.html">SNiveau</a> Niveau;
+00481 
+00482         <span class="comment">// Parcours des éléments fils</span>
+00483         xmlNode* pChild = pNode-&gt;children;
+00484         <span class="keywordflow">if</span> (pChild)
+00485         {
+00486                 <span class="keywordflow">do</span>
+00487                 {
+00488                         <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00489                         {
+00490                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"index-armes"</span>)))
+00491                                         IndexArmes (pChild, Niveau);
+00492                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"index-boucliers"</span>)))
+00493                                         IndexBoucliers (pChild, Niveau);
+00494                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"index-ennemis"</span>)))
+00495                                         IndexEnnemis (pChild, Niveau);
+00496                         }
+00497                 }
+00498                 <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00499         }
+00500 
+00501         <span class="keywordflow">return</span> Niveau;
+00502 }
+00503 
+00504 <span class="comment">// Parcours un élément 'index-armes'</span>
+00505 <span class="keywordtype">void</span> CXMLNiveau::IndexArmes (xmlNode* pNode, <a class="code" href="structSNiveau.html">SNiveau</a> &amp; Niveau)
+00506 {
+00507         <span class="comment">// Parcours des attributs</span>
+00508         xmlAttribute* pAttribute = ((xmlElement*) pNode)-&gt;attributes;
+00509         <span class="keywordflow">if</span> (pAttribute)
+00510         {
+00511                 <span class="keywordflow">do</span>
+00512                 {
+00513                         <span class="keywordflow">if</span> (pAttribute-&gt;type == XML_ATTRIBUTE_NODE)
+00514                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"frequence"</span>)))
+00515                                         Niveau.<a class="code" href="structSNiveau.html#o0">m_fBonusArmeFrequence</a> = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00516                 }
+00517                 <span class="keywordflow">while</span> ((pAttribute = (xmlAttribute*) pAttribute-&gt;next) != 0);
+00518         }
+00519 
+00520         <span class="comment">// Parcours des éléments fils</span>
+00521         xmlNode* pChild = pNode-&gt;children;
+00522         <span class="keywordflow">if</span> (pChild)
+00523         {
+00524                 <span class="keywordflow">do</span>
+00525                 {
+00526                         <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00527                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"index-arme"</span>)))
+00528                                         Niveau.<a class="code" href="structSNiveau.html#o1">m_TypeBonusArme</a>.push_back (GetTypeBonusArmeParIndex (IndexAttribute (pChild)));
+00529                 }
+00530                 <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00531         }
+00532 }
+00533 
+00534 <span class="comment">// Parcours un élément 'index-boucliers'</span>
+00535 <span class="keywordtype">void</span> CXMLNiveau::IndexBoucliers (xmlNode* pNode, <a class="code" href="structSNiveau.html">SNiveau</a> &amp; Niveau)
+00536 {
+00537         <span class="comment">// Parcours des attributs</span>
+00538         xmlAttribute* pAttribute = ((xmlElement*) pNode)-&gt;attributes;
+00539         <span class="keywordflow">if</span> (pAttribute)
+00540         {
+00541                 <span class="keywordflow">do</span>
+00542                 {
+00543                         <span class="keywordflow">if</span> (pAttribute-&gt;type == XML_ATTRIBUTE_NODE)
+00544                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"frequence"</span>)))
+00545                                         Niveau.<a class="code" href="structSNiveau.html#o2">m_fBonusBouclierFrequence</a> = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00546                 }
+00547                 <span class="keywordflow">while</span> ((pAttribute = (xmlAttribute*) pAttribute-&gt;next) != 0);
+00548         }
+00549 
+00550         <span class="comment">// Parcours des éléments fils</span>
+00551         xmlNode* pChild = pNode-&gt;children;
+00552         <span class="keywordflow">if</span> (pChild)
+00553         {
+00554                 <span class="keywordflow">do</span>
+00555                 {
+00556                         <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00557                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"index-bouclier"</span>)))
+00558                                         Niveau.<a class="code" href="structSNiveau.html#o3">m_TypeBonusBouclier</a>.push_back (GetTypeBonusBouclierParIndex (IndexAttribute (pChild)));
+00559                 }
+00560                 <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00561         }
+00562 }
+00563 
+00564 <span class="comment">// Parcours un élément 'index-ennemis'</span>
+00565 <span class="keywordtype">void</span> CXMLNiveau::IndexEnnemis (xmlNode* pNode, <a class="code" href="structSNiveau.html">SNiveau</a> &amp; Niveau)
+00566 {
+00567         <span class="comment">// Parcours des attributs</span>
+00568         xmlAttribute* pAttribute = ((xmlElement*) pNode)-&gt;attributes;
+00569         <span class="keywordflow">if</span> (pAttribute)
+00570         {
+00571                 <span class="keywordflow">do</span>
+00572                 {
+00573                         <span class="keywordflow">if</span> (pAttribute-&gt;type == XML_ATTRIBUTE_NODE)
+00574                         {
+00575                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"nombre"</span>)))
+00576                                         Niveau.<a class="code" href="structSNiveau.html#o4">m_uiEnnemiNombre</a> = atoi ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00577                                 <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"frequence"</span>)))
+00578                                         Niveau.<a class="code" href="structSNiveau.html#o5">m_fEnnemiFrequence</a> = (<span class="keywordtype">float</span>) atof ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00579                         }
+00580                 }
+00581                 <span class="keywordflow">while</span> ((pAttribute = (xmlAttribute*) pAttribute-&gt;next) != 0);
+00582         }
+00583 
+00584         <span class="comment">// Parcours des éléments fils</span>
+00585         xmlNode* pChild = pNode-&gt;children;
+00586         <span class="keywordflow">if</span> (pChild)
+00587         {
+00588                 <span class="keywordflow">do</span>
+00589                 {
+00590                         <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00591                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pChild-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"index-ennemi"</span>)))
+00592                                         Niveau.<a class="code" href="structSNiveau.html#o6">m_TypeEnnemi</a>.push_back (GetTypeEnnemiParIndex (IndexAttribute (pChild)));
+00593                 }
+00594                 <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00595         }
+00596 }
+00597 
+00598 <span class="comment">// Parcours les attributs d'un élément 'index-*'</span>
+00599 <span class="keywordtype">int</span> CXMLNiveau::IndexAttribute (xmlNode* pNode)
+00600 {
+00601         <span class="comment">// Parcours des attributs</span>
+00602         xmlAttribute* pAttribute = ((xmlElement*) pNode)-&gt;attributes;
+00603         <span class="keywordflow">if</span> (pAttribute)
+00604         {
+00605                 <span class="keywordflow">do</span>
+00606                 {
+00607                         <span class="keywordflow">if</span> (pAttribute-&gt;type == XML_ATTRIBUTE_NODE)
+00608                                 <span class="keywordflow">if</span> ((!xmlStrcmp (pAttribute-&gt;name, (<span class="keyword">const</span> xmlChar *)<span class="stringliteral">"index"</span>)))
+00609                                         <span class="keywordflow">return</span> atoi ((<span class="keyword">const</span> <span class="keywordtype">char</span>*) xmlGetProp (pNode, pAttribute-&gt;name));
+00610                 }
+00611                 <span class="keywordflow">while</span> ((pAttribute = (xmlAttribute*) pAttribute-&gt;next) != 0);
+00612         }
+00613         <span class="keywordflow">return</span> -1;
+00614 }
+00615 
+00616 <span class="comment">// Compte le nombre d'enfant d'un élément.</span>
+00617 <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> CXMLNiveau::CompterChildren (xmlNode* pNode)
+00618 {
+00619         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNombreChildren = 0;
+00620         
+00621         <span class="comment">// Parcours des éléments fils</span>
+00622         xmlNode* pChild = pNode-&gt;children;
+00623         <span class="keywordflow">if</span> (pChild)
+00624         {
+00625                 <span class="keywordflow">do</span>
+00626                 {
+00627                         <span class="keywordflow">if</span> (pChild-&gt;type == XML_ELEMENT_NODE)
+00628                                 uiNombreChildren++;
+00629                 }
+00630                 <span class="keywordflow">while</span> ((pChild = pChild-&gt;next) != 0);
+00631         }
+00632         <span class="keywordflow">return</span> uiNombreChildren;
+00633 }
+00634 
+00635 <span class="comment">// Recherche d'un bonus d'armes dans le dictionnaire d'armes</span>
+00636 CTypeBonusArme* CXMLNiveau::GetTypeBonusArmeParIndex (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiIndex)<span class="keyword"> const</span>
+00637 <span class="keyword"></span>{
+00638         <span class="keywordflow">return</span> m_TypeBonusArme.find (uiIndex)-&gt;second;
+00639 }
+00640 
+00641 <span class="comment">// Recherche d'un bonus de boucliers dans le dictionnaire de boucliers</span>
+00642 CTypeBonusBouclier* CXMLNiveau::GetTypeBonusBouclierParIndex (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiIndex)<span class="keyword"> const</span>
+00643 <span class="keyword"></span>{
+00644         <span class="keywordflow">return</span> m_TypeBonusBouclier.find (uiIndex)-&gt;second;
+00645 }
+00646 
+00647 <span class="comment">// Recherche d'un ennemi dans le dictionnaire des ennemis</span>
+00648 CTypeEnnemi* CXMLNiveau::GetTypeEnnemiParIndex (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiIndex)<span class="keyword"> const</span>
+00649 <span class="keyword"></span>{
+00650         <span class="keywordflow">return</span> m_TypeEnnemi.find (uiIndex)-&gt;second;
+00651 }
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:47 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

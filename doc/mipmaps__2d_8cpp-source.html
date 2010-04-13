@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): mipmaps_2d.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>mipmaps_2d.cpp</h1><a href="mipmaps__2d_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 <span class="preprocessor">#include "<a class="code" href="mipmaps__2d_8h.html">mipmaps_2d.h</a>"</span>
+00002 <span class="preprocessor">#include "<a class="code" href="texture__manager_8h.html">texture_manager.h</a>"</span>
+00003 <span class="preprocessor">#include "<a class="code" href="window__sdl_8h.html">window_sdl.h</a>"</span>
+00004 
+00005 CMipmaps2D::CMipmaps2D (
+00006         <span class="keyword">const</span> <span class="keywordtype">char</span>* szMipmap1,
+00007         <span class="keyword">const</span> <span class="keywordtype">char</span>* szMipmap2,
+00008         <span class="keyword">const</span> <span class="keywordtype">char</span>* szMipmap3,
+00009         <span class="keyword">const</span> <span class="keywordtype">char</span>* szMipmap4,
+00010         <span class="keyword">const</span> <span class="keywordtype">char</span>* szMipmap5)
+00011 {
+00012         _Load (szMipmap1, szMipmap2, szMipmap3, szMipmap4, szMipmap5);
+00013 }
+00014 
+00015 CMipmaps2D::~CMipmaps2D ()
+00016 {
+00017         glDeleteTextures (1, &amp;m_uiTexture);
+00018 }
+00019 
+00020 <span class="keywordtype">void</span> CMipmaps2D::_Load (
+00021         <span class="keyword">const</span> <span class="keywordtype">char</span>* szMipmap1,
+00022         <span class="keyword">const</span> <span class="keywordtype">char</span>* szMipmap2,
+00023         <span class="keyword">const</span> <span class="keywordtype">char</span>* szMipmap3,
+00024         <span class="keyword">const</span> <span class="keywordtype">char</span>* szMipmap4,
+00025         <span class="keyword">const</span> <span class="keywordtype">char</span>* szMipmap5)
+00026 {
+00027         <a class="code" href="classCTexture.html#p5">m_szFilename</a> = szMipmap1;
+00028 
+00029         <span class="comment">// Groove - 03/03/2004 - Chargement de l'image grâce à GTL, une ligne et c'est fait !</span>
+00030         gtl::CImageTGA Image1 (szMipmap1);
+00031         gtl::CImageTGA Image2 (szMipmap2);
+00032         gtl::CImageTGA Image3 (szMipmap3);
+00033         gtl::CImageTGA Image4 (szMipmap4);
+00034         gtl::CImageTGA Image5 (szMipmap5);
+00035 
+00036         <span class="comment">// Groove - 08/09/2004 - Création d'un objet de texture</span>
+00037         glGenTextures (1, &amp;m_uiTexture);
+00038         <span class="comment">// Groove - 03/03/2004 - La texture indiqué par m_uiTexture est la testure courante.</span>
+00039         glBindTexture (GL_TEXTURE_2D, m_uiTexture);
+00040         <span class="comment">// Groove - 03/03/2004 - Indique le filtre qui sera appliqué à la texture.</span>
+00041         glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+00042         glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+00043         <span class="comment">// Groove - 03/03/2004 - Indique comment la texture sera appliqué en decors des coordonnées de la texture.</span>
+00044         glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+00045         glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+00046         glTexParameteri (GL_TEXTURE_2D, GL_GENERATE_MIPMAP_SGIS, GL_TRUE);
+00047 
+00048         <span class="comment">// 14/03/2004 - Le second paramètre de la fonction glTexImage2D () indique le numero de mipmap. Plus le numéro est grand, plus la mipmap sera utilisé pour une distance lointaine par rapport au point de vue</span>
+00049         <span class="comment">// 14/03/2004 - Usuellement, pour chaque incrément du numéro de mipmap, la texture est 2 fois plus petite. Personnaliser les mipmaps permet d'outrepasser cette règle.</span>
+00050         glTexImage2D (GL_TEXTURE_2D, 0, GL_RGB, Image1.GetSizeX (), Image1.GetSizeY (), 0, <a class="code" href="glext_8h.html#a26">GL_BGR</a>, GL_UNSIGNED_BYTE, Image1.GetData ());
+00051         glTexImage2D (GL_TEXTURE_2D, 1, GL_RGB, Image2.GetSizeX (), Image2.GetSizeY (), 0, <a class="code" href="glext_8h.html#a26">GL_BGR</a>, GL_UNSIGNED_BYTE, Image2.GetData ());
+00052         glTexImage2D (GL_TEXTURE_2D, 2, GL_RGB, Image3.GetSizeX (), Image3.GetSizeY (), 0, <a class="code" href="glext_8h.html#a26">GL_BGR</a>, GL_UNSIGNED_BYTE, Image3.GetData ());
+00053         glTexImage2D (GL_TEXTURE_2D, 3, GL_RGB, Image4.GetSizeX (), Image4.GetSizeY (), 0, <a class="code" href="glext_8h.html#a26">GL_BGR</a>, GL_UNSIGNED_BYTE, Image4.GetData ());
+00054         glTexImage2D (GL_TEXTURE_2D, 4, GL_RGB, Image5.GetSizeX (), Image5.GetSizeY (), 0, <a class="code" href="glext_8h.html#a26">GL_BGR</a>, GL_UNSIGNED_BYTE, Image5.GetData ());
+00055 }
+00056 
+<a name="l00057"></a><a class="code" href="classCMipmaps2D.html#a0">00057</a> <span class="keywordtype">void</span> <a class="code" href="classCMipmaps2D.html#a0">CMipmaps2D::Bind</a> ()<span class="keyword"> const</span>
+00058 <span class="keyword"></span>{
+00059         glBindTexture (GL_TEXTURE_2D, m_uiTexture);
+00060 }
+00061 
+<a name="l00062"></a><a class="code" href="classCMipmaps2D.html#a1">00062</a> <a class="code" href="texture_8h.html#a10">ETextureType</a> <a class="code" href="classCMipmaps2D.html#a1">CMipmaps2D::Type</a> ()<span class="keyword"> const</span>
+00063 <span class="keyword"></span>{
+00064         <span class="keywordflow">return</span> <a class="code" href="texture_8h.html#a10a8">TEXTURE_TYPE_MIPMAPS_2D</a>;
+00065 }
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

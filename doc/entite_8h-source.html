@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): entite.h Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>entite.h</h1><a href="entite_8h.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#ifndef ENTITE_H</span>
+00011 <span class="preprocessor"></span><span class="preprocessor">#define ENTITE_H</span>
+00012 <span class="preprocessor"></span>
+00013 <span class="preprocessor">#include "<a class="code" href="ctrl__entite_8h.html">ctrl_entite.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="util_8h.html">util.h</a>"</span>
+00015 <span class="preprocessor">#include "<a class="code" href="texture_8h.html">texture.h</a>"</span>
+00016 
+<a name="l00017"></a><a class="code" href="entite_8h.html#a7">00017</a> <span class="keyword">typedef</span> <span class="keyword">enum</span>
+00018 {
+00019         <a class="code" href="entite_8h.html#a7a0">ENTITE_NULL</a> = 0,
+00020         <a class="code" href="entite_8h.html#a7a1">ENTITE_MIN</a> = 1,
+00021         <a class="code" href="entite_8h.html#a7a2">ENTITE_BONUS</a> = 1,
+00022         <a class="code" href="entite_8h.html#a7a3">ENTITE_ARME</a>,
+00023         <a class="code" href="entite_8h.html#a7a4">ENTITE_ENNEMI</a>,
+00024         <a class="code" href="entite_8h.html#a7a5">ENTITE_JOUEUR</a>,
+00025         <a class="code" href="entite_8h.html#a7a6">ENTITE_MAX</a>
+00026 } <a class="code" href="entite_8h.html#a7">EEntiteType</a>;
+00027 
+<a name="l00029"></a><a class="code" href="classCEntite.html">00029</a> <span class="keyword">class </span><a class="code" href="classCEntite.html">CEntite</a>
+00030 {
+00032         <span class="keyword">friend</span> <span class="keywordtype">void</span> <a class="code" href="classCEntityManager.html#e1">CEntityManager::Kill</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiIndex);
+00033 
+00034 <span class="keyword">protected</span>:
+<a name="l00035"></a><a class="code" href="classCEntite.html#p0">00035</a>         <a class="code" href="classCTimer.html">CTimer</a> <a class="code" href="classCEntite.html#p0">m_Timer</a>;
+<a name="l00036"></a><a class="code" href="classCEntite.html#p1">00036</a>         <a class="code" href="util_8h.html#a3">CVecteur</a> <a class="code" href="classCEntite.html#p1">m_PositionI</a>, <a class="code" href="classCEntite.html#p2">m_PositionF</a>;
+<a name="l00037"></a><a class="code" href="classCEntite.html#p3">00037</a>         <a class="code" href="util_8h.html#a3">CVecteur</a> <a class="code" href="classCEntite.html#p3">m_VitesseI</a>, <a class="code" href="classCEntite.html#p4">m_VitesseF</a>;
+<a name="l00038"></a><a class="code" href="classCEntite.html#p5">00038</a>         <a class="code" href="util_8h.html#a3">CVecteur</a> <a class="code" href="classCEntite.html#p5">m_Acceleration</a>;
+<a name="l00039"></a><a class="code" href="classCEntite.html#p6">00039</a>         <span class="keywordtype">int</span> <a class="code" href="classCEntite.html#p6">m_iBouclier</a>;
+<a name="l00040"></a><a class="code" href="classCEntite.html#p7">00040</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classCEntite.html#p7">m_uiPoint</a>;
+00041 
+00043         <span class="keywordtype">bool</span> <a class="code" href="classCEntite.html#b0">EstDansEcran</a> (<a class="code" href="util_8h.html#a3">CVecteur</a> Position, <span class="keywordtype">float</span> fRayon) <span class="keyword">const</span>;
+00044 
+00045         <a class="code" href="classCEntite.html#b1">CEntite</a> ();
+<a name="l00046"></a><a class="code" href="classCEntite.html#b2">00046</a>         <span class="keyword">virtual</span> <a class="code" href="classCEntite.html#b2">~CEntite</a> () {}
+00047 
+00048 <span class="keyword">public</span>:
+00050         <span class="keyword">virtual</span> <a class="code" href="classCTexture.html">CTexture</a>* <a class="code" href="classCEntite.html#a0">GetTexture</a> () const = 0;
+00052         virtual <span class="keywordtype">int</span> GetDommage () const = 0;
+00054         virtual <span class="keywordtype">void</span> Update ();
+00056         virtual EEntiteType GetType () const = 0;
+00058         virtual <span class="keywordtype">float</span> GetTaille () const = 0;
+00060         virtual <span class="keywordtype">void</span> AddDommage (<span class="keywordtype">int</span> iDommage);
+00061 
+<a name="l00063"></a><a class="code" href="classCEntite.html#a6">00063</a>         <span class="keywordtype">void</span> Deplacer (const <a class="code" href="util_8h.html#a3">CVecteur</a> &amp; Deplacement) {<a class="code" href="classCEntite.html#p1">m_PositionI</a> += Deplacement;}
+<a name="l00065"></a><a class="code" href="classCEntite.html#a7">00065</a>         <a class="code" href="util_8h.html#a3">CVecteur</a> <a class="code" href="classCEntite.html#a7">GetPosition</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> <a class="code" href="classCEntite.html#p2">m_PositionF</a>;}
+<a name="l00067"></a><a class="code" href="classCEntite.html#a8">00067</a>         <span class="keywordtype">void</span> <a class="code" href="classCEntite.html#a8">SetPosition</a> (<span class="keyword">const</span> <a class="code" href="util_8h.html#a3">CVecteur</a> &amp; Position) {<a class="code" href="classCEntite.html#p2">m_PositionF</a> = Position;}
+<a name="l00069"></a><a class="code" href="classCEntite.html#a9">00069</a>         <span class="keywordtype">int</span> <a class="code" href="classCEntite.html#a9">GetBouclier</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> <a class="code" href="classCEntite.html#p6">m_iBouclier</a>;}
+<a name="l00071"></a><a class="code" href="classCEntite.html#a10">00071</a>         <span class="keywordtype">void</span> <a class="code" href="classCEntite.html#a10">SetBouclier</a> (<span class="keywordtype">int</span> iBouclier) {<a class="code" href="classCEntite.html#p6">m_iBouclier</a> = iBouclier;}
+00072 };
+00073 
+00074 <span class="preprocessor">#endif // ENTITE_H</span>
+00075 <span class="preprocessor"></span>
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

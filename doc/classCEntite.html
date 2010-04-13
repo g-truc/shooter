@@ -1,0 +1,798 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): Référence de la classe CEntite</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>Référence de la classe CEntite</h1>Entité générique, non instanciable.  
+<a href="#_details">Plus de détails...</a>
+<p>
+<code>#include &lt;<a class="el" href="entite_8h-source.html">entite.h</a>&gt;</code>
+<p>
+<p>Graphe d'héritage de CEntite:
+<p><center><img src="classCEntite.png" usemap="#CEntite_map" border="0" alt=""></center>
+<map name="CEntite_map">
+<area href="classCEntiteArme.html" alt="CEntiteArme" shape="rect" coords="0,56,93,80">
+<area href="classCEntiteBonus.html" alt="CEntiteBonus" shape="rect" coords="103,56,196,80">
+<area href="classCEntiteEnnemi.html" alt="CEntiteEnnemi" shape="rect" coords="206,56,299,80">
+<area href="classCEntiteJoueur.html" alt="CEntiteJoueur" shape="rect" coords="309,56,402,80">
+</map>
+<a href="classCEntite-members.html">Liste de tous les membres</a><table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Fonctions membres publiques</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual <a class="el" href="classCTexture.html">CTexture</a> *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#a0">GetTexture</a> () const =0</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retourne la texture de l'entité.  <a href="#a0"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#a1">GetDommage</a> () const =0</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retourne les dommages de l'entités.  <a href="#a1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#a2">Update</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Met à jour l'entité.  <a href="#a2"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual <a class="el" href="entite_8h.html#a7">EEntiteType</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#a3">GetType</a> () const =0</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Recupère le type de l'entité.  <a href="#a3"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual float&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#a4">GetTaille</a> () const =0</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retourne la taille de l'entité.  <a href="#a4"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#a5">AddDommage</a> (int iDommage)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ajout des dommages à l'entité.  <a href="#a5"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#a6">Deplacer</a> (const <a class="el" href="util_8h.html#a3">CVecteur</a> &amp;Deplacement)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Modification de la position de l'entité.  <a href="#a6"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="util_8h.html#a3">CVecteur</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#a7">GetPosition</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retourne la position de l'entité.  <a href="#a7"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#a8">SetPosition</a> (const <a class="el" href="util_8h.html#a3">CVecteur</a> &amp;Position)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Positionne l'entité à la position indiquée par Position.  <a href="#a8"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#a9">GetBouclier</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retour la valeur de l'entité.  <a href="#a9"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#a10">SetBouclier</a> (int iBouclier)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Inicialisation du bouclier de l'entité.  <a href="#a10"></a><br></td></tr>
+<tr><td colspan=2><br><h2>Fonctions membres protégées</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#b0">EstDansEcran</a> (<a class="el" href="util_8h.html#a3">CVecteur</a> Position, float fRayon) const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Permet de déterminer si une entité en dans l'écran de jeu ou non.  <a href="#b0"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#b1">CEntite</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#b2">~CEntite</a> ()</td></tr>
+
+<tr><td colspan=2><br><h2>Attributs protégés</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="classCTimer.html">CTimer</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#p0">m_Timer</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="util_8h.html#a3">CVecteur</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#p1">m_PositionI</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="util_8h.html#a3">CVecteur</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#p2">m_PositionF</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="util_8h.html#a3">CVecteur</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#p3">m_VitesseI</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="util_8h.html#a3">CVecteur</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#p4">m_VitesseF</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="util_8h.html#a3">CVecteur</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#p5">m_Acceleration</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#p6">m_iBouclier</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>unsigned int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#p7">m_uiPoint</a></td></tr>
+
+<tr><td colspan=2><br><h2>Amis</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntite.html#n0">CEntityManager::Kill</a> (unsigned int uiIndex)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Seul la fonction Kill peu accéder aux données membres de la classe, donc c'est le seul qui puisse créer des instances de CEntite, cependant elle est non instanciable, et détruire des instances y compris de classes dérivées.  <a href="#n0"></a><br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>Description détaillée</h2>
+Entité générique, non instanciable. 
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00029">29</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.<hr><h2>Documentation des contructeurs et destructeur</h2>
+<a class="anchor" name="b1" doxytag="CEntite::CEntite" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> CEntite::CEntite           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [protected]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="entite_8cpp-source.html#l00013">13</a> du fichier <a class="el" href="entite_8cpp-source.html">entite.cpp</a>.
+<p>
+Références <a class="el" href="util__timer_8cpp-source.html#l00019">CTimer::Init()</a>, et <a class="el" href="entite_8h-source.html#l00035">m_Timer</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="b2" doxytag="CEntite::~CEntite" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> virtual CEntite::~<a class="el" href="classCEntite.html">CEntite</a>           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline, protected, virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00046">46</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.    </td>
+  </tr>
+</table>
+<hr><h2>Documentation des fonctions membres</h2>
+<a class="anchor" name="a5" doxytag="CEntite::AddDommage" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void CEntite::AddDommage           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">int&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>iDommage</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Ajout des dommages à l'entité. 
+<p>
+
+<p>
+Réimplémentée dans <a class="el" href="classCEntiteJoueur.html#a5">CEntiteJoueur</a>.
+<p>
+Définition à la ligne <a class="el" href="entite_8cpp-source.html#l00032">32</a> du fichier <a class="el" href="entite_8cpp-source.html">entite.cpp</a>.
+<p>
+Références <a class="el" href="entite_8h-source.html#l00039">m_iBouclier</a>.
+<p>
+Référencé par <a class="el" href="type__bonus__bouclier_8cpp-source.html#l00024">CTypeBonusBouclier::Contact()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a6" doxytag="CEntite::Deplacer" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void CEntite::Deplacer           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">const <a class="el" href="util_8h.html#a3">CVecteur</a> &amp;&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>Deplacement</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Modification de la position de l'entité. 
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00063">63</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.
+<p>
+Références <a class="el" href="util_8h-source.html#l00030">CVecteur</a>, et <a class="el" href="entite_8h-source.html#l00036">m_PositionI</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="b0" doxytag="CEntite::EstDansEcran" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> bool CEntite::EstDansEcran           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top"><a class="el" href="util_8h.html#a3">CVecteur</a>&nbsp;</td>
+          <td class="mdname" nowrap> <em>Position</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>float&nbsp;</td>
+          <td class="mdname" nowrap> <em>fRayon</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"> const<code> [protected]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Permet de déterminer si une entité en dans l'écran de jeu ou non. 
+<p>
+Définition à la ligne <a class="el" href="entite_8cpp-source.html#l00038">38</a> du fichier <a class="el" href="entite_8cpp-source.html">entite.cpp</a>.
+<p>
+Références <a class="el" href="util_8h-source.html#l00030">CVecteur</a>, <a class="el" href="ctrl__fenetre_8h-source.html#l00029">FENETRE_HAUTEUR</a>, et <a class="el" href="ctrl__fenetre_8h-source.html#l00028">FENETRE_LARGEUR</a>.
+<p>
+Référencé par <a class="el" href="entite__ennemi_8cpp-source.html#l00077">CEntiteEnnemi::Action()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a9" doxytag="CEntite::GetBouclier" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> int CEntite::GetBouclier           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retour la valeur de l'entité. 
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00069">69</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.
+<p>
+Références <a class="el" href="entite_8h-source.html#l00039">m_iBouclier</a>.
+<p>
+Référencé par <a class="el" href="fx__fumee_8cpp-source.html#l00048">CFumee::Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a1" doxytag="CEntite::GetDommage" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> virtual int CEntite::GetDommage           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [pure virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retourne les dommages de l'entités. 
+<p>
+
+<p>
+Implémenté dans <a class="el" href="classCEntiteArme.html#a0">CEntiteArme</a>, <a class="el" href="classCEntiteBonus.html#a0">CEntiteBonus</a>, <a class="el" href="classCEntiteEnnemi.html#a0">CEntiteEnnemi</a>, et <a class="el" href="classCEntiteJoueur.html#a0">CEntiteJoueur</a>.
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="a7" doxytag="CEntite::GetPosition" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="util_8h.html#a3">CVecteur</a> CEntite::GetPosition           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retourne la position de l'entité. 
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00065">65</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.
+<p>
+Références <a class="el" href="util_8h-source.html#l00030">CVecteur</a>, et <a class="el" href="entite_8h-source.html#l00036">m_PositionF</a>.
+<p>
+Référencé par <a class="el" href="entite__arme_8cpp-source.html#l00033">CEntiteArme::Create()</a>, et <a class="el" href="fx__fumee_8cpp-source.html#l00048">CFumee::Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a4" doxytag="CEntite::GetTaille" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> virtual float CEntite::GetTaille           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [pure virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retourne la taille de l'entité. 
+<p>
+
+<p>
+Implémenté dans <a class="el" href="classCEntiteArme.html#a3">CEntiteArme</a>, <a class="el" href="classCEntiteBonus.html#a3">CEntiteBonus</a>, <a class="el" href="classCEntiteEnnemi.html#a3">CEntiteEnnemi</a>, et <a class="el" href="classCEntiteJoueur.html#a3">CEntiteJoueur</a>.
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="a0" doxytag="CEntite::GetTexture" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> virtual <a class="el" href="classCTexture.html">CTexture</a>* CEntite::GetTexture           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [pure virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retourne la texture de l'entité. 
+<p>
+
+<p>
+Implémenté dans <a class="el" href="classCEntiteArme.html#a1">CEntiteArme</a>, <a class="el" href="classCEntiteBonus.html#a1">CEntiteBonus</a>, <a class="el" href="classCEntiteEnnemi.html#a1">CEntiteEnnemi</a>, et <a class="el" href="classCEntiteJoueur.html#a1">CEntiteJoueur</a>.
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="a3" doxytag="CEntite::GetType" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> virtual <a class="el" href="entite_8h.html#a7">EEntiteType</a> CEntite::GetType           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [pure virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Recupère le type de l'entité. 
+<p>
+
+<p>
+Implémenté dans <a class="el" href="classCEntiteArme.html#a2">CEntiteArme</a>, <a class="el" href="classCEntiteBonus.html#a2">CEntiteBonus</a>, <a class="el" href="classCEntiteEnnemi.html#a2">CEntiteEnnemi</a>, et <a class="el" href="classCEntiteJoueur.html#a2">CEntiteJoueur</a>.
+<p>
+
+<p>
+Référencé par <a class="el" href="type__bonus__bouclier_8cpp-source.html#l00024">CTypeBonusBouclier::Contact()</a>, <a class="el" href="type__bonus__arme_8cpp-source.html#l00031">CTypeBonusArme::Contact()</a>, et <a class="el" href="entite__arme_8cpp-source.html#l00033">CEntiteArme::Create()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a10" doxytag="CEntite::SetBouclier" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void CEntite::SetBouclier           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">int&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>iBouclier</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Inicialisation du bouclier de l'entité. 
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00071">71</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.
+<p>
+Références <a class="el" href="entite_8h-source.html#l00039">m_iBouclier</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a8" doxytag="CEntite::SetPosition" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void CEntite::SetPosition           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">const <a class="el" href="util_8h.html#a3">CVecteur</a> &amp;&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>Position</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Positionne l'entité à la position indiquée par Position. 
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00067">67</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.
+<p>
+Références <a class="el" href="util_8h-source.html#l00030">CVecteur</a>, et <a class="el" href="entite_8h-source.html#l00036">m_PositionF</a>.
+<p>
+Référencé par <a class="el" href="ctrl__jeu_8cpp-source.html#l00318">CGameManager::PositionnerJoueur()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a2" doxytag="CEntite::Update" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void CEntite::Update           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Met à jour l'entité. 
+<p>
+
+<p>
+Réimplémentée dans <a class="el" href="classCEntiteJoueur.html#a4">CEntiteJoueur</a>.
+<p>
+Définition à la ligne <a class="el" href="entite_8cpp-source.html#l00022">22</a> du fichier <a class="el" href="entite_8cpp-source.html">entite.cpp</a>.
+<p>
+Références <a class="el" href="util__timer_8cpp-source.html#l00025">CTimer::GetTime()</a>, <a class="el" href="entite_8h-source.html#l00038">m_Acceleration</a>, <a class="el" href="entite_8h-source.html#l00036">m_PositionF</a>, <a class="el" href="entite_8h-source.html#l00036">m_PositionI</a>, <a class="el" href="entite_8h-source.html#l00035">m_Timer</a>, <a class="el" href="entite_8h-source.html#l00037">m_VitesseF</a>, <a class="el" href="entite_8h-source.html#l00037">m_VitesseI</a>, et <a class="el" href="util_8h-source.html#l00027">SQR</a>.    </td>
+  </tr>
+</table>
+<hr><h2>Documentation des fonctions amies et associées</h2>
+<a class="anchor" name="n0" doxytag="CEntite::CEntityManager::Kill" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void CEntityManager::Kill           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">unsigned int&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>uiIndex</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [friend]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Seul la fonction Kill peu accéder aux données membres de la classe, donc c'est le seul qui puisse créer des instances de CEntite, cependant elle est non instanciable, et détruire des instances y compris de classes dérivées. 
+<p>
+    </td>
+  </tr>
+</table>
+<hr><h2>Documentation des données membres</h2>
+<a class="anchor" name="p5" doxytag="CEntite::m_Acceleration" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="util_8h.html#a3">CVecteur</a> <a class="el" href="classCEntite.html#p5">CEntite::m_Acceleration</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00038">38</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.
+<p>
+Référencé par <a class="el" href="entite__ennemi_8cpp-source.html#l00038">CEntiteEnnemi::Create()</a>, <a class="el" href="entite__bonus_8cpp-source.html#l00028">CEntiteBonus::Create()</a>, <a class="el" href="entite__arme_8cpp-source.html#l00033">CEntiteArme::Create()</a>, et <a class="el" href="entite_8cpp-source.html#l00022">Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p6" doxytag="CEntite::m_iBouclier" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> int <a class="el" href="classCEntite.html#p6">CEntite::m_iBouclier</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00039">39</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.
+<p>
+Référencé par <a class="el" href="entite_8cpp-source.html#l00032">AddDommage()</a>, <a class="el" href="entite__ennemi_8cpp-source.html#l00038">CEntiteEnnemi::Create()</a>, <a class="el" href="entite__bonus_8cpp-source.html#l00028">CEntiteBonus::Create()</a>, <a class="el" href="entite_8h-source.html#l00069">GetBouclier()</a>, et <a class="el" href="entite_8h-source.html#l00071">SetBouclier()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p2" doxytag="CEntite::m_PositionF" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="util_8h.html#a3">CVecteur</a> <a class="el" href="classCEntite.html#p2">CEntite::m_PositionF</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00036">36</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.
+<p>
+Référencé par <a class="el" href="entite__joueur_8cpp-source.html#l00038">CEntiteJoueur::Create()</a>, <a class="el" href="entite__ennemi_8cpp-source.html#l00038">CEntiteEnnemi::Create()</a>, <a class="el" href="entite__bonus_8cpp-source.html#l00028">CEntiteBonus::Create()</a>, <a class="el" href="entite__arme_8cpp-source.html#l00033">CEntiteArme::Create()</a>, <a class="el" href="entite_8h-source.html#l00065">GetPosition()</a>, <a class="el" href="entite_8h-source.html#l00067">SetPosition()</a>, et <a class="el" href="entite_8cpp-source.html#l00022">Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p1" doxytag="CEntite::m_PositionI" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="util_8h.html#a3">CVecteur</a> <a class="el" href="classCEntite.html#p1">CEntite::m_PositionI</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00036">36</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.
+<p>
+Référencé par <a class="el" href="entite__joueur_8cpp-source.html#l00038">CEntiteJoueur::Create()</a>, <a class="el" href="entite__ennemi_8cpp-source.html#l00038">CEntiteEnnemi::Create()</a>, <a class="el" href="entite__bonus_8cpp-source.html#l00028">CEntiteBonus::Create()</a>, <a class="el" href="entite__arme_8cpp-source.html#l00033">CEntiteArme::Create()</a>, <a class="el" href="entite_8h-source.html#l00063">Deplacer()</a>, et <a class="el" href="entite_8cpp-source.html#l00022">Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p0" doxytag="CEntite::m_Timer" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classCTimer.html">CTimer</a> <a class="el" href="classCEntite.html#p0">CEntite::m_Timer</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00035">35</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.
+<p>
+Référencé par <a class="el" href="entite_8cpp-source.html#l00013">CEntite()</a>, et <a class="el" href="entite_8cpp-source.html#l00022">Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p7" doxytag="CEntite::m_uiPoint" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> unsigned int <a class="el" href="classCEntite.html#p7">CEntite::m_uiPoint</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00040">40</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p4" doxytag="CEntite::m_VitesseF" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="util_8h.html#a3">CVecteur</a> <a class="el" href="classCEntite.html#p4">CEntite::m_VitesseF</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00037">37</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.
+<p>
+Référencé par <a class="el" href="entite__ennemi_8cpp-source.html#l00038">CEntiteEnnemi::Create()</a>, <a class="el" href="entite__bonus_8cpp-source.html#l00028">CEntiteBonus::Create()</a>, <a class="el" href="entite__arme_8cpp-source.html#l00033">CEntiteArme::Create()</a>, et <a class="el" href="entite_8cpp-source.html#l00022">Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p3" doxytag="CEntite::m_VitesseI" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="util_8h.html#a3">CVecteur</a> <a class="el" href="classCEntite.html#p3">CEntite::m_VitesseI</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="entite_8h-source.html#l00037">37</a> du fichier <a class="el" href="entite_8h-source.html">entite.h</a>.
+<p>
+Référencé par <a class="el" href="entite__ennemi_8cpp-source.html#l00038">CEntiteEnnemi::Create()</a>, <a class="el" href="entite__bonus_8cpp-source.html#l00028">CEntiteBonus::Create()</a>, <a class="el" href="entite__arme_8cpp-source.html#l00033">CEntiteArme::Create()</a>, et <a class="el" href="entite_8cpp-source.html#l00022">Update()</a>.    </td>
+  </tr>
+</table>
+<hr>La documentation de cette classe a été générée à partir des fichiers suivants:<ul>
+<li><a class="el" href="entite_8h-source.html">entite.h</a><li><a class="el" href="entite_8cpp-source.html">entite.cpp</a></ul>
+<hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:37:06 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

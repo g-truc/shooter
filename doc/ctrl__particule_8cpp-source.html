@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): ctrl_particule.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>ctrl_particule.cpp</h1><a href="ctrl__particule_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="affichage_8h.html">affichage.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="ctrl__particule_8h.html">ctrl_particule.h</a>"</span>
+00012 <span class="preprocessor">#include "<a class="code" href="ctrl__fenetre_8h.html">ctrl_fenetre.h</a>"</span>
+00013 <span class="preprocessor">#include "<a class="code" href="ctrl__jeu_8h.html">ctrl_jeu.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="fx__etoile_8h.html">fx_etoile.h</a>"</span>
+00015 <span class="preprocessor">#include "<a class="code" href="fx__explosion_8h.html">fx_explosion.h</a>"</span>
+00016 <span class="preprocessor">#include "<a class="code" href="fx__fumee_8h.html">fx_fumee.h</a>"</span>
+00017 <span class="preprocessor">#include "<a class="code" href="texture__manager_8h.html">texture_manager.h</a>"</span>
+00018 
+00019 <a class="code" href="classCParticleManager.html">CParticleManager</a>* CParticleManager::m_pParticleManager = 0;
+00020 
+00021 CParticleManager::CParticleManager ()
+00022 {
+00023         <span class="comment">// On initialise tous les pointeurs sur générateur de particules à 0 pour pouvoir vérifier qu'ils sont utilisés ou non.</span>
+00024         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="ctrl__particule_8h.html#a0">CTRL_GENERATEUR_PARTICULE_NOMBRE</a>; i++)
+00025                 m_pGenParticule[i] = 0;
+00026 
+00027         <span class="comment">// Chargement de la texture de particules</span>
+00028         m_pTexture = <a class="code" href="classCTextureManager.html#e0">CTextureManager::Instance</a> ()-&gt;<a class="code" href="classCTextureManager.html#a0">Texture2D</a> (FICHIER_TEXTURE_PARTICULE);
+00029 
+00030         <span class="comment">// Variable permettrant de déactiver l'affichage des particules</span>
+00031         m_bActif = <span class="keyword">true</span>;
+00032 }
+00033 
+00034 CParticleManager::~CParticleManager ()
+00035 {
+00036         <span class="comment">// Destruction des générateurs de particules.</span>
+00037         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="ctrl__particule_8h.html#a0">CTRL_GENERATEUR_PARTICULE_NOMBRE</a>; i++)
+00038                 <span class="keywordflow">if</span> (m_pGenParticule[i])
+00039                         <a class="code" href="classCParticleManager.html#e1">Kill</a> (i);
+00040         <span class="comment">// Déchargement de la texture de particules</span>
+00041         <a class="code" href="classCTextureManager.html#e0">CTextureManager::Instance</a> ()-&gt;<a class="code" href="classCTextureManager.html#a2">Delete</a> (m_pTexture);
+00042 }
+00043 
+00044 <span class="comment">// Creation ou récupération de l'instance du gestionnaire de générateurs de particules.</span>
+00045 <span class="comment">// Si l'instance n'existe pas (m_pParticleManager == 0), on la créé.</span>
+<a name="l00046"></a><a class="code" href="classCParticleManager.html#e0">00046</a> <a class="code" href="classCParticleManager.html">CParticleManager</a>* <a class="code" href="classCParticleManager.html#e0">CParticleManager::Instance</a> ()
+00047 {
+00048         <span class="keywordflow">if</span> (m_pParticleManager == 0)
+00049                 m_pParticleManager = <span class="keyword">new</span> <a class="code" href="classCParticleManager.html">CParticleManager</a>;
+00050         <span class="keywordflow">return</span> m_pParticleManager;
+00051 }
+00052 
+00053 <span class="comment">// Suppression de l'instance du gestionnaire de générateurs de particules si elle existe.</span>
+<a name="l00054"></a><a class="code" href="classCParticleManager.html#e1">00054</a> <span class="keywordtype">void</span> <a class="code" href="classCParticleManager.html#e1">CParticleManager::Kill</a> ()
+00055 {
+00056         <span class="keywordflow">if</span> (m_pParticleManager != 0)
+00057         {
+00058                 <span class="keyword">delete</span> m_pParticleManager;
+00059                 m_pParticleManager = 0;
+00060         }
+00061 }
+00062 
+00063 <span class="comment">// Offre un accès aux générateurs de particules. On prend soin de vérifier que l'index indentifie bien une entrée de la table</span>
+<a name="l00064"></a><a class="code" href="classCParticleManager.html#a0">00064</a> <span class="keyword">const</span> <a class="code" href="classCParticleSystem.html">CParticleSystem</a>* <a class="code" href="classCParticleManager.html#a0">CParticleManager::GetGenerateurParIndex</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiIndex)<span class="keyword"> const</span>
+00065 <span class="keyword"></span>{
+00066         <span class="keywordflow">if</span> (uiIndex &lt; <a class="code" href="ctrl__particule_8h.html#a0">CTRL_GENERATEUR_PARTICULE_NOMBRE</a>)
+00067                 <span class="keywordflow">return</span> m_pGenParticule[uiIndex];
+00068         <span class="keywordflow">return</span> 0;
+00069 }
+00070 
+00071 <span class="comment">// Seul cette fonction permet la création d'une instance d'effet de défilement d'étoile</span>
+<a name="l00072"></a><a class="code" href="classCParticleManager.html#a1">00072</a> <a class="code" href="classCEtoile.html">CEtoile</a>* <a class="code" href="classCParticleManager.html#a1">CParticleManager::CreateEtoile</a> ()
+00073 {
+00074         <span class="keywordflow">if</span> (m_bActif)
+00075         {
+00076                 <span class="comment">// Recherche d'un index libre dans la table des générateurs de particules.</span>
+00077                 <span class="keywordtype">int</span> iIndex = GetIndexLibre ();
+00078                 <span class="comment">// S'il y a un index libre, alors on alloue de la mémoire pour l'effet de particules</span>
+00079                 <span class="keywordflow">return</span> static_cast&lt;CEtoile*&gt; (iIndex != -1 ? m_pGenParticule[iIndex] = <span class="keyword">new</span> <a class="code" href="classCEtoile.html">CEtoile</a> (m_pTexture) : 0);
+00080         }
+00081         <span class="keywordflow">return</span> 0;
+00082 }
+00083 
+00084 <span class="comment">// Seul cette fonction permet la création d'une instance d'effet de fumée</span>
+<a name="l00085"></a><a class="code" href="classCParticleManager.html#a2">00085</a> <a class="code" href="classCFumee.html">CFumee</a>* <a class="code" href="classCParticleManager.html#a2">CParticleManager::CreateFumee</a> ()
+00086 {
+00087         <span class="keywordflow">if</span> (m_bActif)
+00088         {
+00089                 <span class="comment">// Recherche d'un index libre dans la table des générateurs de particules.</span>
+00090                 <span class="keywordtype">int</span> iIndex = GetIndexLibre ();
+00091                 <span class="comment">// S'il y a un index libre, alors on alloue de la mémoire pour l'effet de particules.</span>
+00092                 <span class="keywordflow">return</span> static_cast&lt;CFumee*&gt; (iIndex != -1 ? m_pGenParticule[iIndex] = <span class="keyword">new</span> <a class="code" href="classCFumee.html">CFumee</a> (m_pTexture) : 0);
+00093         }
+00094         <span class="keywordflow">return</span> 0;
+00095 }
+00096 
+00097 <span class="comment">// Seul cette fonction permet la création d'une instance d'effet d'explosion.</span>
+<a name="l00098"></a><a class="code" href="classCParticleManager.html#a3">00098</a> <a class="code" href="classCExplosion.html">CExplosion</a>* <a class="code" href="classCParticleManager.html#a3">CParticleManager::CreateExplosion</a> ()
+00099 {
+00100         <span class="keywordflow">if</span> (m_bActif)
+00101         {
+00102                 <span class="comment">// Recherche d'un index libre dans la table des générateurs de particules.</span>
+00103                 <span class="keywordtype">int</span> iIndex = GetIndexLibre ();
+00104                 <span class="comment">// S'il y a un index libre, alors on alloue de la mémoire pour l'effet de particules.</span>
+00105                 <span class="keywordflow">return</span> static_cast&lt;CExplosion*&gt; (iIndex != -1 ? m_pGenParticule[iIndex] = <span class="keyword">new</span> <a class="code" href="classCExplosion.html">CExplosion</a> (m_pTexture) : 0);
+00106         }
+00107         <span class="keywordflow">return</span> 0;
+00108 }
+00109 
+00110 <span class="comment">// Seule cette fonction est autorisée a détruire une instance de générateur de particules </span>
+00111 <span class="keywordtype">void</span> <a class="code" href="classCParticleManager.html#e1">CParticleManager::Kill</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiIndex)
+00112 {
+00113         <span class="keyword">delete</span> m_pGenParticule[uiIndex];
+00114         m_pGenParticule[uiIndex] = 0;
+00115 }
+00116 
+00117 <span class="comment">// Recherche d'un index libre dans la table des générateurs de particules</span>
+00118 <span class="keywordtype">int</span> CParticleManager::GetIndexLibre ()<span class="keyword"> const</span>
+00119 <span class="keyword"></span>{
+00120         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="ctrl__particule_8h.html#a0">CTRL_GENERATEUR_PARTICULE_NOMBRE</a>; i++)
+00121                 <span class="keywordflow">if</span> (m_pGenParticule[i] == 0)
+00122                         <span class="keywordflow">return</span> i;
+00123         <span class="keywordflow">return</span> -1;
+00124 }
+00125 
+00126 <span class="comment">// Mise à jour des générateurs de particules : Détermine s'il faut les détrire</span>
+<a name="l00127"></a><a class="code" href="classCParticleManager.html#a4">00127</a> <span class="keywordtype">void</span> <a class="code" href="classCParticleManager.html#a4">CParticleManager::Update</a> ()
+00128 {
+00129         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="ctrl__particule_8h.html#a0">CTRL_GENERATEUR_PARTICULE_NOMBRE</a>; i++)
+00130         {
+00131                 <span class="keywordflow">if</span> (m_pGenParticule[i])
+00132                 {
+00133                         m_pGenParticule[i]-&gt;<a class="code" href="classCParticleSystem.html#a1">Update</a> ();
+00134 
+00135                         <span class="comment">// 27/04/2004 - Suppression des ennemis</span>
+00136                         <span class="keywordflow">if</span> (m_pGenParticule[i]-&gt;<a class="code" href="classCParticleSystem.html#a3">GetSupprime</a> ())
+00137                         {
+00138                                 <a class="code" href="classCParticleManager.html#e1">Kill</a> (i);
+00139                                 <span class="keywordflow">continue</span>;
+00140                         }
+00141                 }
+00142         }
+00143 }
+00144 
+00145 
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

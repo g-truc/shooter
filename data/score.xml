@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<scores>
+	<score>
+		<joueur nom="Groove" score="4096" niveau="0"/>
+		<joueur nom="Taurus" score="4096" niveau="0"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="2048" niveau="0"/>
+		<joueur nom="Taurus" score="2048" niveau="0"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="1024" niveau="0"/>
+		<joueur nom="Taurus" score="1024" niveau="0"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="512" niveau="0"/>
+		<joueur nom="Taurus" score="512" niveau="0"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="256" niveau="0"/>
+		<joueur nom="Taurus" score="256" niveau="0"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="128" niveau="0"/>
+		<joueur nom="Taurus" score="128" niveau="0"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="64" niveau="0"/>
+		<joueur nom="Taurus" score="64" niveau="0"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="32" niveau="0"/>
+		<joueur nom="Taurus" score="32" niveau="0"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="16" niveau="0"/>
+		<joueur nom="Taurus" score="16" niveau="0"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="8" niveau="0"/>
+		<joueur nom="Taurus" score="8" niveau="0"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="3490" niveau="4"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="3095" niveau="3"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="26335" niveau="10"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="17835" niveau="9"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="3590" niveau="4"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="4105" niveau="4"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="30" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="1520" niveau="2"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="350" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="220" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="20" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="50" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="10" niveau="1"/>
+		<joueur nom="Taurus" score="70" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="110" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="10" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="40" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="220" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="80" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="30" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="170" niveau="1"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="28560" niveau="10"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="745" niveau="2"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="18825" niveau="9"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="20530" niveau="9"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="1770" niveau="3"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="3930" niveau="4"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="9755" niveau="6"/>
+	</score>
+	<score>
+		<joueur nom="Groove" score="16180" niveau="9"/>
+	</score>
+</scores>

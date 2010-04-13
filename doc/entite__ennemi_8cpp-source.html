@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): entite_ennemi.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>entite_ennemi.cpp</h1><a href="entite__ennemi_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="entite__ennemi_8h.html">entite_ennemi.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="entite__arme_8h.html">entite_arme.h</a>"</span>
+00012 <span class="preprocessor">#include "<a class="code" href="ctrl__fenetre_8h.html">ctrl_fenetre.h</a>"</span>
+00013 <span class="preprocessor">#include "<a class="code" href="ctrl__son_8h.html">ctrl_son.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="ctrl__jeu_8h.html">ctrl_jeu.h</a>"</span>
+00015 <span class="preprocessor">#include "<a class="code" href="entite__ennemi_8h.html">entite_ennemi.h</a>"</span>
+00016 <span class="preprocessor">#include "<a class="code" href="fx__explosion_8h.html">fx_explosion.h</a>"</span>
+00017 
+00018 CEntiteEnnemi::CEntiteEnnemi ()
+00019 {
+00020         <a class="code" href="classCEntite.html#p7">m_uiPoint</a> = 10;
+00021         <a class="code" href="classCEntite.html#p6">m_iBouclier</a> = 1;
+00022         m_TireTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00023 }
+00024 
+00025 CEntiteEnnemi::~CEntiteEnnemi ()
+00026 {
+00027         <span class="comment">// Si l'ennemi est dans l'écran de jeu alors on emet un son d'explosion et on créé un effet d'explosion</span>
+00028         <span class="keywordflow">if</span> (<a class="code" href="classCEntite.html#b0">EstDansEcran</a> (GetPosition (), m_pTypeEnnemi-&gt;<a class="code" href="classCType.html#a5">GetTaille</a> ()))
+00029         {
+00030                 <span class="comment">// Emet le son de l'explosion de l'entité</span>
+00031                 <a class="code" href="classCSoundManager.html#e0">CSoundManager::Instance</a> ()-&gt;<a class="code" href="classCSoundManager.html#a0">Jouer</a> (m_pTypeEnnemi-&gt;<a class="code" href="classCType.html#a6">GetSon</a> (), <a class="code" href="ctrl__son_8h.html#a8a2">CANAL_ENNEMI</a>);
+00032                 <span class="comment">// Créé une explosion</span>
+00033                 <a class="code" href="classCExplosion.html#e0">CExplosion::Create</a> (0, 32, GetPosition (), 96, 1.0f, <a class="code" href="util_8h.html#a2">CCouleur</a> (1.0f, 0.5f, 0.2f));
+00034         }
+00035 }
+00036 
+00037 <span class="comment">// Création d'une instance d'entité ennemi</span>
+<a name="l00038"></a><a class="code" href="classCEntiteEnnemi.html#e0">00038</a> <a class="code" href="classCEntiteEnnemi.html">CEntiteEnnemi</a>* <a class="code" href="classCEntiteEnnemi.html#e0">CEntiteEnnemi::Create</a> (<span class="keyword">const</span> <a class="code" href="classCTypeEnnemi.html">CTypeEnnemi</a>* pTypeEnnemi, <span class="keyword">const</span> <a class="code" href="util_8h.html#a3">CVecteur</a> &amp; Position)
+00039 {
+00040         <span class="comment">// Demande au gestionnaire d'entités de créer une instance d'ennemi puis on récupère une pointeur sur elle</span>
+00041         <a class="code" href="classCEntiteEnnemi.html">CEntiteEnnemi</a> *pEntite = <a class="code" href="classCEntityManager.html#e0">CEntityManager::Instance</a> ()-&gt;<a class="code" href="classCEntityManager.html#a2">CreateEnnemi</a> ();
+00042         <span class="keywordflow">if</span> (pEntite == 0)
+00043                 <span class="keywordflow">return</span> 0;
+00044 
+00045         <a class="code" href="util_8h.html#a3">CVecteur</a> Vecteur = <a class="code" href="util_8h.html#a3">CVecteur</a> (
+00046                 <a class="code" href="util_8cpp.html#a0">RandFloat</a> (pTypeEnnemi-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::X) * 0.75f, pTypeEnnemi-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::X) * 1.25f), 
+00047                 <a class="code" href="util_8h.html#a4">RandFloat</a> (pTypeEnnemi-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::Y) * 0.75f, pTypeEnnemi-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::Y) * 1.25f));
+00048         pEntite-&gt;<a class="code" href="classCEntiteEnnemi.html#r0">m_pTypeEnnemi</a> = pTypeEnnemi;
+00049         pEntite-&gt;<a class="code" href="classCEntite.html#p6">m_iBouclier</a> = pTypeEnnemi-&gt;<a class="code" href="classCType.html#a3">GetBouclier</a> ();
+00050         pEntite-&gt;<a class="code" href="classCEntite.html#p1">m_PositionI</a> = pEntite-&gt;<a class="code" href="classCEntite.html#p2">m_PositionF</a> = Position;
+00051         pEntite-&gt;<a class="code" href="classCEntite.html#p3">m_VitesseI</a> = pEntite-&gt;<a class="code" href="classCEntite.html#p4">m_VitesseF</a> = Vecteur;
+00052         pEntite-&gt;<a class="code" href="classCEntite.html#p5">m_Acceleration</a> = pTypeEnnemi-&gt;<a class="code" href="classCType.html#a2">GetAcceleration</a> ();
+00053 
+00054         <span class="keywordflow">return</span> pEntite;
+00055 }
+00056 
+<a name="l00057"></a><a class="code" href="classCEntiteEnnemi.html#a5">00057</a> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classCEntiteEnnemi.html#a5">CEntiteEnnemi::GetPoint</a> ()<span class="keyword"> const</span>
+00058 <span class="keyword"></span>{
+00059         <span class="keywordflow">return</span> m_pTypeEnnemi-&gt;<a class="code" href="classCTypeEnnemi.html#a4">GetPoint</a> ();
+00060 }
+00061 
+<a name="l00062"></a><a class="code" href="classCEntiteEnnemi.html#a0">00062</a> <span class="keywordtype">int</span> <a class="code" href="classCEntiteEnnemi.html#a0">CEntiteEnnemi::GetDommage</a> ()<span class="keyword"> const</span>
+00063 <span class="keyword"></span>{
+00064         <span class="keywordflow">return</span> m_pTypeEnnemi-&gt;<a class="code" href="classCTypeEnnemi.html#a3">GetDommage</a> ();
+00065 }
+00066 
+<a name="l00067"></a><a class="code" href="classCEntiteEnnemi.html#a1">00067</a> <a class="code" href="classCTexture.html">CTexture</a>* <a class="code" href="classCEntiteEnnemi.html#a1">CEntiteEnnemi::GetTexture</a> ()<span class="keyword"> const</span>
+00068 <span class="keyword"></span>{
+00069         <span class="keywordflow">return</span> m_pTypeEnnemi-&gt;<a class="code" href="classCType.html#a0">GetTexture</a> ();
+00070 }
+00071 
+<a name="l00072"></a><a class="code" href="classCEntiteEnnemi.html#a3">00072</a> <span class="keywordtype">float</span> <a class="code" href="classCEntiteEnnemi.html#a3">CEntiteEnnemi::GetTaille</a> ()<span class="keyword"> const</span>
+00073 <span class="keyword"></span>{
+00074         <span class="keywordflow">return</span> m_pTypeEnnemi-&gt;<a class="code" href="classCType.html#a5">GetTaille</a> ();
+00075 }
+00076 
+<a name="l00077"></a><a class="code" href="classCEntiteEnnemi.html#a4">00077</a> <span class="keywordtype">void</span> <a class="code" href="classCEntiteEnnemi.html#a4">CEntiteEnnemi::Action</a> ()
+00078 {
+00079         <span class="comment">// 01/05/2004 - Si l'ennemi n'a pas d'armes, il ne tire pas.</span>
+00080         <span class="keywordflow">if</span> (!m_pTypeEnnemi-&gt;<a class="code" href="classCTypeEnnemi.html#a2">GetTypeArme</a> ())
+00081                 <span class="keywordflow">return</span>;
+00082 
+00083         <span class="keywordflow">if</span> (!<a class="code" href="classCEntite.html#b0">EstDansEcran</a> (m_PositionF, 0))
+00084                 <span class="keywordflow">return</span>;
+00085 
+00086         <span class="keywordflow">if</span> (m_TireTimer.<a class="code" href="classCTimer.html#a2">GetTime</a> () &gt; m_pTypeEnnemi-&gt;<a class="code" href="classCTypeEnnemi.html#a2">GetTypeArme</a> ()-&gt;<a class="code" href="classCTypeArme.html#a5">GetCadence</a> ())
+00087         {
+00088                 m_TireTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00089                 <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; m_pTypeEnnemi-&gt;<a class="code" href="classCTypeEnnemi.html#a2">GetTypeArme</a> ()-&gt;<a class="code" href="classCTypeArme.html#a3">GetAncrageNombre</a> (); i++)
+00090                         <a class="code" href="classCEntiteArme.html#e0">CEntiteArme::Create</a> (m_pTypeEnnemi-&gt;<a class="code" href="classCTypeEnnemi.html#a2">GetTypeArme</a> (), <span class="keyword">this</span>, m_pTypeEnnemi-&gt;<a class="code" href="classCTypeEnnemi.html#a2">GetTypeArme</a> ()-&gt;<a class="code" href="classCTypeArme.html#a4">GetAncrageParIndex</a> (i));
+00091         }
+00092 }
+00093 
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

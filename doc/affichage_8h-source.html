@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): affichage.h Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>affichage.h</h1><a href="affichage_8h.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#ifndef AFFICHAGE_H</span>
+00011 <span class="preprocessor"></span><span class="preprocessor">#define AFFICHAGE_H</span>
+00012 <span class="preprocessor"></span>
+00013 <span class="preprocessor">#include "<a class="code" href="affichage__font_8h.html">affichage_font.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="texture_8h.html">texture.h</a>"</span>
+00015 <span class="preprocessor">#include "<a class="code" href="util_8h.html">util.h</a>"</span>
+00016 <span class="preprocessor">#include &lt;string&gt;</span>
+00017 
+<a name="l00018"></a><a class="code" href="affichage_8h.html#a0">00018</a> <span class="preprocessor">#define FICHIER_TEXTURE_FONT "./data/image/font.tga"</span>
+00019 <span class="preprocessor"></span>
+<a name="l00020"></a><a class="code" href="affichage_8h.html#a1">00020</a> <span class="preprocessor">#define MENU_TEXTE_REPRENDRE    "Reprendre la partie"</span>
+<a name="l00021"></a><a class="code" href="affichage_8h.html#a2">00021</a> <span class="preprocessor"></span><span class="preprocessor">#define MENU_TEXTE_COMMENCER    "Commencer une partie"</span>
+<a name="l00022"></a><a class="code" href="affichage_8h.html#a3">00022</a> <span class="preprocessor"></span><span class="preprocessor">#define MENU_TEXTE_SCORES               "Voir les scores"</span>
+<a name="l00023"></a><a class="code" href="affichage_8h.html#a4">00023</a> <span class="preprocessor"></span><span class="preprocessor">#define MENU_TEXTE_QUITTER              "Quitter"</span>
+00024 <span class="preprocessor"></span>
+<a name="l00026"></a><a class="code" href="classCAffichage.html">00026</a> <span class="keyword">class </span><a class="code" href="classCAffichage.html">CAffichage</a>
+00027 {
+00028 <span class="keyword">private</span>:
+00029         <span class="keyword">static</span> <a class="code" href="classCAffichage.html">CAffichage</a> *m_pInstance;
+00030 
+00031         <a class="code" href="classCFont.html">CFont</a> m_Font;
+00032         <span class="keywordtype">int</span> m_iFpsNiveau;
+00033         <span class="keywordtype">int</span> m_iFps;
+00034         <span class="keywordtype">int</span> m_iFpsCompte;
+00035         <a class="code" href="classCTimer.html">CTimer</a> m_FpsTimer;
+00036         <a class="code" href="classCTimer.html">CTimer</a> m_JeuTimer;
+00037 
+00038         <span class="keywordtype">bool</span> m_bPointSprite;
+00039 
+00041         <span class="keywordtype">void</span> Fps ();
+00042 
+00044         <span class="keywordtype">void</span> EntiteQuad () <span class="keyword">const</span>;
+00046         <span class="keywordtype">void</span> EntitePoint () <span class="keyword">const</span>;
+00048         <span class="keywordtype">void</span> ParticuleQuad () <span class="keyword">const</span>;
+00050         <span class="keywordtype">void</span> ParticulePoint () <span class="keyword">const</span>;
+00051 
+00052         <a class="code" href="classCAffichage.html">CAffichage</a> ();
+00053         ~<a class="code" href="classCAffichage.html">CAffichage</a> () {}
+00054 
+00055 <span class="keyword">public</span>:
+00057         <span class="keyword">static</span> <a class="code" href="classCAffichage.html">CAffichage</a>* <a class="code" href="classCAffichage.html#e0">Instance</a> ();
+00059         <span class="keyword">static</span> <span class="keywordtype">void</span>     <a class="code" href="classCAffichage.html#e1">Kill</a> ();        
+00060 
+00062         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a0">Entite</a> () <span class="keyword">const</span>;
+00064         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a1">Particule</a> () <span class="keyword">const</span>;
+00065 
+00067         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a2">HUDJeu</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNiveau, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur2, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur2);
+00069         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a2">HUDJeu</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNiveau, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1);
+00071         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a4">HUDVictoire</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur2, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur2);
+00073         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a4">HUDVictoire</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1);
+00075         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a6">HUDDefaite</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur2, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur2);
+00077         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a6">HUDDefaite</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1);
+00078 
+00080         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a8">MenuPrincipal</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiCurseur, <span class="keywordtype">bool</span> bJeuCree);
+00082         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a9">MenuChargement</a> ();
+00084         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a10">MenuCommencer</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiCurseur, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_uiNombreJoueur, <span class="keyword">const</span> std::string &amp; szNom1, <span class="keyword">const</span> std::string &amp; szNom2);
+00086         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a11">MenuChargementErreur</a> ();
+00088         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a12">MenuScore</a> ();
+00090         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a13">MenuImageFond</a> (<a class="code" href="classCTexture.html">CTexture</a> *pTexture) <span class="keyword">const</span>;
+00091 
+00093         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a14">Debut</a> () <span class="keyword">const</span>;
+00095         <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a15">Fin</a> () <span class="keyword">const</span>;
+00096 <span class="comment">/*</span>
+00098 <span class="comment">        unsigned int ChargerImage24Bits (const char* szFilename);</span>
+00100 <span class="comment">        unsigned int ChargerImage32Bits (const char* szFilename);</span>
+00102 <span class="comment">        void DechargerImage (unsigned int uiTexture);</span>
+00103 <span class="comment">*/</span>
+00104 };
+00105 
+00106 <span class="preprocessor">#endif //AFFICHAGE_H</span>
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

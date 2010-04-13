@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): fx.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>fx.cpp</h1><a href="fx_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="ctrl__fenetre_8h.html">ctrl_fenetre.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="fx_8h.html">fx.h</a>"</span>
+00012 <span class="preprocessor">#include &lt;stdio.h&gt;</span>
+00013 
+<a name="l00014"></a><a class="code" href="classCParticleSystem.html#b2">00014</a> <a class="code" href="classCParticleSystem.html#b2">CParticleSystem::CParticleSystem</a> ()
+00015 {
+00016         <a class="code" href="classCParticleSystem.html#p4">m_bSupprime</a> = <span class="keyword">false</span>;
+00017 
+00018         <span class="comment">// Initialise tous les pointeurs sur particules à 0 pour pouvoir vérifier qu'ils sont utilisés ou non.</span>
+00019         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="fx_8h.html#a0">PARTICULE_NOMBRE</a>; i++)
+00020                 <a class="code" href="classCParticleSystem.html#p1">m_pParticule</a>[i] = 0;
+00021 
+00022         <a class="code" href="classCParticleSystem.html#p5">m_Timer</a>.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00023 }
+00024 
+<a name="l00025"></a><a class="code" href="classCParticleSystem.html#b3">00025</a> <a class="code" href="classCParticleSystem.html#b3">CParticleSystem::~CParticleSystem</a> ()
+00026 {
+00027         <span class="comment">// Destruction des particules.</span>
+00028         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="fx_8h.html#a0">PARTICULE_NOMBRE</a>; i++)
+00029         {
+00030                 <span class="keywordflow">if</span> (<a class="code" href="classCParticleSystem.html#p1">m_pParticule</a>[i])
+00031                 {
+00032                         <span class="keyword">delete</span> <a class="code" href="classCParticleSystem.html#p1">m_pParticule</a>[i];
+00033                         <a class="code" href="classCParticleSystem.html#p1">m_pParticule</a>[i] = 0;
+00034                 }
+00035         }
+00036 }
+00037 
+00038 <span class="comment">// Offre un accès aux particules. On prend soin de vérifier que l'index indentifie bien une entrée de la table</span>
+<a name="l00039"></a><a class="code" href="classCParticleSystem.html#a0">00039</a> <span class="keyword">const</span> <a class="code" href="classCParticule.html">CParticule</a>* <span class="keyword">const</span> <a class="code" href="classCParticleSystem.html#a0">CParticleSystem::GetParticuleParIndex</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiIndex)<span class="keyword"> const</span>
+00040 <span class="keyword"></span>{
+00041         <span class="keywordflow">if</span> (uiIndex &lt; <a class="code" href="fx_8h.html#a0">PARTICULE_NOMBRE</a>)
+00042                 <span class="keywordflow">return</span> <a class="code" href="classCParticleSystem.html#p1">m_pParticule</a>[uiIndex];
+00043         <span class="keywordflow">return</span> 0;
+00044 }
+00045 
+00046 <span class="comment">// Recherche d'un index libre dans la table des particules</span>
+<a name="l00047"></a><a class="code" href="classCParticleSystem.html#b0">00047</a> <span class="keywordtype">int</span> <a class="code" href="classCParticleSystem.html#b0">CParticleSystem::GetIndexLibre</a> ()<span class="keyword"> const</span>
+00048 <span class="keyword"></span>{
+00049         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="fx_8h.html#a0">PARTICULE_NOMBRE</a>; i++)
+00050                 <span class="keywordflow">if</span> (!<a class="code" href="classCParticleSystem.html#p1">m_pParticule</a>[i])
+00051                         <span class="keywordflow">return</span> i;
+00052         <span class="keywordflow">return</span> -1;
+00053 }
+00054 
+00055 <span class="comment">// Détermine si un objet rond centrée sur Position est dans l'écran</span>
+<a name="l00056"></a><a class="code" href="classCParticleSystem.html#b1">00056</a> <span class="keywordtype">bool</span> <a class="code" href="classCParticleSystem.html#b1">CParticleSystem::EstDansEcran</a> (<a class="code" href="util_8h.html#a3">CVecteur</a> Position, <span class="keywordtype">float</span> fRayon)<span class="keyword"> const</span>
+00057 <span class="keyword"></span>{
+00058         <span class="keywordflow">if</span> (Position (gtl::X) &lt; (0 - fRayon))
+00059                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+00060         <span class="keywordflow">if</span> (Position (gtl::X) &gt; (<a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> + fRayon))
+00061                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+00062         <span class="keywordflow">if</span> (Position (gtl::Y) &lt; (0 - fRayon))
+00063                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+00064         <span class="keywordflow">if</span> (Position (gtl::Y) &gt; (<a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> + fRayon))
+00065                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+00066         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+00067 }
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

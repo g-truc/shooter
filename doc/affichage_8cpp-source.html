@@ -1,0 +1,642 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): affichage.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>affichage.cpp</h1><a href="affichage_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="affichage_8h.html">affichage.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="ctrl__entite_8h.html">ctrl_entite.h</a>"</span>
+00012 <span class="preprocessor">#include "<a class="code" href="ctrl__particule_8h.html">ctrl_particule.h</a>"</span>
+00013 <span class="preprocessor">#include "<a class="code" href="ctrl__fenetre_8h.html">ctrl_fenetre.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="entite__arme_8h.html">entite_arme.h</a>"</span>
+00015 <span class="preprocessor">#include "<a class="code" href="entite__bonus_8h.html">entite_bonus.h</a>"</span>
+00016 <span class="preprocessor">#include "<a class="code" href="entite__ennemi_8h.html">entite_ennemi.h</a>"</span>
+00017 <span class="preprocessor">#include "<a class="code" href="entite__joueur_8h.html">entite_joueur.h</a>"</span>
+00018 <span class="preprocessor">#include "<a class="code" href="xml__score_8h.html">xml_score.h</a>"</span>
+00019 <span class="preprocessor">#include "<a class="code" href="window__sdl_8h.html">window_sdl.h</a>"</span>
+00020 <span class="preprocessor">#include &lt;sstream&gt;</span>
+00021 
+00022 <a class="code" href="classCAffichage.html">CAffichage</a>* CAffichage::m_pInstance = 0;
+00023 
+00024 CAffichage::CAffichage ()
+00025 {
+00026         m_pInstance = 0;
+00027         m_iFpsCompte = 0;
+00028         m_iFpsNiveau = 0;
+00029         m_iFps = 0;
+00030         m_FpsTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00031 
+00032         <span class="comment">// On récupère la liste des extensions supportés par les drivers de la carte graphique.</span>
+00033     <span class="keywordtype">char</span>* szExtList = (<span class="keywordtype">char</span>*) glGetString (GL_EXTENSIONS);
+00034 
+00035         <span class="comment">// Pour ce jeu, nous utilisons l'extension GL_ARB_point_sprite.</span>
+00036         <span class="comment">// Pour nous assurer qu'elle est supporté nous vérifions que la chaîne "GL_ARB_point_sprite"</span>
+00037         <span class="comment">// est présente dans la chaîne récupérée avec glGetString (GL_EXTENSIONS)</span>
+00038     <span class="keywordflow">if</span> (!strstr (szExtList, <span class="stringliteral">"GL_ARB_point_sprite"</span>))
+00039         {
+00040                 <span class="comment">// L'extension GL_ARB_point_sprite n'est pas supporté </span>
+00041                 m_bPointSprite = <span class="keyword">false</span>;
+00042                 fprintf (stderr, <span class="stringliteral">"L'extension OpenGL 'GL_ARB_point_sprite', n'est pas supporté ...\n"</span>);
+00043                 fprintf (stderr, <span class="stringliteral">"Veuillez installer les derniers pilotes de votre carte graphique.\n"</span>);
+00044         }
+00045         <span class="keywordflow">else</span>
+00046         {
+00047                 <span class="comment">// L'extension GL_ARB_point_sprite est supporté </span>
+00048                 m_bPointSprite = <span class="keyword">true</span>;
+00049         }
+00050 
+00051         <span class="comment">// Couleur utiliser quand le tampon chromatique est vidé</span>
+00052         glClearColor (0.0f, 0.0f, 0.1f, 0.0f);
+00053         glShadeModel (GL_FLAT);
+00054 
+00055         <a class="code" href="classCAffichage.html#a14">Debut</a> ();
+00056         <a class="code" href="classCAffichage.html#a15">Fin</a> ();
+00057 
+00058         <span class="comment">// Charge la texture utilisé pour l'affichage des caractères</span>
+00059         m_Font.<a class="code" href="classCFont.html#a3">ChargerTexture</a> (FICHIER_TEXTURE_FONT);
+00060 }
+00061 
+00062 <span class="comment">// Creation ou récupération de l'instance de l'affichage.</span>
+00063 <span class="comment">// Si l'instance n'existe pas (m_pRenderingManager == 0), on la créé.</span>
+<a name="l00064"></a><a class="code" href="classCAffichage.html#e0">00064</a> <a class="code" href="classCAffichage.html">CAffichage</a>* <a class="code" href="classCAffichage.html#e0">CAffichage::Instance</a> ()
+00065 {
+00066         <span class="keywordflow">if</span> (m_pInstance == 0)
+00067                 m_pInstance = <span class="keyword">new</span> <a class="code" href="classCAffichage.html">CAffichage</a>;
+00068         <span class="keywordflow">return</span> m_pInstance;
+00069 }
+00070 
+<a name="l00071"></a><a class="code" href="classCAffichage.html#e1">00071</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#e1">CAffichage::Kill</a> ()
+00072 {
+00073         <span class="comment">// On detruit le rendering manager</span>
+00074         <span class="keywordflow">if</span> (m_pInstance != 0)
+00075         {
+00076                 <span class="keyword">delete</span> m_pInstance;
+00077                 m_pInstance = 0;
+00078         }
+00079 }
+00080 
+00081 <span class="comment">/*</span>
+00082 <span class="comment">Entités</span>
+00083 <span class="comment">*/</span>
+00084 
+00085 <span class="comment">// Suivant le support ou non de l'extension GL_ARB_point_sprite, on choisir le mode de rendu</span>
+<a name="l00086"></a><a class="code" href="classCAffichage.html#a0">00086</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a0">CAffichage::Entite</a> ()<span class="keyword"> const</span>
+00087 <span class="keyword"></span>{
+00088         <span class="keywordflow">if</span> (m_bPointSprite)
+00089                 EntitePoint  ();
+00090         <span class="keywordflow">else</span>
+00091                 EntiteQuad  ();
+00092 }
+00093 
+00094 <span class="comment">// Les entités sont affichés sous forme de poins si l'extenion GL_ARB_point_sprtie est supporté</span>
+00095 <span class="keywordtype">void</span> CAffichage::EntitePoint ()<span class="keyword"> const</span>
+00096 <span class="keyword"></span>{
+00097         <span class="keyword">const</span> <a class="code" href="classCEntityManager.html">CEntityManager</a> *pControleurEntite = <a class="code" href="classCEntityManager.html#e0">CEntityManager::Instance</a> ();
+00098 
+00099         <span class="comment">// Activation des textures</span>
+00100         glEnable (GL_TEXTURE_2D);
+00101         <span class="comment">// Activation du remplacement des points par des textures</span>
+00102         glEnable (GL_POINT_SPRITE_ARB);
+00103         <span class="comment">// Activation de la tranparence</span>
+00104         glEnable (GL_BLEND);
+00105         <span class="comment">// Activation du masquage des faces arrières</span>
+00106         glEnable (GL_CULL_FACE);
+00107 
+00108         <span class="comment">// On centre la texture sur le point</span>
+00109         glTexEnvf (GL_POINT_SPRITE_ARB, GL_COORD_REPLACE_ARB, GL_TRUE);
+00110         <span class="comment">// Défini le mode de transparence</span>
+00111         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+00112 
+00113         <span class="comment">// On parcours toutes les entités pour tout les affichés mais par type.</span>
+00114         <span class="comment">// Comme tous les dessins sont affichés les uns au dessus des autres,</span>
+00115         <span class="comment">// alors au défini l'ordre d'affichage suivante le type des entités</span>
+00116         <span class="comment">// Pour modifier l'ordre, il suffit de modifier l'enumération EEntiteType</span>
+00117         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> EntiteType = <a class="code" href="entite_8h.html#a7a1">ENTITE_MIN</a>; EntiteType &lt; <a class="code" href="entite_8h.html#a7a6">ENTITE_MAX</a>; EntiteType++)
+00118         {
+00119                 <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="ctrl__entite_8h.html#a0">CTRL_ENTITE_NOMBRE</a>; i++)
+00120                 {
+00121                         <span class="comment">// On récupère l'entité d'index i dans la table des entités</span>
+00122                         <span class="keyword">const</span> <a class="code" href="classCEntite.html">CEntite</a>* pEntite = pControleurEntite-&gt;<a class="code" href="classCEntityManager.html#a4">GetEntiteParIndex</a> (i);
+00123                         <span class="keywordflow">if</span> (pEntite)
+00124                         {
+00125                                 <span class="keywordflow">if</span> (pEntite-&gt;<a class="code" href="classCEntite.html#a3">GetType</a> () == EntiteType)
+00126                                 {
+00127                                         <span class="comment">// On indique que l'on utilise la texture de l'entité</span>
+00128                                         <span class="comment">//glBindTexture (GL_TEXTURE_2D, pEntite-&gt;GetTexture ());</span>
+00129                                         pEntite-&gt;<a class="code" href="classCEntite.html#a0">GetTexture</a> ()-&gt;<a class="code" href="classCTexture.html#a0">Bind</a> ();
+00130                                         <span class="comment">// On indique la taille de l'entité</span>
+00131                                         glPointSize (pEntite-&gt;<a class="code" href="classCEntite.html#a4">GetTaille</a> ());
+00132                                         <span class="comment">// On dessin l'entité sous forme de points</span>
+00133                                         glBegin (GL_POINTS);
+00134                                                 glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
+00135                                                 glVertex2fv (pEntite-&gt;<a class="code" href="classCEntite.html#a7">GetPosition</a> ());
+00136                                         glEnd ();
+00137 
+00138                                         <span class="comment">// Dessin le bouclier</span>
+00139                                         <span class="keywordflow">if</span> (pEntite-&gt;<a class="code" href="classCEntite.html#a3">GetType</a> () == <a class="code" href="entite_8h.html#a7a5">ENTITE_JOUEUR</a>)
+00140                                         {
+00141                                                 <span class="keyword">const</span> <a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a>* pJoueur = static_cast&lt;const CEntiteJoueur*&gt; (pEntite);
+00142                                                 glBlendFunc (GL_SRC_ALPHA, GL_ONE);
+00143                                                 <span class="comment">//glBindTexture (GL_TEXTURE_2D, pJoueur-&gt;GetTextureBouclier ());</span>
+00144                                                 pJoueur-&gt;<a class="code" href="classCEntiteJoueur.html#a9">GetTextureBouclier</a> ()-&gt;<a class="code" href="classCTexture.html#a0">Bind</a> ();
+00145                                                 glPointSize (pEntite-&gt;<a class="code" href="classCEntite.html#a4">GetTaille</a> () * <a class="code" href="entite__joueur_8h.html#a0">BOUCLIER_TAILLE</a>);
+00146                                                 glBegin (GL_POINTS);
+00147                                                         glColor4f (pJoueur-&gt;<a class="code" href="classCEntiteJoueur.html#a8">GetCouleur</a> () (gtl::R), pJoueur-&gt;<a class="code" href="classCEntiteJoueur.html#a8">GetCouleur</a> () (gtl::G), pJoueur-&gt;<a class="code" href="classCEntiteJoueur.html#a8">GetCouleur</a> () (gtl::B), pJoueur-&gt;<a class="code" href="classCEntite.html#a9">GetBouclier</a> () / 100.f);<span class="comment">//200.f + 0.5f);</span>
+00148                                                         glVertex2fv (pJoueur-&gt;<a class="code" href="classCEntite.html#a7">GetPosition</a> ());
+00149                                                 glEnd ();
+00150                                                 glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+00151                                         }
+00152                                 }
+00153                         }
+00154                 }
+00155         }
+00156 
+00157         glDisable (GL_CULL_FACE);
+00158         glDisable (GL_BLEND);
+00159         glDisable (GL_POINT_SPRITE_ARB);
+00160         glDisable (GL_TEXTURE_2D);
+00161 }
+00162 
+00163 <span class="comment">// Les entités sont affichés sous forme de quadrangles si l'extenion GL_ARB_point_sprtie n'est pas supporté</span>
+00164 <span class="keywordtype">void</span> CAffichage::EntiteQuad ()<span class="keyword"> const</span>
+00165 <span class="keyword"></span>{
+00166         <span class="keyword">const</span> <a class="code" href="classCEntityManager.html">CEntityManager</a> *pControleurEntite = <a class="code" href="classCEntityManager.html#e0">CEntityManager::Instance</a> ();
+00167 
+00168         <span class="comment">// Activation des textures</span>
+00169         glEnable (GL_TEXTURE_2D);
+00170         <span class="comment">// Activation de la tranparence</span>
+00171         glEnable (GL_BLEND);
+00172         <span class="comment">// Activation du masquage des faces arrières</span>
+00173         glEnable (GL_CULL_FACE);
+00174 
+00175         <span class="comment">// Défini le mode de transparence</span>
+00176         glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+00177 
+00178         <span class="comment">// On parcours toutes les entités pour tout les affichés mais par type.</span>
+00179         <span class="comment">// Comme tous les dessins sont affichés les uns au dessus des autres,</span>
+00180         <span class="comment">// alors au défini l'ordre d'affichage suivante le type des entités</span>
+00181         <span class="comment">// Pour modifier l'ordre, il suffit de modifier l'enumération EEntiteType</span>
+00182         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> EntiteType = <a class="code" href="entite_8h.html#a7a1">ENTITE_MIN</a>; EntiteType &lt; <a class="code" href="entite_8h.html#a7a6">ENTITE_MAX</a>; EntiteType++)
+00183         {
+00184                 <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="ctrl__entite_8h.html#a0">CTRL_ENTITE_NOMBRE</a>; i++)
+00185                 {
+00186                         <span class="comment">// On récupère l'entité d'index i dans la table des entités</span>
+00187                         <span class="keyword">const</span> <a class="code" href="classCEntite.html">CEntite</a>* pEntite = pControleurEntite-&gt;<a class="code" href="classCEntityManager.html#a4">GetEntiteParIndex</a> (i);
+00188                         <span class="keywordflow">if</span> (pEntite)
+00189                         {
+00190                                 <span class="keywordflow">if</span> (pEntite-&gt;<a class="code" href="classCEntite.html#a3">GetType</a> () == EntiteType)
+00191                                 {
+00192                                         <a class="code" href="util_8h.html#a3">CVecteur</a> Position = pEntite-&gt;<a class="code" href="classCEntite.html#a7">GetPosition</a> ();
+00193                                         <span class="keywordtype">float</span> fTaille = pEntite-&gt;<a class="code" href="classCEntite.html#a4">GetTaille</a> () / 2;
+00194                                         <span class="comment">// On indique que l'on utilise la texture de l'entité</span>
+00195                                         <span class="comment">//glBindTexture (GL_TEXTURE_2D, pEntite-&gt;GetTexture ());</span>
+00196                                         pEntite-&gt;<a class="code" href="classCEntite.html#a0">GetTexture</a> ()-&gt;<a class="code" href="classCTexture.html#a0">Bind</a> ();
+00197                                         <span class="comment">// On dessin l'entité sous forme de quadrangle</span>
+00198                                         glBegin (GL_QUADS);
+00199                                                 glColor4f (1.0f, 1.0f, 1.0f, 1.0f);
+00200                                                 glTexCoord2f (1, 1); glVertex2fv (Position + <a class="code" href="util_8h.html#a3">CVecteur</a> (-fTaille, -fTaille));
+00201                                                 glTexCoord2f (0, 1); glVertex2fv (Position + <a class="code" href="util_8h.html#a3">CVecteur</a> (fTaille, -fTaille));
+00202                                                 glTexCoord2f (0, 0); glVertex2fv (Position + <a class="code" href="util_8h.html#a3">CVecteur</a> (fTaille, fTaille));
+00203                                                 glTexCoord2f (1, 0); glVertex2fv (Position + <a class="code" href="util_8h.html#a3">CVecteur</a> (-fTaille, fTaille));
+00204                                         glEnd ();
+00205 
+00206                                         fTaille *= <a class="code" href="entite__joueur_8h.html#a0">BOUCLIER_TAILLE</a>;
+00207                                         <span class="keywordflow">if</span> (pEntite-&gt;<a class="code" href="classCEntite.html#a3">GetType</a> () == <a class="code" href="entite_8h.html#a7a5">ENTITE_JOUEUR</a>)
+00208                                         {
+00209                                                 <span class="keyword">const</span> <a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a>* pJoueur = static_cast&lt;const CEntiteJoueur*&gt; (pEntite);
+00210                                                 glBlendFunc (GL_SRC_ALPHA, GL_ONE);
+00211                                                 <span class="comment">//glBindTexture (GL_TEXTURE_2D, pJoueur-&gt;GetTextureBouclier ());</span>
+00212                                                 pJoueur-&gt;<a class="code" href="classCEntiteJoueur.html#a9">GetTextureBouclier</a> ()-&gt;<a class="code" href="classCTexture.html#a0">Bind</a> ();
+00213                                                 glBegin (GL_QUADS);
+00214                                                         glColor4f (pJoueur-&gt;<a class="code" href="classCEntiteJoueur.html#a8">GetCouleur</a> () (gtl::R), pJoueur-&gt;<a class="code" href="classCEntiteJoueur.html#a8">GetCouleur</a> () (gtl::G), pJoueur-&gt;<a class="code" href="classCEntiteJoueur.html#a8">GetCouleur</a> () (gtl::B), pJoueur-&gt;<a class="code" href="classCEntite.html#a9">GetBouclier</a> () / 100.f);<span class="comment">//200.f + 0.5f);</span>
+00215                                                         glTexCoord2f (1, 1); glVertex2fv (Position + <a class="code" href="util_8h.html#a3">CVecteur</a> (-fTaille, -fTaille));
+00216                                                         glTexCoord2f (0, 1); glVertex2fv (Position + <a class="code" href="util_8h.html#a3">CVecteur</a> (fTaille, -fTaille));
+00217                                                         glTexCoord2f (0, 0); glVertex2fv (Position + <a class="code" href="util_8h.html#a3">CVecteur</a> (fTaille, fTaille));
+00218                                                         glTexCoord2f (1, 0); glVertex2fv (Position + <a class="code" href="util_8h.html#a3">CVecteur</a> (-fTaille, fTaille));
+00219                                                 glEnd ();
+00220                                                 glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+00221                                         }
+00222                                 }
+00223                         }
+00224                 }
+00225         }
+00226 
+00227         glDisable (GL_CULL_FACE);
+00228         glDisable (GL_BLEND);
+00229         glDisable (GL_TEXTURE_2D);
+00230 }
+00231 
+00232 <span class="comment">/*</span>
+00233 <span class="comment">Particule</span>
+00234 <span class="comment">*/</span>
+00235 
+00236 <span class="comment">// Suivant le support ou non de l'extension GL_ARB_point_sprite, on choisir le mode de rendu</span>
+<a name="l00237"></a><a class="code" href="classCAffichage.html#a1">00237</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a1">CAffichage::Particule</a> ()<span class="keyword"> const</span>
+00238 <span class="keyword"></span>{
+00239         <span class="keywordflow">if</span> (m_bPointSprite)
+00240                 ParticulePoint  ();
+00241         <span class="keywordflow">else</span>
+00242                 ParticuleQuad  ();
+00243 }
+00244 
+00245 <span class="comment">// Les entités sont affichés sous forme de poins si l'extenion GL_ARB_point_sprtie est supporté</span>
+00246 <span class="keywordtype">void</span> CAffichage::ParticulePoint ()<span class="keyword"> const</span>
+00247 <span class="keyword"></span>{
+00248         <span class="keyword">const</span> <a class="code" href="classCParticleManager.html">CParticleManager</a> *pControleurParticule = <a class="code" href="classCParticleManager.html#e0">CParticleManager::Instance</a> ();
+00249 
+00250         <span class="comment">// Activation des textures</span>
+00251         glEnable (GL_TEXTURE_2D);
+00252         <span class="comment">// Activation du remplacement des points par des textures</span>
+00253         glEnable (GL_POINT_SPRITE_ARB);
+00254         <span class="comment">// Activation de la transparence</span>
+00255         glEnable (GL_BLEND);
+00256         <span class="comment">// Activation du masquage des faces arrières</span>
+00257         glEnable (GL_CULL_FACE);
+00258 
+00259         <span class="comment">// On centre la texture sur le point</span>
+00260         glTexEnvf (GL_POINT_SPRITE_ARB, GL_COORD_REPLACE_ARB, GL_TRUE);
+00261         <span class="comment">// Défini le mode de transparence, utilisation de la couche alpha</span>
+00262         glBlendFunc (GL_SRC_ALPHA, GL_ONE);
+00263 
+00264         <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="ctrl__particule_8h.html#a0">CTRL_GENERATEUR_PARTICULE_NOMBRE</a>; i++)
+00265         {
+00266                 <span class="keyword">const</span> <a class="code" href="classCParticleSystem.html">CParticleSystem</a> *pGenerateurParticule = pControleurParticule-&gt;<a class="code" href="classCParticleManager.html#a0">GetGenerateurParIndex</a> (i);
+00267                 <span class="keywordflow">if</span> (!pGenerateurParticule)
+00268                         <span class="keywordflow">continue</span>;
+00269 
+00270                 <span class="comment">// On sélectionne la texture du générateur de particules</span>
+00271                 pGenerateurParticule-&gt;<a class="code" href="classCParticleSystem.html#a4">GetTexture</a> ()-&gt;<a class="code" href="classCTexture.html#a0">Bind</a> ();
+00272                 <span class="comment">// On indique la taille des particules</span>
+00273                 glPointSize (pGenerateurParticule-&gt;<a class="code" href="classCParticleSystem.html#a6">GetTaille</a> ());
+00274                 <span class="comment">// On affiche les particules sous formes de points</span>
+00275                 glBegin (GL_POINTS);
+00276                 <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="fx_8h.html#a0">PARTICULE_NOMBRE</a>; j++)
+00277                 {
+00278                         <span class="keyword">const</span> <a class="code" href="classCParticule.html">CParticule</a> *pParticule = pGenerateurParticule-&gt;<a class="code" href="classCParticleSystem.html#a0">GetParticuleParIndex</a> (j);
+00279                         <span class="keywordflow">if</span> (!pParticule)
+00280                                 <span class="keywordflow">continue</span>;
+00281                         <a class="code" href="util_8h.html#a2">CCouleur</a> Couleur = pGenerateurParticule-&gt;<a class="code" href="classCParticleSystem.html#a5">GetCouleur</a> ();
+00282                         glColor4f (Couleur (gtl::R), Couleur (gtl::G), Couleur (gtl::B), pParticule-&gt;<a class="code" href="classCParticule.html#a3">GetTransparence</a> ());
+00283                         <a class="code" href="util_8h.html#a3">CVecteur</a> Position = pParticule-&gt;<a class="code" href="classCParticule.html#a2">GetPosition</a> ();
+00284                         glVertex2fv (Position);
+00285                 }
+00286                 glEnd ();
+00287         }
+00288 
+00289         glDisable (GL_CULL_FACE);
+00290         glDisable (GL_BLEND);
+00291         glDisable (GL_POINT_SPRITE_ARB);
+00292         glDisable (GL_TEXTURE_2D);
+00293 }
+00294 
+00295 <span class="comment">// Les particules sont affichés sous forme de quadrangles si l'extenion GL_ARB_point_sprtie n'est pas supporté</span>
+00296 <span class="keywordtype">void</span> CAffichage::ParticuleQuad ()<span class="keyword"> const</span>
+00297 <span class="keyword"></span>{
+00298         <span class="keyword">const</span> <a class="code" href="classCParticleManager.html">CParticleManager</a> *pControleurParticule = <a class="code" href="classCParticleManager.html#e0">CParticleManager::Instance</a> ();
+00299 
+00300         <span class="comment">// Activation des textures</span>
+00301         glEnable (GL_TEXTURE_2D);
+00302         <span class="comment">// Activation de la tranparence</span>
+00303         glEnable (GL_BLEND);
+00304         <span class="comment">// Activation du masquage des faces arrières</span>
+00305         glEnable (GL_CULL_FACE);
+00306 
+00307         <span class="comment">// Défini le mode de transparence, le canal alpha est utilisé pour définir la transparence.</span>
+00308         <span class="comment">// Si Alpha = 1 alors la couleur RGB est totalement opaque.</span>
+00309         <span class="comment">// Si Alpha = 0 alors la couleur de RGB est totalement transparente.</span>
+00310         <span class="comment">// Sinon la couleur RGB est plus ou moins opaque.</span>
+00311         glBlendFunc (GL_SRC_ALPHA, GL_ONE);
+00312 
+00313         <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="ctrl__particule_8h.html#a0">CTRL_GENERATEUR_PARTICULE_NOMBRE</a>; i++)
+00314         {
+00315                 <span class="keyword">const</span> <a class="code" href="classCParticleSystem.html">CParticleSystem</a> *pGenerateurParticule = pControleurParticule-&gt;<a class="code" href="classCParticleManager.html#a0">GetGenerateurParIndex</a> (i);
+00316                 <span class="keywordflow">if</span> (!pGenerateurParticule)
+00317                         <span class="keywordflow">continue</span>;
+00318 
+00319                 <span class="comment">// On sélectionne la texture du générateur de particules</span>
+00320                 pGenerateurParticule-&gt;<a class="code" href="classCParticleSystem.html#a4">GetTexture</a> ()-&gt;<a class="code" href="classCTexture.html#a0">Bind</a> ();
+00321                 <span class="keywordtype">float</span> fTaille = pGenerateurParticule-&gt;<a class="code" href="classCParticleSystem.html#a6">GetTaille</a> () / 2;
+00322                 <span class="comment">// On affiche les particules sous formes de quadrangles</span>
+00323                 glBegin (GL_QUADS);
+00324                 <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="fx_8h.html#a0">PARTICULE_NOMBRE</a>; j++)
+00325                 {
+00326                         <span class="keyword">const</span> <a class="code" href="classCParticule.html">CParticule</a> *pParticule = pGenerateurParticule-&gt;<a class="code" href="classCParticleSystem.html#a0">GetParticuleParIndex</a> (j);
+00327                         <span class="keywordflow">if</span> (!pParticule)
+00328                                 <span class="keywordflow">continue</span>;
+00329                         <a class="code" href="util_8h.html#a2">CCouleur</a> Couleur = pGenerateurParticule-&gt;<a class="code" href="classCParticleSystem.html#a5">GetCouleur</a> ();
+00330                         <a class="code" href="util_8h.html#a3">CVecteur</a> Position = pParticule-&gt;<a class="code" href="classCParticule.html#a2">GetPosition</a> ();
+00331                         <span class="comment">// On indique la couleur de la particule avec la valeur de alpha comme étant la transparence de la particule</span>
+00332                         glColor4f (Couleur (gtl::R), Couleur (gtl::G), Couleur (gtl::B), pParticule-&gt;<a class="code" href="classCParticule.html#a3">GetTransparence</a> ());
+00333                         glTexCoord2f (0, 0); glVertex2fv (Position + <a class="code" href="util_8h.html#a3">CVecteur</a> (-fTaille, -fTaille));
+00334                         glTexCoord2f (1, 0); glVertex2fv (Position + <a class="code" href="util_8h.html#a3">CVecteur</a> (fTaille, -fTaille));
+00335                         glTexCoord2f (1, 1); glVertex2fv (Position + <a class="code" href="util_8h.html#a3">CVecteur</a> (fTaille, fTaille));
+00336                         glTexCoord2f (0, 1); glVertex2fv (Position + <a class="code" href="util_8h.html#a3">CVecteur</a> (-fTaille, fTaille));
+00337                 }
+00338                 glEnd ();
+00339         }
+00340 
+00341         glDisable (GL_CULL_FACE);
+00342         glDisable (GL_BLEND);
+00343         glDisable (GL_TEXTURE_2D);
+00344 }
+00345 
+00346 <span class="comment">/*</span>
+00347 <span class="comment">Menu</span>
+00348 <span class="comment">*/</span>
+00349 
+00350 <span class="comment">// Affichage du menu de la page principale</span>
+<a name="l00351"></a><a class="code" href="classCAffichage.html#a8">00351</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a8">CAffichage::MenuPrincipal</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiCurseur, <span class="keywordtype">bool</span> bJeuCree)
+00352 {
+00353         <span class="keywordtype">int</span> <a class="code" href="glext_8h.html#a2249">x</a> = <a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> / 2 - 128;
+00354         <span class="keywordtype">int</span> <a class="code" href="glext_8h.html#a2250">y</a> = <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2;
+00355         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 1.0f, 1.0f);
+00356         <span class="keywordflow">if</span> (bJeuCree)
+00357                 m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="glext_8h.html#a2249">x</a>, <a class="code" href="glext_8h.html#a2250">y</a> + 16 * 4, <a class="code" href="affichage_8h.html#a1">MENU_TEXTE_REPRENDRE</a>);
+00358         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="glext_8h.html#a2249">x</a>, <a class="code" href="glext_8h.html#a2250">y</a> + 16 * 3, <a class="code" href="affichage_8h.html#a2">MENU_TEXTE_COMMENCER</a>);
+00359         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="glext_8h.html#a2249">x</a>, <a class="code" href="glext_8h.html#a2250">y</a> + 16 * 2, <a class="code" href="affichage_8h.html#a3">MENU_TEXTE_SCORES</a>);
+00360         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="glext_8h.html#a2249">x</a>, <a class="code" href="glext_8h.html#a2250">y</a> + 16 * 1, <a class="code" href="affichage_8h.html#a4">MENU_TEXTE_QUITTER</a>);
+00361         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="glext_8h.html#a2249">x</a> - 32, <a class="code" href="glext_8h.html#a2250">y</a> + 16 * uiCurseur, <span class="stringliteral">"&gt;"</span>);
+00362 }
+00363 
+00364 <span class="comment">// Affichage du menu de la page commencer</span>
+<a name="l00365"></a><a class="code" href="classCAffichage.html#a10">00365</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a10">CAffichage::MenuCommencer</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiCurseur, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_uiNombreJoueur, <span class="keyword">const</span> std::string &amp; szNom1, <span class="keyword">const</span> std::string &amp; szNom2)
+00366 {
+00367         <span class="keywordtype">int</span> <a class="code" href="glext_8h.html#a2249">x</a> = <a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> / 2 - 128;
+00368         <span class="keywordtype">int</span> <a class="code" href="glext_8h.html#a2250">y</a> = <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2;
+00369 
+00370         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 1.0f, 1.0f);
+00371         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 + 32, <span class="stringliteral">"COMMENCER PARTIE"</span>);
+00372         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="glext_8h.html#a2249">x</a>, <a class="code" href="glext_8h.html#a2250">y</a> + 16 * 3 - 48, <span class="stringliteral">"Nombre de joueurs : %d"</span>, m_uiNombreJoueur);
+00373         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="glext_8h.html#a2249">x</a>, <a class="code" href="glext_8h.html#a2250">y</a> + 16 * 2 - 48, <span class="stringliteral">"Joueur 1 : %s"</span>, szNom1.c_str ());
+00374         <span class="keywordflow">if</span> (m_uiNombreJoueur == 2) 
+00375                 m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="glext_8h.html#a2249">x</a>, <a class="code" href="glext_8h.html#a2250">y</a> + 16 * 1 - 48, <span class="stringliteral">"Joueur 2 : %s"</span>, szNom2.c_str ());
+00376         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="glext_8h.html#a2250">y</a> + 16 * 0 - 48, <span class="stringliteral">"Commencer"</span>);
+00377         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="glext_8h.html#a2249">x</a> - 32, <a class="code" href="glext_8h.html#a2250">y</a> + 16 * (uiCurseur - 1) - 48, <span class="stringliteral">"&gt;"</span>);
+00378 }
+00379 
+00380 <span class="comment">// Affichage des scores</span>
+<a name="l00381"></a><a class="code" href="classCAffichage.html#a12">00381</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a12">CAffichage::MenuScore</a> ()
+00382 {
+00383         <span class="comment">// Chargement des scores. C'est le rôle de notre classe CXMLScore.</span>
+00384         <a class="code" href="classCXMLScore.html">CXMLScore</a> XMLScore;
+00385         XMLScore.<a class="code" href="classCXMLScore.html#a2">Charger</a> (<a class="code" href="xml__score_8h.html#a0">FICHIER_XML_SCORE</a>);
+00386         <span class="keyword">const</span> std::multiset&lt;SScore, std::greater&lt;SScore&gt; &gt; &amp; ListeScores = XMLScore.<a class="code" href="classCXMLScore.html#a5">GetListeScores</a> ();
+00387 
+00388         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 1.0f, 1.0f);
+00389         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 + 32, <span class="stringliteral">"HIGH SCORES"</span>);
+00390 
+00391         <span class="comment">// Parcours de la liste des scores, à partir du meilleur et au maximum 10.</span>
+00392         std::multiset&lt;SScore, std::greater&lt;SScore&gt; &gt;::const_iterator it_set;
+00393         <span class="keywordtype">int</span> i = 0;
+00394         <span class="keywordflow">for</span> (it_set = ListeScores.begin (); it_set != ListeScores.end () &amp;&amp; i &lt; 10; it_set++, i++)
+00395         {
+00396                 <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiScoreTotal = 0;
+00397                 <span class="comment">// La classe ostringstream permet la création de chaîne formater, pour la conversion de nombres en chaines ici.</span>
+00398                 std::ostringstream m_szLigne;
+00399                 <span class="keywordflow">for</span> (std::list&lt;SJoueur&gt;::const_iterator it_list = it_set-&gt;m_Joueur.begin (); it_list != it_set-&gt;m_Joueur.end (); it_list++)
+00400                 {
+00401                         m_szLigne &lt;&lt; it_list-&gt;m_szNom;
+00402                         m_szLigne &lt;&lt; <span class="stringliteral">":"</span>;
+00403                         m_szLigne &lt;&lt; it_list-&gt;m_uiScore;
+00404                         m_szLigne &lt;&lt; <span class="stringliteral">" "</span>;
+00405                         uiScoreTotal += it_list-&gt;m_uiScore;
+00406                 }
+00407                 m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.f, 1.f, 1.f);
+00408                 m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> * 3 / 8, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 16 * i, m_szLigne.str ().c_str ());
+00409                 
+00410                 std::ostringstream m_szTotal;
+00411                 m_szTotal &lt;&lt; uiScoreTotal;
+00412                 m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (0.f, 1.f, 0.f);
+00413                 m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> * 2 / 8, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 16 * i, m_szTotal.str ().c_str ());
+00414         }
+00415 }
+00416 
+00417 <span class="comment">// Affichage de la page chargement</span>
+<a name="l00418"></a><a class="code" href="classCAffichage.html#a9">00418</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a9">CAffichage::MenuChargement</a> ()
+00419 {
+00420         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 + 32, <span class="stringliteral">"CHARGEMENT ..."</span>);
+00421         m_iFpsNiveau = 0;
+00422 }
+00423 
+00424 <span class="comment">// Affichage d'un message d'erreurs s'il y a un problème pendant le chargement du fichier XML.</span>
+<a name="l00425"></a><a class="code" href="classCAffichage.html#a11">00425</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a11">CAffichage::MenuChargementErreur</a> ()
+00426 {
+00427         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 + 32, <span class="stringliteral">"ERREUR"</span>);
+00428         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 + 0, <span class="stringliteral">"Le fichier './data/niveau.xml' n'est pas valide"</span>);
+00429         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 16, <span class="stringliteral">"Consulter le fichier 'stderr.txt' pour plus d'informations"</span>);
+00430 }
+00431 
+00432 <span class="comment">// Affichage d'une image de fond pour les menus</span>
+<a name="l00433"></a><a class="code" href="classCAffichage.html#a13">00433</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a13">CAffichage::MenuImageFond</a> (<a class="code" href="classCTexture.html">CTexture</a> *pTexture)<span class="keyword"> const</span>
+00434 <span class="keyword"></span>{
+00435         glEnable (GL_TEXTURE_2D);
+00436 
+00437         pTexture-&gt;<a class="code" href="classCTexture.html#a0">Bind</a> ();
+00438 <span class="comment">//      glBindTexture (GL_TEXTURE_2D, uiTexture);</span>
+00439         glBegin (GL_QUADS);
+00440                 glColor3f (1.0f, 1.0f, 1.0f);
+00441                 glTexCoord2f (0, 0); glVertex2f (0, 0);
+00442                 glTexCoord2f (1, 0); glVertex2f (<a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a>, 0);
+00443                 glTexCoord2f (1, 1); glVertex2f (<a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a>);
+00444                 glTexCoord2f (0, 1); glVertex2f (0, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a>);
+00445         glEnd ();
+00446 }
+00447 
+00448 <span class="comment">/*</span>
+00449 <span class="comment">HUD</span>
+00450 <span class="comment">*/</span>
+00451 
+00452 <span class="comment">// Compte et affiche le nombre d'images par seconde du jeu</span>
+00453 <span class="keywordtype">void</span> CAffichage::Fps ()
+00454 {
+00455         <span class="keywordflow">if</span> (m_iFpsNiveau == 0)
+00456                 m_JeuTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00457         
+00458         m_iFpsNiveau++;
+00459         m_iFpsCompte++;
+00460         <span class="keywordflow">if</span> (m_FpsTimer.<a class="code" href="classCTimer.html#a2">GetTime</a> () &gt; 1.0f)
+00461         {
+00462                 m_FpsTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00463                 m_iFps = m_iFpsCompte;
+00464                 m_iFpsCompte = 0;
+00465         }
+00466 
+00467         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 1.0f, 1.0f);
+00468         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (0, 16, <span class="stringliteral">"%d FPS"</span>, m_iFps);
+00469         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (0, 0, <span class="stringliteral">"Moyenne : %4.0f FPS"</span>, m_iFpsNiveau / m_JeuTimer.<a class="code" href="classCTimer.html#a2">GetTime</a> ());
+00470 }
+00471 
+00472 <span class="comment">// Affichage de l'échec d'une partie pour deux joueurs</span>
+<a name="l00473"></a><a class="code" href="classCAffichage.html#a6">00473</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a6">CAffichage::HUDDefaite</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur2, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur2)
+00474 {
+00475         Fps ();
+00476 
+00477         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 1.0f, 1.0f);
+00478         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 + 32, <span class="stringliteral">"DEFAITE ..."</span>);
+00479         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 0, <span class="stringliteral">"Les forces de l'ignoble Zglu vous ont vaincu"</span>);
+00480         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 32, <span class="stringliteral">"%s : %d - %s : %d"</span>, szJoueur1, uiJoueur1, szJoueur2, uiJoueur2);
+00481         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (0.0f, 1.0f, 0.0f);
+00482         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 48, <span class="stringliteral">"Total : %d points"</span>, uiJoueur1 + uiJoueur2);
+00483         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 1.0f, 1.0f);
+00484         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 96, <span class="stringliteral">"Appuyer sur 'echap' pour retourner au menu"</span>);    
+00485 }
+00486 
+00487 <span class="comment">// Affichage de l'échec d'une partie pour un joueur</span>
+<a name="l00488"></a><a class="code" href="classCAffichage.html#a7">00488</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a6">CAffichage::HUDDefaite</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1)
+00489 {
+00490         Fps ();
+00491 
+00492         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 1.0f, 1.0f);
+00493         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 + 32, <span class="stringliteral">"DEFAITE ..."</span>);
+00494         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 0, <span class="stringliteral">"Les forces de l'ignoble Zglu vous ont vaincu"</span>);
+00495         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (0.0f, 1.0f, 0.0f);
+00496         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 48, <span class="stringliteral">"%s : %d points"</span>, szJoueur1, uiJoueur1);
+00497         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 1.0f, 1.0f);
+00498         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 96, <span class="stringliteral">"Appuyer sur 'echap' pour retourner au menu"</span>);    
+00499 }
+00500 
+00501 <span class="comment">// Affichage de la victoire d'une partie pour deux joueurs</span>
+<a name="l00502"></a><a class="code" href="classCAffichage.html#a4">00502</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a4">CAffichage::HUDVictoire</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur2, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur2)
+00503 {
+00504         Fps ();
+00505 
+00506         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 1.0f, 1.0f);
+00507         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 + 32, <span class="stringliteral">"VICTOIRE !"</span>);
+00508         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 0, <span class="stringliteral">"Vous avez vaincu les forces de l'ignoble Zglu"</span>);
+00509         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 32, <span class="stringliteral">"%s : %d - %s : %d"</span>, szJoueur1, uiJoueur1, szJoueur2, uiJoueur2);
+00510         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (0.0f, 1.0f, 0.0f);
+00511         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 48, <span class="stringliteral">"Total : %d points"</span>, uiJoueur1 + uiJoueur2);
+00512         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 1.0f, 1.0f);
+00513         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 96, <span class="stringliteral">"Appuyer sur 'echap' pour retourner au menu"</span>);    
+00514 }
+00515 
+00516 <span class="comment">// Affichage de la victoire d'une partie pour un joueur</span>
+<a name="l00517"></a><a class="code" href="classCAffichage.html#a5">00517</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a4">CAffichage::HUDVictoire</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1)
+00518 {
+00519         Fps ();
+00520 
+00521         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 1.0f, 1.0f);
+00522         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 + 32, <span class="stringliteral">"VICTOIRE !"</span>);
+00523         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 0, <span class="stringliteral">"Vous avez vaincu les forces de l'ignoble Zglu"</span>);
+00524         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (0.0f, 1.0f, 0.0f);
+00525         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 48, <span class="stringliteral">"%s : %d points"</span>, szJoueur1, uiJoueur1);
+00526         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 1.0f, 1.0f);
+00527         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2 - 96, <span class="stringliteral">"Appuyer sur 'echap' pour retourner au menu"</span>);    
+00528 }
+00529 
+00530 <span class="comment">// Affichage d'insformations utiles pendant le jeu pour une partie à deux joueurs : Noms, scores, FPS, numéro du niveau.</span>
+<a name="l00531"></a><a class="code" href="classCAffichage.html#a2">00531</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a2">CAffichage::HUDJeu</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNiveau, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur2, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur2)
+00532 {
+00533         <span class="keywordtype">int</span> iChiffres = 2;
+00534         <span class="keywordtype">int</span> iScore = uiJoueur2;
+00535         <span class="keywordflow">while</span> (iScore /= 10)
+00536                 iChiffres++;
+00537 
+00538         Fps ();
+00539 
+00540         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (0.0f, 1.0f, 0.0f);
+00541         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a2">FONT_POSITION_CENTRE_HAUT</a>, <span class="stringliteral">"Niveau %d - Scores : %d"</span>, uiNiveau + 1, uiJoueur1 + uiJoueur2);
+00542         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (0.5f, 0.5f, 1.0f);
+00543         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (0, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - 16, <span class="stringliteral">"%s"</span>, szJoueur1);
+00544         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (0, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - 32, <span class="stringliteral">"%d"</span>, uiJoueur1);
+00545         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (1.0f, 0.5f, 0.5f);
+00546         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> - 12 * (strlen (szJoueur2) + 1), <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - 16, <span class="stringliteral">"%s"</span>, szJoueur2);
+00547         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> - 12 * iChiffres, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - 32, <span class="stringliteral">"%d"</span>, uiJoueur2);
+00548 }
+00549 
+00550 <span class="comment">// Affichage d'insformations utiles pendant le jeu pour une partie à un seul joueur : Nom, score, FPS, numéro du niveau.</span>
+<a name="l00551"></a><a class="code" href="classCAffichage.html#a3">00551</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a2">CAffichage::HUDJeu</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNiveau, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1)
+00552 {
+00553         Fps ();
+00554 
+00555         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (0.0f, 1.0f, 0.0f);
+00556         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (<a class="code" href="affichage__font_8h.html#a3a2">FONT_POSITION_CENTRE_HAUT</a>, <span class="stringliteral">"Niveau %d"</span>, uiNiveau + 1);
+00557         m_Font.<a class="code" href="classCFont.html#a2">Couleur</a> (0.5f, 0.5f, 1.0f);
+00558         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (0, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - 16, <span class="stringliteral">"%s"</span>, szJoueur1);
+00559         m_Font.<a class="code" href="classCFont.html#a4">Print</a> (0, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - 32, <span class="stringliteral">"%d"</span>, uiJoueur1);
+00560 }
+00561 
+00562 <span class="comment">/*</span>
+00563 <span class="comment">Commun</span>
+00564 <span class="comment">*/</span>
+00565 
+00566 <span class="comment">// Initialisation de la zone d'affichage sur l'écran</span>
+<a name="l00567"></a><a class="code" href="classCAffichage.html#a14">00567</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a14">CAffichage::Debut</a> ()<span class="keyword"> const</span>
+00568 <span class="keyword"></span>{
+00569         <span class="comment">// On vide le tampon chromatique</span>
+00570         glClear (GL_COLOR_BUFFER_BIT);
+00571         <span class="comment">// On initialise la matrice de visualisation</span>
+00572         glLoadIdentity ();
+00573 
+00574         <span class="comment">// On modifie la matrice de projection de telle manière que l'écran soit utilisable en 2D et que l'unité soit le pixel de l'écran.</span>
+00575         glMatrixMode (GL_PROJECTION);
+00576         glLoadIdentity ();
+00577         glOrtho (0, <a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a>, 0, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a>, -1, 1);
+00578         glMatrixMode (GL_MODELVIEW);
+00579         glLoadIdentity ();
+00580 }
+00581 
+<a name="l00582"></a><a class="code" href="classCAffichage.html#a15">00582</a> <span class="keywordtype">void</span> <a class="code" href="classCAffichage.html#a15">CAffichage::Fin</a> ()<span class="keyword"> const</span>
+00583 <span class="keyword"></span>{
+00584         <span class="comment">// Affiche l'image et inverse les tampons du double buffering</span>
+00585         <span class="comment">//SDL_GL_SwapBuffers ();</span>
+00586         <a class="code" href="classCWindowSDL.html#e0">CWindowSDL::Instance</a> ()-&gt;<a class="code" href="classCWindowSDL.html#a0">Swap</a> ();
+00587 }
+00588 <span class="comment">/*</span>
+00589 <span class="comment">// Chargement d'une image TGA RGB 24 bits</span>
+00590 <span class="comment">unsigned int CAffichage::ChargerImage24Bits (const char* szFilename)</span>
+00591 <span class="comment">{</span>
+00592 <span class="comment">        unsigned int uiTexture;</span>
+00593 <span class="comment">        gtl::CImageTGA Image (szFilename);</span>
+00594 <span class="comment"></span>
+00595 <span class="comment">        // Chargement d'une texture.</span>
+00596 <span class="comment">        // On créé un objet de texture qui est identifié par m_uiTexture.</span>
+00597 <span class="comment">        glGenTextures (1, &amp;uiTexture);</span>
+00598 <span class="comment">        // Indique que l'on utilise l'objet de texture identifié par m_uiTexture.</span>
+00599 <span class="comment">        glBindTexture (GL_TEXTURE_2D, uiTexture);</span>
+00600 <span class="comment">        // Paramétrage de l'objet de texture, on utilise un filtre linéaire.</span>
+00601 <span class="comment">        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);</span>
+00602 <span class="comment">        // Paramétrage de l'objet de texture, on utilise un filtre linéaire.</span>
+00603 <span class="comment">        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);</span>
+00604 <span class="comment">        // Chargement des données de la texture. OpenGL copie en mémoire les données.</span>
+00605 <span class="comment">        glTexImage2D (GL_TEXTURE_2D, 0, 3, Image.GetSizeX (), Image.GetSizeY (), 0, GL_BGR, GL_UNSIGNED_BYTE, Image.GetData ());</span>
+00606 <span class="comment"></span>
+00607 <span class="comment">        return uiTexture;</span>
+00608 <span class="comment">}</span>
+00609 <span class="comment"></span>
+00610 <span class="comment">// Chargement d'une image TGA RGB 32 bits</span>
+00611 <span class="comment">unsigned int CAffichage::ChargerImage32Bits (const char* szFilename)</span>
+00612 <span class="comment">{</span>
+00613 <span class="comment">        unsigned int uiTexture;</span>
+00614 <span class="comment">        gtl::CImageTGA Image (szFilename);</span>
+00615 <span class="comment"></span>
+00616 <span class="comment">        // Chargement d'une texture.</span>
+00617 <span class="comment">        // On créé un objet de texture qui est identifié par m_uiTexture.</span>
+00618 <span class="comment">        glGenTextures (1, &amp;uiTexture);</span>
+00619 <span class="comment">        // Indique que l'on utilise l'objet de texture identifié par m_uiTexture.</span>
+00620 <span class="comment">        glBindTexture (GL_TEXTURE_2D, uiTexture);</span>
+00621 <span class="comment">        // Paramétrage de l'objet de texture, on utilise un filtre linéaire.</span>
+00622 <span class="comment">        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);</span>
+00623 <span class="comment">        // Paramétrage de l'objet de texture, on utilise un filtre linéaire.</span>
+00624 <span class="comment">        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);</span>
+00625 <span class="comment">        // Chargement des données de la texture. OpenGL copie en mémoire les données.</span>
+00626 <span class="comment">        glTexImage2D (GL_TEXTURE_2D, 0, 4, Image.GetSizeX (), Image.GetSizeY (), 0, GL_BGRA, GL_UNSIGNED_BYTE, Image.GetData ());</span>
+00627 <span class="comment">        </span>
+00628 <span class="comment">        return uiTexture;</span>
+00629 <span class="comment">}</span>
+00630 <span class="comment"></span>
+00631 <span class="comment">// Libération d'un objet de texture</span>
+00632 <span class="comment">void CAffichage::DechargerImage (unsigned int uiTexture)</span>
+00633 <span class="comment">{</span>
+00634 <span class="comment">        glDeleteTextures (1, &amp;uiTexture);</span>
+00635 <span class="comment">}</span>
+00636 <span class="comment">*/</span>
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

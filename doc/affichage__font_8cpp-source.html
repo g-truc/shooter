@@ -1,0 +1,233 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): affichage_font.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>affichage_font.cpp</h1><a href="affichage__font_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="affichage__font_8h.html">affichage_font.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="ctrl__fenetre_8h.html">ctrl_fenetre.h</a>"</span>
+00012 <span class="preprocessor">#include "../lib/gtl/include/gtl.h"</span>
+00013 
+<a name="l00014"></a><a class="code" href="classCFont.html#a0">00014</a> <a class="code" href="classCFont.html#a0">CFont::CFont</a> ()
+00015 {
+00016         m_fCouleur [0] = 1;
+00017         m_fCouleur [1] = 1;
+00018         m_fCouleur [2] = 1;
+00019 }
+00020 
+<a name="l00021"></a><a class="code" href="classCFont.html#a1">00021</a> <a class="code" href="classCFont.html#a1">CFont::~CFont</a> ()
+00022 {
+00023 
+00024 }
+00025 
+<a name="l00026"></a><a class="code" href="classCFont.html#a2">00026</a> <span class="keywordtype">void</span> <a class="code" href="classCFont.html#a2">CFont::Couleur</a> (<span class="keywordtype">float</span> <a class="code" href="glext_8h.html#a2270">r</a>, <span class="keywordtype">float</span> <a class="code" href="glext_8h.html#a2344">g</a>, <span class="keywordtype">float</span> <a class="code" href="glext_8h.html#a2345">b</a>)
+00027 {
+00028         m_fCouleur [0] = <a class="code" href="glext_8h.html#a2270">r</a>;
+00029         m_fCouleur [1] = <a class="code" href="glext_8h.html#a2344">g</a>;
+00030         m_fCouleur [2] = <a class="code" href="glext_8h.html#a2345">b</a>;
+00031 }
+00032 
+00033 <span class="comment">// La fonction Print s'utilise comme printf sauf que l'on indique la position où doit s'afficher le texte.</span>
+<a name="l00034"></a><a class="code" href="classCFont.html#a5">00034</a> <span class="keywordtype">void</span> <a class="code" href="classCFont.html#a4">CFont::Print</a> (EFontPosition FontPosition, <span class="keyword">const</span> <span class="keywordtype">char</span> *szMsg, ...)
+00035 {
+00036         <span class="keywordtype">char</span> szText[256];
+00037         va_list ap;
+00038 
+00039         <span class="comment">// Pour cela, strlen recherche compte les caractères jusqu'au caractère '\0'</span>
+00040         memset (szText, <span class="charliteral">'\0'</span>, 256);
+00041 
+00042         <span class="keywordflow">if</span> (szMsg == 0)
+00043                 <span class="keywordflow">return</span>;
+00044 
+00045         <span class="comment">// Analyse la chaîne formaté et place le résultat dans szText</span>
+00046         va_start (ap, szMsg);
+00047             vsprintf (szText, szMsg, ap);
+00048         va_end (ap);
+00049 
+00050         <span class="comment">// Détermine la longueur de chaîne contenu dans szText</span>
+00051         <span class="comment">// Pour cela, strlen recherche compte les caractères jusqu'au caractère '\0'</span>
+00052         <span class="keywordtype">int</span> iLongeur = strlen (szMsg);
+00053 
+00054         <span class="comment">// On active l'utilisation des textures.</span>
+00055         glEnable (GL_TEXTURE_2D);
+00056         <span class="comment">// On active la transparence.</span>
+00057         glEnable (GL_BLEND);
+00058         <span class="comment">// On définie le mode de transparence, la transparence est réalisée par la couche alpha.</span>
+00059         glBlendFunc (GL_SRC_ALPHA, GL_ONE);
+00060         
+00061         <span class="comment">// Indique la couleur d'affichage des fonts</span>
+00062         glColor3fv (m_fCouleur);
+00063         glPushMatrix ();
+00064                 glLoadIdentity ();
+00065                 <span class="keywordflow">switch</span> (FontPosition)
+00066                 {
+00067                 <span class="keywordflow">default</span>:
+00068                 <span class="keywordflow">case</span> <a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>:
+00069                         glTranslated (<a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> / 2 - iLongeur * 12 / 2, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> / 2, 0);
+00070                         <span class="keywordflow">break</span>;
+00071                 <span class="keywordflow">case</span> <a class="code" href="affichage__font_8h.html#a3a2">FONT_POSITION_CENTRE_HAUT</a>:
+00072                         glTranslated (<a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> / 2 - iLongeur * 12 / 2, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - 16, 0);
+00073                         <span class="keywordflow">break</span>;
+00074                 }
+00075                 glListBase (m_uiDisplayList);
+00076 
+00077                 <span class="comment">// Exécute chaque liste d'affichages, chaque charactère étant l'identifiant d'une liste d'affichages.</span>
+00078                 glCallLists (strlen (szText), GL_UNSIGNED_BYTE, szText);
+00079         glPopMatrix ();
+00080 
+00081         <span class="comment">// On deactive la transparence</span>
+00082         glDisable (GL_BLEND);
+00083         <span class="comment">// On deactive l'utilisation des textures.</span>
+00084         glDisable (GL_TEXTURE_2D);
+00085 }
+00086 
+00087 <span class="comment">// La fonction Print s'utilise comme printf sauf que l'on indique la position où doit s'afficher le texte.</span>
+<a name="l00088"></a><a class="code" href="classCFont.html#a6">00088</a> <span class="keywordtype">void</span> <a class="code" href="classCFont.html#a4">CFont::Print</a> (EFontPosition FontPosition, <span class="keywordtype">int</span> <a class="code" href="glext_8h.html#a2250">y</a>, <span class="keyword">const</span> <span class="keywordtype">char</span> *szMsg, ...)
+00089 {
+00090         <span class="keywordtype">char</span> szText[256];
+00091         va_list ap;
+00092 
+00093         memset (szText, <span class="charliteral">'\0'</span>, 256);
+00094 
+00095         <span class="keywordflow">if</span> (szMsg == 0)
+00096                 <span class="keywordflow">return</span>;
+00097 
+00098         <span class="comment">// Analyse la chaîne formaté et place le résultat dans szText.</span>
+00099         va_start (ap, szMsg);
+00100             vsprintf (szText, szMsg, ap);
+00101         va_end (ap);
+00102 
+00103         <span class="comment">// Détermine la longueur de la chaîne contenu dans szText.</span>
+00104         <span class="comment">// Pour cela, strlen recherche compte les caractères jusqu'au caractère '\0'</span>
+00105         <span class="keywordtype">int</span> iLongeur = strlen (szMsg);
+00106 
+00107         <span class="comment">// On active l'utilisation des textures.</span>
+00108         glEnable (GL_TEXTURE_2D);
+00109         <span class="comment">// On active la transparence.</span>
+00110         glEnable (GL_BLEND);
+00111         <span class="comment">// On définie le mode de transparence, la transparence est réalisée par la couche alpha.</span>
+00112         glBlendFunc (GL_SRC_ALPHA, GL_ONE);
+00113         
+00114         glColor3fv (m_fCouleur);
+00115         glPushMatrix ();
+00116                 glLoadIdentity ();
+00117                 <span class="keywordflow">switch</span> (FontPosition)
+00118                 {
+00119                 <span class="keywordflow">default</span>:
+00120                 <span class="keywordflow">case</span> <a class="code" href="affichage__font_8h.html#a3a1">FONT_POSITION_CENTRE</a>:
+00121                         glTranslated (<a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> / 2 - iLongeur * 12 / 2, <a class="code" href="glext_8h.html#a2250">y</a>, 0);
+00122                         <span class="keywordflow">break</span>;
+00123                 }
+00124                 glListBase (m_uiDisplayList);
+00125 
+00126                 <span class="comment">// Exécute chaque liste d'affichages, chaque charactère étant l'identifiant d'une liste d'affichages.</span>
+00127                 glCallLists (strlen (szText), GL_UNSIGNED_BYTE, szText);
+00128         glPopMatrix ();
+00129 
+00130         <span class="comment">// On deactive la transparence</span>
+00131         glDisable (GL_BLEND);
+00132         <span class="comment">// On deactive l'utilisation des textures.</span>
+00133         glDisable (GL_TEXTURE_2D);
+00134 }
+00135 
+00136 <span class="comment">// La fonction Print s'utilise comme printf sauf que l'on indique la position où doit s'afficher le texte.</span>
+<a name="l00137"></a><a class="code" href="classCFont.html#a4">00137</a> <span class="keywordtype">void</span> <a class="code" href="classCFont.html#a4">CFont::Print</a> (<span class="keywordtype">int</span> <a class="code" href="glext_8h.html#a2249">x</a>, <span class="keywordtype">int</span> <a class="code" href="glext_8h.html#a2250">y</a>, <span class="keyword">const</span> <span class="keywordtype">char</span> *szMsg, ...)
+00138 {
+00139         <span class="keywordtype">char</span> szText[256];
+00140         va_list ap;
+00141 
+00142         memset (szText, <span class="charliteral">'\0'</span>, 256);
+00143 
+00144         <span class="keywordflow">if</span> (szMsg == 0)
+00145                 <span class="keywordflow">return</span>;
+00146 
+00147         <span class="comment">// Analyse la chaîne formaté et place le résultat dans szText</span>
+00148         va_start (ap, szMsg);
+00149             vsprintf (szText, szMsg, ap);
+00150         va_end (ap);
+00151 
+00152         <span class="comment">// On active l'utilisation des textures.</span>
+00153         glEnable (GL_TEXTURE_2D);
+00154         <span class="comment">// On active la transparence.</span>
+00155         glEnable (GL_BLEND);
+00156         <span class="comment">// On définie le mode de transparence, la transparence est réalisée par la couche alpha.</span>
+00157         glBlendFunc (GL_SRC_ALPHA, GL_ONE);
+00158 
+00159         glColor3fv (m_fCouleur);
+00160         glPushMatrix ();
+00161                 glLoadIdentity ();
+00162                 glTranslated (<a class="code" href="glext_8h.html#a2249">x</a>, <a class="code" href="glext_8h.html#a2250">y</a>, 0);
+00163                 glListBase (m_uiDisplayList);
+00164 
+00165                 <span class="comment">// Exécute chaque liste d'affichages, chaque charactère étant l'identifiant d'une liste d'affichages.</span>
+00166                 glCallLists (strlen (szText), GL_UNSIGNED_BYTE, szText);
+00167         glPopMatrix ();
+00168 
+00169         <span class="comment">// On deactive la transparence</span>
+00170         glDisable (GL_BLEND);
+00171         <span class="comment">// On deactive l'utilisation des textures.</span>
+00172         glDisable (GL_TEXTURE_2D);
+00173 }
+00174 
+<a name="l00175"></a><a class="code" href="classCFont.html#a3">00175</a> <span class="keywordtype">void</span> <a class="code" href="classCFont.html#a3">CFont::ChargerTexture</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* szTexture)
+00176 {
+00177         gtl::CImageTGA Image (szTexture);
+00178         <span class="keywordtype">int</span> iLargeur = Image.GetSizeX ();
+00179         <span class="keywordtype">int</span> iHauteur = Image.GetSizeY ();
+00180 
+00181         <span class="comment">// Chargement d'une texture.</span>
+00182         <span class="comment">// On créé un objet de texture qui est identifié par m_uiTexture.</span>
+00183         glGenTextures (1, &amp;m_uiTexture);
+00184         <span class="comment">// Indique que l'on utilise l'objet de texture identifié par m_uiTexture.</span>
+00185         glBindTexture (GL_TEXTURE_2D, m_uiTexture);
+00186         <span class="comment">// Paramétrage de l'objet de texture, on utilise un filtre linéaire.</span>
+00187         glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+00188         <span class="comment">// Paramétrage de l'objet de texture, on utilise un filtre linéaire.</span>
+00189         glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+00190         <span class="comment">// Chargement des données de la texture. OpenGL copie en mémoire les données.</span>
+00191         glTexImage2D (GL_TEXTURE_2D, 0, 3, Image.GetSizeX (), Image.GetSizeY (), 0, <a class="code" href="glext_8h.html#a26">GL_BGR</a>, GL_UNSIGNED_BYTE, Image.GetData ());
+00192 
+00193         <span class="comment">// On créé 256 display lists, une par caractère.</span>
+00194         m_uiDisplayList = glGenLists (256);
+00195         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 256; i++)
+00196         {
+00197                 <span class="keywordtype">float</span> fTexCoordX = float (i%16) / 16.0f;
+00198                 <span class="keywordtype">float</span> fTexCoordY = float (i/16) / 16.0f;
+00199 
+00200                 <span class="comment">// Indique le contenu des listes d'affichages</span>
+00201                 glNewList (m_uiDisplayList + i, GL_COMPILE);
+00202                         <span class="comment">// Liste des commandes qui seront exécutés par la liste d'affichage</span>
+00203 
+00204                         <span class="comment">// Indique la texture que l'on souhait utiliser</span>
+00205                         glBindTexture (GL_TEXTURE_2D, m_uiTexture);
+00206                         <span class="comment">// Affiche un quadrangle comme fragment de la texture c'est à dire restreint à un caractère</span>
+00207                         glBegin (GL_QUADS);
+00208                                 <span class="comment">// Indique les coordonnées de la texture pour le vertex bas gauche</span>
+00209                                 glTexCoord2f (fTexCoordX, 1.0f - fTexCoordY - 0.0625f);
+00210                                 glVertex2f (0, 0);
+00211                                 
+00212                                 <span class="comment">// Indique les coordonnées de la texture pour le vertex bas droit</span>
+00213                                 glTexCoord2f (fTexCoordX + 0.0625f, 1.0f - fTexCoordY - 0.0625f); <span class="comment">// (0.0625 = 1 / 16)</span>
+00214                                 glVertex2f (iLargeur / 16.f, 0);
+00215                                 
+00216                                 <span class="comment">// Indique les coordonnées de la texture pour le vertex haut droit</span>
+00217                                 glTexCoord2f (fTexCoordX + 0.0625f, 1.0f - fTexCoordY);
+00218                                 glVertex2f (iLargeur / 16.f, iHauteur / 16.f);
+00219                                 
+00220                                 <span class="comment">// Indique les coordonnées de la texture pour le vertex haut gauche</span>
+00221                                 glTexCoord2f (fTexCoordX, 1.0f - fTexCoordY);
+00222                                 glVertex2f (0, iHauteur / 16.f);
+00223                         glEnd ();
+00224                         glTranslated (12.f, 0, 0);
+00225                 glEndList ();
+00226         }
+00227 }
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

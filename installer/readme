@@ -1,0 +1,59 @@
+Shoot(r)
+-----------------------------------------------------------
+Par Groove : groove@g-truc.net, www.g-truc.net
+
+Remerciement à :
+- l'équipe de WormsHL (www.wormshl.fr.st) pour les bruitages.
+- piGfreeZer pour la musique.
+- Kafka pour ses conseilles.
+
+Pour Code (r), www.codermag.com
+
+-----------------------------------------------------------
+Je recherche une personne pour réaliser des dessins pour les vaisseaux spatiaux, les tires, etc.
+Si vous êtes intéressé contactez moi par e-mail.
+
+-----------------------------------------------------------
+Shoot(r) a été compilé avec succès sous MinGW 3.3.1, GCC 3.3.3, Dev C++ 4.9.9.0, MinGW Developer Studio 2.05, et Visual C++ 7.1.
+
+Remarques :
+- Sous Visual C++ 7.1, vous ne pouvez pas lancer Shoot(r) depuis la commande exécuter. Pour palier ce problème, il faut modifier le répertoire de travail.
+- Ne perdez pas votre temps à créer un projet pour Visual C++ 6. Celui ci ne supporte pas tous les conteneurs C++ utilisés par Shoot(r).
+- Sous Dev C++ pour compiler Shoot(r) en mode pleins écran, il faut retirer l'Option "-D_DEBUG" des paramètres de compilation C++ dans les options du projet.
+- Sous MinGW Developer Studio et Visual C++ le mode debug compile Shoot(r) en mode fenêtré et le mode release compile Shoot(r) en mode pleine écran.
+
+-----------------------------------------------------------
+Pour démarrer le jeu sous Linux vous devez soit avoir installé FMod 3.73, soit utilisé les commandes suivantes pour démarrer le jeu :
+cd /LeRepertoireDeShooter
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./
+./shooter
+
+-----------------------------------------------------------
+Changelog 
+
+Version 1.2 (03/04/2005)
+- Modification de la désactivation du pointeur de souris.
+- Correction d'un bug lors de la destruction d'un joueur.
+- Mise à jour pour supporter MinGW et GCC 3.4.
+
+Version 1.1 (20/10/2004)
+- Portage sous Linux.
+- Portage sous MinGW.
+- Utilisation de GTL alpha 5.
+- Ajout d'un gestionnaire de fenêtre.
+- Ajout d'un gestionnaire de textures.
+- Mise à jour des niveaux.
+- Ajout des documentations des bibliothèques utilisées.
+- Vitesse de déplacement alléatoire des entités.
+- Durée des niveaux en fonction du temps.
+- Pause entre les niveaux.
+- Amélioration de l'effet de défilement d'étoiles.
+- Nouveaux graphismes pour les ennemis et les bonus.
+- Correction du bug de son en mode deux joueurs.
+- Correction du bug de chargement de niveau. 
+
+Version 1.0 (01/09/2004)
+- Version initiale publiée dans Code(r) n°10
+
+-----------------------------------------------------------
+03/04/2004 - Groove

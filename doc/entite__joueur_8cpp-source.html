@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): entite_joueur.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>entite_joueur.cpp</h1><a href="entite__joueur_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="entite__joueur_8h.html">entite_joueur.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="entite__arme_8h.html">entite_arme.h</a>"</span>
+00012 <span class="preprocessor">#include "<a class="code" href="ctrl__son_8h.html">ctrl_son.h</a>"</span>
+00013 <span class="preprocessor">#include "<a class="code" href="fx__explosion_8h.html">fx_explosion.h</a>"</span>
+00014 
+00015 CEntiteJoueur::CEntiteJoueur ()
+00016 {
+00017         <a class="code" href="classCEntite.html#p6">m_iBouclier</a> = 100;
+00018         <a class="code" href="classCEntite.html#p3">m_VitesseI</a> = <a class="code" href="classCEntite.html#p4">m_VitesseF</a> = <a class="code" href="util_8h.html#a3">CVecteur</a> (0.0f, 0.0f);
+00019         <a class="code" href="classCEntite.html#p5">m_Acceleration</a> = <a class="code" href="util_8h.html#a3">CVecteur</a> (0.0f, 0.0f);
+00020         m_bTire = <span class="keyword">false</span>;
+00021         <a class="code" href="classCEntite.html#p7">m_uiPoint</a> = 0;
+00022         m_pFumee = 0;
+00023         <a class="code" href="classCEntite.html#p0">m_Timer</a>.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00024 }
+00025 
+00026 CEntiteJoueur::~CEntiteJoueur ()
+00027 {
+00028         <span class="comment">// Emet le son de l'explosion de l'entité</span>
+00029         <a class="code" href="classCSoundManager.html#e0">CSoundManager::Instance</a> ()-&gt;<a class="code" href="classCSoundManager.html#a0">Jouer</a> (m_pTypeJoueur-&gt;<a class="code" href="classCType.html#a6">GetSon</a> (), m_pTypeJoueur-&gt;<a class="code" href="classCTypeJoueur.html#a15">GetNiveau</a> () == 1 ? <a class="code" href="ctrl__son_8h.html#a8a5">CANAL_JOUEUR1</a> : <a class="code" href="ctrl__son_8h.html#a8a6">CANAL_JOUEUR2</a>);
+00030         <span class="comment">// Créé un effet d'explosion</span>
+00031         <a class="code" href="classCExplosion.html#e0">CExplosion::Create</a> (0, 32, GetPosition (), 128, 1.0f, m_pTypeJoueur-&gt;<a class="code" href="classCTypeJoueur.html#a2">GetCouleur</a> ());
+00032         <span class="comment">// Si l'entité est lié à un effet de fumee, on indique que l'effet doit être supprimer</span>
+00033         <span class="keywordflow">if</span> (m_pFumee)
+00034                 m_pFumee-&gt;<a class="code" href="classCFumee.html#a2">Supprimer</a> ();
+00035 }
+00036 
+00037 <span class="comment">// Création d'une instance d'entité joueur</span>
+<a name="l00038"></a><a class="code" href="classCEntiteJoueur.html#e0">00038</a> <a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a>* <a class="code" href="classCEntiteJoueur.html#e0">CEntiteJoueur::Create</a> (<a class="code" href="classCTypeJoueur.html">CTypeJoueur</a>* pTypeJoueur)
+00039 {
+00040         <span class="comment">// Demande au gestionnaire d'entités de créer une instance de Joueur puis on récupère une pointeur sur elle</span>
+00041         <a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a> *pEntite = <a class="code" href="classCEntityManager.html#e0">CEntityManager::Instance</a> ()-&gt;<a class="code" href="classCEntityManager.html#a3">CreateJoueur</a> ();
+00042         <span class="comment">// Vérifie que le gestionnaire a bien créer une instance. Si trop d'entités ont été créés alors le gestionnaire retourne 0</span>
+00043         <span class="keywordflow">if</span> (!pEntite)
+00044                 <span class="keywordflow">return</span> 0;
+00045 
+00046         pEntite-&gt;<a class="code" href="classCEntiteJoueur.html#r0">m_pTypeJoueur</a> = pTypeJoueur;
+00047         pEntite-&gt;<a class="code" href="classCEntite.html#p1">m_PositionI</a> = pEntite-&gt;<a class="code" href="classCEntite.html#p2">m_PositionF</a> = pTypeJoueur-&gt;<a class="code" href="classCTypeJoueur.html#a17">GetPositionSpawn</a> ();
+00048         <span class="comment">// Lie l'entité à un effet de fumée</span>
+00049         pEntite-&gt;<a class="code" href="classCEntiteJoueur.html#r2">m_pFumee</a> = <a class="code" href="classCFumee.html#e0">CFumee::Create</a> (pEntite, 24, -16.f, -384.f, 0.2f, pTypeJoueur-&gt;<a class="code" href="classCTypeJoueur.html#a2">GetCouleur</a> ());
+00050         <span class="keywordflow">return</span> pEntite;
+00051 }
+00052 
+00053 <span class="comment">// Indique si le joueur ordonne de tirer ou non</span>
+<a name="l00054"></a><a class="code" href="classCEntiteJoueur.html#a6">00054</a> <span class="keywordtype">void</span> <a class="code" href="classCEntiteJoueur.html#a6">CEntiteJoueur::SetTirer</a> (<span class="keywordtype">bool</span> bTire)
+00055 {
+00056         m_bTire = bTire;
+00057 }
+00058 
+<a name="l00059"></a><a class="code" href="classCEntiteJoueur.html#a0">00059</a> <span class="keywordtype">int</span> <a class="code" href="classCEntiteJoueur.html#a0">CEntiteJoueur::GetDommage</a> ()<span class="keyword"> const</span>
+00060 <span class="keyword"></span>{
+00061         <span class="keywordflow">return</span> m_pTypeJoueur-&gt;<a class="code" href="classCTypeJoueur.html#a4">GetDommage</a> ();
+00062 }
+00063 
+<a name="l00064"></a><a class="code" href="classCEntiteJoueur.html#a1">00064</a> <a class="code" href="classCTexture.html">CTexture</a>* <a class="code" href="classCEntiteJoueur.html#a1">CEntiteJoueur::GetTexture</a> ()<span class="keyword"> const</span>
+00065 <span class="keyword"></span>{
+00066         <span class="keywordflow">return</span> m_pTypeJoueur-&gt;<a class="code" href="classCType.html#a0">GetTexture</a> ();
+00067 }
+00068 
+<a name="l00069"></a><a class="code" href="classCEntiteJoueur.html#a3">00069</a> <span class="keywordtype">float</span> <a class="code" href="classCEntiteJoueur.html#a3">CEntiteJoueur::GetTaille</a> ()<span class="keyword"> const</span>
+00070 <span class="keyword"></span>{
+00071         <span class="keywordflow">return</span> m_pTypeJoueur-&gt;<a class="code" href="classCType.html#a5">GetTaille</a> ();
+00072 }
+00073 
+<a name="l00074"></a><a class="code" href="classCEntiteJoueur.html#a7">00074</a> <span class="keywordtype">void</span> <a class="code" href="classCEntiteJoueur.html#a7">CEntiteJoueur::Action</a> ()
+00075 {
+00076         <span class="comment">// Si le joueur n'a pas d'armes, il ne tire pas.</span>
+00077         <span class="keywordflow">if</span> (!m_pTypeArme || !m_bTire)
+00078                 <span class="keywordflow">return</span>;
+00079 
+00080         <span class="comment">// Quand l'intervale de temps entre deux tires est écoulé alors on tire</span>
+00081         <span class="keywordflow">if</span> (m_TireTimer.<a class="code" href="classCTimer.html#a2">GetTime</a> () &gt; m_pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a5">GetCadence</a> ())
+00082         {
+00083                 <span class="comment">// Emet le son du tire</span>
+00084                 <a class="code" href="classCSoundManager.html#e0">CSoundManager::Instance</a> ()-&gt;<a class="code" href="classCSoundManager.html#a0">Jouer</a> (m_pTypeArme-&gt;<a class="code" href="classCType.html#a6">GetSon</a> (), m_pTypeJoueur-&gt;<a class="code" href="classCTypeJoueur.html#a15">GetNiveau</a> () == 1 ? <a class="code" href="ctrl__son_8h.html#a8a5">CANAL_JOUEUR1</a> : <a class="code" href="ctrl__son_8h.html#a8a6">CANAL_JOUEUR2</a>);
+00085                 <span class="comment">// Créé les entités de tire, autant que d'ancrage sur le vaisseau</span>
+00086                 <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; m_pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a3">GetAncrageNombre</a> (); i++)
+00087                         <a class="code" href="classCEntiteArme.html#e0">CEntiteArme::Create</a> (m_pTypeArme, <span class="keyword">this</span>, m_pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a4">GetAncrageParIndex</a> (i));
+00088 
+00089                 m_TireTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00090         }
+00091 }
+00092 
+<a name="l00093"></a><a class="code" href="classCEntiteJoueur.html#a10">00093</a> <span class="keywordtype">void</span> <a class="code" href="classCEntiteJoueur.html#a10">CEntiteJoueur::SetArme</a> (<a class="code" href="classCTypeArme.html">CTypeArme</a>* pTypeArme)
+00094 {
+00095         m_pTypeArme = pTypeArme;
+00096 }
+00097 
+<a name="l00098"></a><a class="code" href="classCEntiteJoueur.html#a4">00098</a> <span class="keywordtype">void</span> <a class="code" href="classCEntiteJoueur.html#a4">CEntiteJoueur::Update</a> ()
+00099 {
+00100 
+00101 }
+00102 
+00103 <span class="comment">// Applique des dommages à l'entité</span>
+<a name="l00104"></a><a class="code" href="classCEntiteJoueur.html#a5">00104</a> <span class="keywordtype">void</span> <a class="code" href="classCEntiteJoueur.html#a5">CEntiteJoueur::AddDommage</a> (<span class="keywordtype">int</span> iDommage)
+00105 {
+00106         m_iBouclier -= iDommage;
+00107         <span class="keywordflow">if</span> (m_iBouclier &gt; 100)
+00108                 m_iBouclier = 100;
+00109 }
+00110 
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

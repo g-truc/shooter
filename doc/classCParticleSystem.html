@@ -1,0 +1,645 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): Référence de la classe CParticleSystem</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>Référence de la classe CParticleSystem</h1>Classe générique de générateurs de particules.  
+<a href="#_details">Plus de détails...</a>
+<p>
+<code>#include &lt;<a class="el" href="fx_8h-source.html">fx.h</a>&gt;</code>
+<p>
+<p>Graphe d'héritage de CParticleSystem:
+<p><center><img src="classCParticleSystem.png" usemap="#CParticleSystem_map" border="0" alt=""></center>
+<map name="CParticleSystem_map">
+<area href="classCEtoile.html" alt="CEtoile" shape="rect" coords="0,56,104,80">
+<area href="classCExplosion.html" alt="CExplosion" shape="rect" coords="114,56,218,80">
+<area href="classCFumee.html" alt="CFumee" shape="rect" coords="228,56,332,80">
+</map>
+<a href="classCParticleSystem-members.html">Liste de tous les membres</a><table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Fonctions membres publiques</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>const <a class="el" href="classCParticule.html">CParticule</a> *const&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#a0">GetParticuleParIndex</a> (unsigned int uiIndex) const</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#a1">Update</a> ()=0</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Mise à jour du générateur de particules.  <a href="#a1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#a2">Init</a> ()=0</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Initialisation du générateur de particules.  <a href="#a2"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#a3">GetSupprime</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Faut t'il supprimer le générateur ?  <a href="#a3"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="classCTexture.html">CTexture</a> *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#a4">GetTexture</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retourne la texture du générateur de particules.  <a href="#a4"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="util_8h.html#a2">CCouleur</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#a5">GetCouleur</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retourne la couleur de l'entité.  <a href="#a5"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>float&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#a6">GetTaille</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retourne la taille des particules.  <a href="#a6"></a><br></td></tr>
+<tr><td colspan=2><br><h2>Fonctions membres protégées</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#b0">GetIndexLibre</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Recherche d'un emplacement libre dans la table des particules.  <a href="#b0"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#b1">EstDansEcran</a> (<a class="el" href="util_8h.html#a3">CVecteur</a> Position, float fRayon) const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Vérifie si le générateur de particules est dans l'écran.  <a href="#b1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#b2">CParticleSystem</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#b3">~CParticleSystem</a> ()</td></tr>
+
+<tr><td colspan=2><br><h2>Attributs protégés</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="classCEntite.html">CEntite</a> *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#p0">m_pProprietaire</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="classCParticule.html">CParticule</a> *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#p1">m_pParticule</a> [PARTICULE_NOMBRE]</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>float&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#p2">m_fTailleParticule</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="classCTexture.html">CTexture</a> *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#p3">m_pTexture</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#p4">m_bSupprime</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="classCTimer.html">CTimer</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#p5">m_Timer</a></td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="util_8h.html#a2">CCouleur</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#p6">m_Couleur</a></td></tr>
+
+<tr><td colspan=2><br><h2>Amis</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCParticleSystem.html#n0">CParticleManager::Kill</a> (unsigned int uiIndex)</td></tr>
+
+</table>
+<hr><a name="_details"></a><h2>Description détaillée</h2>
+Classe générique de générateurs de particules. 
+<p>
+Définition à la ligne <a class="el" href="fx_8h-source.html#l00022">22</a> du fichier <a class="el" href="fx_8h-source.html">fx.h</a>.<hr><h2>Documentation des contructeurs et destructeur</h2>
+<a class="anchor" name="b2" doxytag="CParticleSystem::CParticleSystem" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> CParticleSystem::CParticleSystem           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [protected]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="fx_8cpp-source.html#l00014">14</a> du fichier <a class="el" href="fx_8cpp-source.html">fx.cpp</a>.
+<p>
+Références <a class="el" href="util__timer_8cpp-source.html#l00019">CTimer::Init()</a>, <a class="el" href="fx_8h-source.html#l00031">m_bSupprime</a>, <a class="el" href="fx_8h-source.html#l00028">m_pParticule</a>, <a class="el" href="fx_8h-source.html#l00032">m_Timer</a>, et <a class="el" href="fx_8h-source.html#l00019">PARTICULE_NOMBRE</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="b3" doxytag="CParticleSystem::~CParticleSystem" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> CParticleSystem::~<a class="el" href="classCParticleSystem.html">CParticleSystem</a>           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [protected, virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="fx_8cpp-source.html#l00025">25</a> du fichier <a class="el" href="fx_8cpp-source.html">fx.cpp</a>.
+<p>
+Références <a class="el" href="fx_8h-source.html#l00028">m_pParticule</a>, et <a class="el" href="fx_8h-source.html#l00019">PARTICULE_NOMBRE</a>.    </td>
+  </tr>
+</table>
+<hr><h2>Documentation des fonctions membres</h2>
+<a class="anchor" name="b1" doxytag="CParticleSystem::EstDansEcran" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> bool CParticleSystem::EstDansEcran           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top"><a class="el" href="util_8h.html#a3">CVecteur</a>&nbsp;</td>
+          <td class="mdname" nowrap> <em>Position</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>float&nbsp;</td>
+          <td class="mdname" nowrap> <em>fRayon</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"> const<code> [protected]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Vérifie si le générateur de particules est dans l'écran. 
+<p>
+Définition à la ligne <a class="el" href="fx_8cpp-source.html#l00056">56</a> du fichier <a class="el" href="fx_8cpp-source.html">fx.cpp</a>.
+<p>
+Références <a class="el" href="util_8h-source.html#l00030">CVecteur</a>, <a class="el" href="ctrl__fenetre_8h-source.html#l00029">FENETRE_HAUTEUR</a>, et <a class="el" href="ctrl__fenetre_8h-source.html#l00028">FENETRE_LARGEUR</a>.
+<p>
+Référencé par <a class="el" href="fx__fumee_8cpp-source.html#l00048">CFumee::Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a5" doxytag="CParticleSystem::GetCouleur" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="util_8h.html#a2">CCouleur</a> CParticleSystem::GetCouleur           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retourne la couleur de l'entité. 
+<p>
+Définition à la ligne <a class="el" href="fx_8h-source.html#l00060">60</a> du fichier <a class="el" href="fx_8h-source.html">fx.h</a>.
+<p>
+Références <a class="el" href="util_8h-source.html#l00029">CCouleur</a>, et <a class="el" href="fx_8h-source.html#l00033">m_Couleur</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="b0" doxytag="CParticleSystem::GetIndexLibre" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> int CParticleSystem::GetIndexLibre           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [protected]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Recherche d'un emplacement libre dans la table des particules. 
+<p>
+Définition à la ligne <a class="el" href="fx_8cpp-source.html#l00047">47</a> du fichier <a class="el" href="fx_8cpp-source.html">fx.cpp</a>.
+<p>
+Références <a class="el" href="fx_8h-source.html#l00028">m_pParticule</a>, et <a class="el" href="fx_8h-source.html#l00019">PARTICULE_NOMBRE</a>.
+<p>
+Référencé par <a class="el" href="fx__explosion_8cpp-source.html#l00041">CExplosion::Init()</a>, <a class="el" href="fx__fumee_8cpp-source.html#l00048">CFumee::Update()</a>, et <a class="el" href="fx__etoile_8cpp-source.html#l00049">CEtoile::Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a0" doxytag="CParticleSystem::GetParticuleParIndex" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> const <a class="el" href="classCParticule.html">CParticule</a> *const CParticleSystem::GetParticuleParIndex           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">unsigned int&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>uiIndex</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Offre un accès au tableau de pointeur sur particule. Ce type d'opération est une source potencielle de risques. Pour les limités, nous prenons soin de déclarer "const" le type de sortie afin de garantir qu'à l'utilisation, ce pointeur et sa valeur ne seront pas modifié. Définition à la ligne <a class="el" href="fx_8cpp-source.html#l00039">39</a> du fichier <a class="el" href="fx_8cpp-source.html">fx.cpp</a>.
+<p>
+Références <a class="el" href="fx_8h-source.html#l00028">m_pParticule</a>, et <a class="el" href="fx_8h-source.html#l00019">PARTICULE_NOMBRE</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a3" doxytag="CParticleSystem::GetSupprime" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> bool CParticleSystem::GetSupprime           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Faut t'il supprimer le générateur ? 
+<p>
+Définition à la ligne <a class="el" href="fx_8h-source.html#l00056">56</a> du fichier <a class="el" href="fx_8h-source.html">fx.h</a>.
+<p>
+Références <a class="el" href="fx_8h-source.html#l00031">m_bSupprime</a>.
+<p>
+Référencé par <a class="el" href="ctrl__particule_8cpp-source.html#l00127">CParticleManager::Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a6" doxytag="CParticleSystem::GetTaille" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> float CParticleSystem::GetTaille           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retourne la taille des particules. 
+<p>
+Définition à la ligne <a class="el" href="fx_8h-source.html#l00062">62</a> du fichier <a class="el" href="fx_8h-source.html">fx.h</a>.
+<p>
+Références <a class="el" href="fx_8h-source.html#l00029">m_fTailleParticule</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a4" doxytag="CParticleSystem::GetTexture" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classCTexture.html">CTexture</a>* CParticleSystem::GetTexture           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retourne la texture du générateur de particules. 
+<p>
+Définition à la ligne <a class="el" href="fx_8h-source.html#l00058">58</a> du fichier <a class="el" href="fx_8h-source.html">fx.h</a>.
+<p>
+Références <a class="el" href="fx_8h-source.html#l00030">m_pTexture</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a2" doxytag="CParticleSystem::Init" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> virtual void CParticleSystem::Init           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Initialisation du générateur de particules. 
+<p>
+
+<p>
+Implémenté dans <a class="el" href="classCEtoile.html#a1">CEtoile</a>, <a class="el" href="classCExplosion.html#a1">CExplosion</a>, et <a class="el" href="classCFumee.html#a1">CFumee</a>.
+<p>
+    </td>
+  </tr>
+</table>
+<a class="anchor" name="a1" doxytag="CParticleSystem::Update" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> virtual void CParticleSystem::Update           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [pure virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Mise à jour du générateur de particules. 
+<p>
+
+<p>
+Implémenté dans <a class="el" href="classCEtoile.html#a0">CEtoile</a>, <a class="el" href="classCExplosion.html#a0">CExplosion</a>, et <a class="el" href="classCFumee.html#a0">CFumee</a>.
+<p>
+
+<p>
+Référencé par <a class="el" href="ctrl__particule_8cpp-source.html#l00127">CParticleManager::Update()</a>.    </td>
+  </tr>
+</table>
+<hr><h2>Documentation des fonctions amies et associées</h2>
+<a class="anchor" name="n0" doxytag="CParticleSystem::CParticleManager::Kill" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void CParticleManager::Kill           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">unsigned int&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap> <em>uiIndex</em>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [friend]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+    </td>
+  </tr>
+</table>
+<hr><h2>Documentation des données membres</h2>
+<a class="anchor" name="p4" doxytag="CParticleSystem::m_bSupprime" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> bool <a class="el" href="classCParticleSystem.html#p4">CParticleSystem::m_bSupprime</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="fx_8h-source.html#l00031">31</a> du fichier <a class="el" href="fx_8h-source.html">fx.h</a>.
+<p>
+Référencé par <a class="el" href="fx_8cpp-source.html#l00014">CParticleSystem()</a>, et <a class="el" href="fx_8h-source.html#l00056">GetSupprime()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p6" doxytag="CParticleSystem::m_Couleur" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="util_8h.html#a2">CCouleur</a> <a class="el" href="classCParticleSystem.html#p6">CParticleSystem::m_Couleur</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="fx_8h-source.html#l00033">33</a> du fichier <a class="el" href="fx_8h-source.html">fx.h</a>.
+<p>
+Référencé par <a class="el" href="fx__fumee_8cpp-source.html#l00023">CFumee::Create()</a>, <a class="el" href="fx__explosion_8cpp-source.html#l00023">CExplosion::Create()</a>, <a class="el" href="fx__etoile_8cpp-source.html#l00026">CEtoile::Create()</a>, et <a class="el" href="fx_8h-source.html#l00060">GetCouleur()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p2" doxytag="CParticleSystem::m_fTailleParticule" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> float <a class="el" href="classCParticleSystem.html#p2">CParticleSystem::m_fTailleParticule</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="fx_8h-source.html#l00029">29</a> du fichier <a class="el" href="fx_8h-source.html">fx.h</a>.
+<p>
+Référencé par <a class="el" href="fx__fumee_8cpp-source.html#l00023">CFumee::Create()</a>, <a class="el" href="fx__explosion_8cpp-source.html#l00023">CExplosion::Create()</a>, <a class="el" href="fx__etoile_8cpp-source.html#l00026">CEtoile::Create()</a>, et <a class="el" href="fx_8h-source.html#l00062">GetTaille()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p1" doxytag="CParticleSystem::m_pParticule" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classCParticule.html">CParticule</a>* <a class="el" href="classCParticleSystem.html#p1">CParticleSystem::m_pParticule</a>[PARTICULE_NOMBRE]<code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="fx_8h-source.html#l00028">28</a> du fichier <a class="el" href="fx_8h-source.html">fx.h</a>.
+<p>
+Référencé par <a class="el" href="fx_8cpp-source.html#l00014">CParticleSystem()</a>, <a class="el" href="fx_8cpp-source.html#l00047">GetIndexLibre()</a>, <a class="el" href="fx_8cpp-source.html#l00039">GetParticuleParIndex()</a>, et <a class="el" href="fx_8cpp-source.html#l00025">~CParticleSystem()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p0" doxytag="CParticleSystem::m_pProprietaire" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classCEntite.html">CEntite</a>* <a class="el" href="classCParticleSystem.html#p0">CParticleSystem::m_pProprietaire</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="fx_8h-source.html#l00027">27</a> du fichier <a class="el" href="fx_8h-source.html">fx.h</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p3" doxytag="CParticleSystem::m_pTexture" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classCTexture.html">CTexture</a>* <a class="el" href="classCParticleSystem.html#p3">CParticleSystem::m_pTexture</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="fx_8h-source.html#l00030">30</a> du fichier <a class="el" href="fx_8h-source.html">fx.h</a>.
+<p>
+Référencé par <a class="el" href="fx_8h-source.html#l00058">GetTexture()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="p5" doxytag="CParticleSystem::m_Timer" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classCTimer.html">CTimer</a> <a class="el" href="classCParticleSystem.html#p5">CParticleSystem::m_Timer</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="fx_8h-source.html#l00032">32</a> du fichier <a class="el" href="fx_8h-source.html">fx.h</a>.
+<p>
+Référencé par <a class="el" href="fx_8cpp-source.html#l00014">CParticleSystem()</a>.    </td>
+  </tr>
+</table>
+<hr>La documentation de cette classe a été générée à partir des fichiers suivants:<ul>
+<li><a class="el" href="fx_8h-source.html">fx.h</a><li><a class="el" href="fx_8cpp-source.html">fx.cpp</a></ul>
+<hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:37:06 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

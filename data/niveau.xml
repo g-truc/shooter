@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE jeu SYSTEM "niveau.dtd">
+<jeu>
+	<bonus-armes>
+		<!-- Laser niveau 1 -->
+		<bonus-arme index="1" taille="24" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-32" texture="arme/bonus01.tga" son="arme/bonus01.wav">
+			<arme rouge="0.1" vert="1.0" bleu="0.1" fumee="oui" taille="4.0" dommage="5" cadence="0.2" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="256" texture="arme/texture01.tga" son="arme/son01.wav">
+				<ancrage x="0" y="8" />
+			</arme>
+		</bonus-arme>
+
+		<!-- Laser niveau 2 -->
+		<bonus-arme index="2" taille="24" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-32" texture="arme/bonus01.tga" son="arme/bonus01.wav">
+			<arme rouge="0.5" vert="1.0" bleu="0.5" fumee="oui" taille="6.0" dommage="15" cadence="0.2" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="256" texture="arme/texture01.tga" son="arme/son01.wav">
+				<ancrage x="0" y="8" />
+			</arme>
+		</bonus-arme>
+
+		<!-- Mitrailleuse niveau 1 -->
+		<bonus-arme index="3" taille="24" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-32" texture="arme/bonus02.tga" son="arme/bonus01.wav">
+			<arme rouge="1.0" vert="0.5" bleu="0.0" fumee="non" taille="3.0" dommage="2" cadence="0.1" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="384" texture="arme/texture02.tga" son="arme/son02.wav">
+				<ancrage x="8" y="8" />
+				<ancrage x="-8" y="8" />
+			</arme>
+		</bonus-arme>
+
+		<!-- Mitrailleuse niveau 2 -->
+		<bonus-arme index="4" taille="24" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-32" texture="arme/bonus02.tga" son="arme/bonus01.wav">
+			<arme rouge="1.0" vert="0.5" bleu="0.0" fumee="non" taille="3.0" dommage="2" cadence="0.1" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="384" texture="arme/texture02.tga" son="arme/son02.wav">
+				<ancrage x="11" y="10" />
+				<ancrage x="5" y="10" />
+				<ancrage x="-5" y="10" />
+				<ancrage x="-11" y="10" />
+			</arme>
+		</bonus-arme>
+		
+		<!-- Bombe plasma niveau 1 -->
+		<bonus-arme index="5" taille="24" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-32" texture="arme/bonus03.tga" son="arme/bonus01.wav">
+			<arme rouge="0.1" vert="0.5" bleu="1.0" fumee="oui" taille="16.0" dommage="250" cadence="1.0" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="512" texture="arme/texture03.tga" son="arme/son03.wav">
+				<ancrage x="0" y="0" />
+			</arme>
+		</bonus-arme>
+	
+		<!-- Bombe plasma niveau 2 -->
+		<bonus-arme index="6" taille="24" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-32" texture="arme/bonus03.tga" son="arme/bonus01.wav">
+			<arme rouge="0.1" vert="0.5" bleu="1.0" fumee="oui" taille="16.0" dommage="250" cadence="0.5" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="512" texture="arme/texture03.tga" son="arme/son03.wav">
+				<ancrage x="0" y="0" />
+			</arme>
+		</bonus-arme>
+
+		<!-- Canon poudre niveau 1 -->
+		<bonus-arme index="7" taille="24" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-32" texture="arme/bonus04.tga" son="./data/arme/bonus01.wav">
+			<arme rouge="0.0" vert="1.0" bleu="0.0" fumee="non" taille="6.0" dommage="1" cadence="0.05" precision="0.1" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="256" texture="arme/texture04.tga" son="arme/son04.wav">
+				<ancrage x="0" y="8" />
+			</arme>
+		</bonus-arme>
+
+		<!-- Canon poudre niveau 2 -->
+		<bonus-arme index="8" taille="24" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-32" texture="arme/bonus04.tga" son="arme/bonus01.wav">
+			<arme rouge="0.0" vert="1.0" bleu="0.0" fumee="non" taille="6.0" dommage="1" cadence="0.05" precision="0.2" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="256" texture="arme/texture04.tga" son="arme/son04.wav">
+				<ancrage x="0" y="8" />
+				<ancrage x="-14" y="6" />
+				<ancrage x="14" y="6" />
+			</arme>
+		</bonus-arme>
+	</bonus-armes>
+
+	<bonus-boucliers>
+		<bonus-bouclier index="1" bouclier="10" taille="24" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-32" texture="bouclier/bonus01.tga" son="bouclier/bonus01.wav" />
+		<bonus-bouclier index="2" bouclier="25" taille="24" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-32" texture="bouclier/bonus02.tga" son="bouclier/bonus01.wav" />
+		<bonus-bouclier index="3" bouclier="50" taille="24" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-32" texture="bouclier/bonus03.tga" son="bouclier/bonus01.wav" />
+		<bonus-bouclier index="4" bouclier="100" taille="24" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-32" texture="bouclier/bonus04.tga" son="bouclier/bonus01.wav" />
+	</bonus-boucliers>
+
+	<ennemis>
+		<!-- Ennemi sans arme niveau 1 -->
+		<ennemi index="1" dommage="25" bouclier="1" taille="24" point="5" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-192" texture="ennemi/ennemi01.tga" son="ennemi/ennemi01.wav" />
+		
+		<!-- Ennemi sans arme niveau 2 -->
+		<ennemi index="2" dommage="50" bouclier="2" taille="24" point="10" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-256" texture="ennemi/ennemi01.tga" son="ennemi/ennemi01.wav" />
+
+		<!-- Ennemi sans arme niveau 3 -->
+		<ennemi index="3" dommage="100" bouclier="4" taille="24" point="15" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-384" texture="ennemi/ennemi01.tga" son="ennemi/ennemi01.wav" />
+
+		<!-- Ennemi laser niveau 1 -->
+		<ennemi index="4" dommage="25" bouclier="5" taille="32" point="10" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-80" texture="ennemi/ennemi02.tga" son="ennemi/ennemi02.wav">
+			<arme rouge="1.0" vert="0.0" bleu="0.0" fumee="oui" taille="6.0" dommage="6" cadence="2.0" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-192" texture="ennemi/arme02.tga">
+				<ancrage x="0" y="-8" />
+			</arme>
+		</ennemi>
+
+		<!-- Ennemi laser niveau 2 -->
+		<ennemi index="5" dommage="25" bouclier="5" taille="32" point="25" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-80" texture="ennemi/ennemi02.tga" son="ennemi/ennemi02.wav">
+			<arme rouge="1.0" vert="0.2" bleu="0.2" fumee="oui" taille="8.0" dommage="8" cadence="2.0" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-192" texture="ennemi/arme02.tga">
+				<ancrage x="0" y="-8" />
+			</arme>
+		</ennemi>		
+
+		<!-- Ennemi laser niveau 3a -->
+		<ennemi index="6" dommage="25" bouclier="5" taille="32" point="50" acceleration-x="32" acceleration-y="0" vitesse-x="-96" vitesse-y="-144" texture="ennemi/ennemi02.tga" son="ennemi/ennemi02.wav">
+			<arme rouge="1.0" vert="0.0" bleu="0.0" fumee="oui" taille="6.0" dommage="6" cadence="1.5" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-192" texture="ennemi/arme02.tga">
+				<ancrage x="0" y="-8" />
+			</arme>
+		</ennemi>
+		
+		<!-- Ennemi laser niveau 3b -->
+		<ennemi index="7" dommage="25" bouclier="5" taille="32" point="50" acceleration-x="-32" acceleration-y="0" vitesse-x="96" vitesse-y="-144" texture="ennemi/ennemi02.tga" son="ennemi/ennemi02.wav">
+			<arme rouge="1.0" vert="0.0" bleu="0.0" fumee="oui" taille="6.0" dommage="6" cadence="1.5" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-192" texture="ennemi/arme02.tga">
+				<ancrage x="0" y="-8" />
+			</arme>
+		</ennemi>
+
+		<!-- Ennemi mitrailleuse niveau 1 -->
+		<ennemi index="8" dommage="10" bouclier="10" taille="32" point="25" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-96" texture="ennemi/ennemi03.tga" son="ennemi/ennemi03.wav">
+			<arme rouge="1.0" vert="0.0" bleu="0.0" fumee="non" taille="6.0" dommage="6" cadence="1.0" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-256" texture="ennemi/arme03.tga">
+				<ancrage x="8" y="-8" />
+				<ancrage x="-8" y="-8" />
+			</arme>
+		</ennemi>	
+
+		<!-- Ennemi mitrailleuse niveau 2 -->
+		<ennemi index="9" dommage="10" bouclier="10" taille="32" point="50" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-96" texture="ennemi/ennemi03.tga" son="ennemi/ennemi03.wav">
+			<arme rouge="1.0" vert="0.0" bleu="0.0" fumee="non" taille="6.0" dommage="4" cadence="0.5" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-256" texture="ennemi/arme03.tga">
+				<ancrage x="8" y="-8" />
+				<ancrage x="-8" y="-8" />
+			</arme>
+		</ennemi>	
+
+		<!-- Ennemi mitrailleuse niveau 3a -->
+		<ennemi index="10" dommage="10" bouclier="10" taille="32" point="75" acceleration-x="24" acceleration-y="0" vitesse-x="-128" vitesse-y="-160" texture="ennemi/ennemi03.tga" son="ennemi/ennemi03.wav">
+			<arme rouge="1.0" vert="0.0" bleu="0.0" fumee="non" taille="6.0" dommage="4" cadence="0.5" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-256" texture="ennemi/arme03.tga">
+				<ancrage x="8" y="-8" />
+				<ancrage x="-8" y="-8" />
+			</arme>
+		</ennemi>
+
+		<!-- Ennemi mitrailleuse niveau 3b -->
+		<ennemi index="11" dommage="10" bouclier="10" taille="32" point="75" acceleration-x="-24" acceleration-y="0" vitesse-x="128" vitesse-y="-160" texture="ennemi/ennemi03.tga" son="ennemi/ennemi03.wav">
+			<arme rouge="1.0" vert="0.0" bleu="0.0" fumee="non" taille="6.0" dommage="4" cadence="0.5" precision="0.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-256" texture="ennemi/arme03.tga">
+				<ancrage x="8" y="-8" />
+				<ancrage x="-8" y="-8" />
+			</arme>
+		</ennemi>
+
+		<!-- Ennemi missile niveau 1 -->
+		<ennemi index="12" dommage="25" bouclier="50" taille="48" point="50" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-64" texture="ennemi/ennemi04.tga" son="ennemi/ennemi04.wav">
+			<arme rouge="1.0" vert="1.0" bleu="1.0" fumee="oui" dommage="25" taille="8" cadence="3.0" precision="0.0" acceleration-x="0" acceleration-y="-128" vitesse-x="0" vitesse-y="0" texture="ennemi/arme04.tga">
+				<ancrage x="0" y="0" />
+			</arme>
+		</ennemi>
+
+		<!-- Ennemi missile niveau 2 -->
+		<ennemi index="13" dommage="25" bouclier="50" taille="48" point="100" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-64" texture="ennemi/ennemi04.tga" son="ennemi/ennemi04.wav">
+			<arme rouge="1.0" vert="1.0" bleu="1.0" fumee="oui" dommage="33" taille="12" cadence="2.0" precision="0.0" acceleration-x="0" acceleration-y="-256" vitesse-x="0" vitesse-y="0" texture="ennemi/arme04.tga">
+				<ancrage x="0" y="0" />
+			</arme>
+		</ennemi>
+
+		<!-- Ennemi missile niveau 3 -->
+		<ennemi index="14" dommage="25" bouclier="50" taille="48" point="150" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-64" texture="ennemi/ennemi04.tga" son="ennemi/ennemi04.wav">
+			<arme rouge="1.0" vert="1.0" bleu="1.0" fumee="oui" dommage="33" taille="12" cadence="1.0" precision="0.5" acceleration-x="0" acceleration-y="-128" vitesse-x="0" vitesse-y="-256" texture="ennemi/arme04.tga">
+				<ancrage x="0" y="0" />
+			</arme>
+		</ennemi>
+
+		<!-- Ennemi mine niveau 1 -->
+		<ennemi index="15" dommage="50" bouclier="150" taille="64" point="100" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-48" texture="ennemi/ennemi05.tga" son="ennemi/ennemi05.wav">
+			<arme rouge="0.0" vert="0.0" bleu="0.0" fumee="non" dommage="25" taille="8" cadence="1.0" precision="1.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-96" texture="ennemi/arme05.tga">
+				<ancrage x="0" y="0" />
+			</arme>
+		</ennemi>
+
+		<!-- Ennemi mine niveau 2 -->
+		<ennemi index="16" dommage="50" bouclier="150" taille="64" point="150" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-48" texture="ennemi/ennemi05.tga" son="ennemi/ennemi05.wav">
+			<arme rouge="0.0" vert="0.0" bleu="0.0" fumee="non" dommage="33" taille="10" cadence="1.0" precision="1.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-96" texture="ennemi/arme05.tga">
+				<ancrage x="0" y="0" />
+			</arme>
+		</ennemi>
+
+		<!-- Ennemi mine niveau 3 -->
+		<ennemi index="17" dommage="50" bouclier="150" taille="64" point="200" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-48" texture="ennemi/ennemi05.tga" son="ennemi/ennemi05.wav">
+			<arme rouge="0.0" vert="0.0" bleu="0.0" fumee="non" dommage="50" taille="12" cadence="1.0" precision="1.0" acceleration-x="0" acceleration-y="0" vitesse-x="0" vitesse-y="-96" texture="ennemi/arme05.tga">
+				<ancrage x="0" y="0" />
+			</arme>
+		</ennemi>
+	</ennemis>
+
+	<niveaux>
+		<niveau index="1" temps="60">
+			<index-armes frequence="1000">
+				<index-arme index="1" />
+			</index-armes>
+			<index-boucliers frequence="7">
+				<index-bouclier index="1" />
+			</index-boucliers>
+			<index-ennemis frequence="1" nombre="60">
+				<index-ennemi index="4" />
+			</index-ennemis>
+		</niveau>
+		<niveau index="2" temps="60">
+			<index-armes frequence="11">
+				<index-arme index="3" />
+				<index-arme index="7" />
+			</index-armes>
+			<index-boucliers frequence="9">
+				<index-bouclier index="1" />
+			</index-boucliers>
+			<index-ennemis frequence="0.25" nombre="240">
+				<index-ennemi index="1" />
+			</index-ennemis>
+		</niveau>
+		<niveau index="3" temps="60">
+			<index-armes frequence="11">
+				<index-arme index="1" />
+				<index-arme index="3" />
+				<index-arme index="7" />
+			</index-armes>
+			<index-boucliers frequence="9">
+				<index-bouclier index="2" />
+			</index-boucliers>
+			<index-ennemis frequence="1" nombre="60">
+				<index-ennemi index="5" />
+				<index-ennemi index="8" />
+			</index-ennemis>
+		</niveau>
+		<niveau index="4" temps="60">
+			<index-armes frequence="11">
+				<index-arme index="2" />
+				<index-arme index="3" />
+				<index-arme index="7" />
+			</index-armes>
+			<index-boucliers frequence="9">
+				<index-bouclier index="2" />
+			</index-boucliers>
+			<index-ennemis frequence="1" nombre="60">
+				<index-ennemi index="8" />
+				<index-ennemi index="12" />
+			</index-ennemis>
+		</niveau>
+		<niveau index="5" temps="60">
+			<index-armes frequence="11">
+				<index-arme index="4" />
+				<index-arme index="7" />
+			</index-armes>
+			<index-boucliers frequence="9">
+				<index-bouclier index="2" />
+			</index-boucliers>
+			<index-ennemis frequence="0.15" nombre="450">
+				<index-ennemi index="2" />
+			</index-ennemis>
+		</niveau>
+		<niveau index="6" temps="60">
+      <index-armes frequence="11">
+        <index-arme index="4" />
+        <index-arme index="5" />
+        <index-arme index="8" />
+      </index-armes>
+			<index-boucliers frequence="7">
+				<index-bouclier index="3" />
+			</index-boucliers>
+			<index-ennemis frequence="1.0" nombre="60">
+				<index-ennemi index="5" />
+				<index-ennemi index="9" />
+				<index-ennemi index="13" />
+				<index-ennemi index="15" />
+			</index-ennemis>
+		</niveau>
+		<niveau index="7" temps="60">
+			<index-armes frequence="11">
+				<index-arme index="2" />
+				<index-arme index="4" />
+				<index-arme index="8" />
+			</index-armes>
+			<index-boucliers frequence="7">
+				<index-bouclier index="3" />
+			</index-boucliers>
+			<index-ennemis frequence="1.0" nombre="60">
+				<index-ennemi index="6" />
+				<index-ennemi index="7" />
+				<index-ennemi index="13" />
+			</index-ennemis>
+		</niveau>
+		<niveau index="8" temps="60">
+			<index-armes frequence="11">
+				<index-arme index="2" />
+				<index-arme index="4" />
+				<index-arme index="5" />
+			</index-armes>
+			<index-boucliers frequence="7">
+				<index-bouclier index="3" />
+			</index-boucliers>
+			<index-ennemis frequence="0.75" nombre="96">
+				<index-ennemi index="10" />
+				<index-ennemi index="11" />
+				<index-ennemi index="16" />
+			</index-ennemis>
+		</niveau>		
+		<niveau index="9" temps="60">
+			<index-armes frequence="11">
+				<index-arme index="4" />
+				<index-arme index="8" />
+			</index-armes>
+			<index-boucliers frequence="7">
+				<index-bouclier index="4" />
+			</index-boucliers>
+			<index-ennemis frequence="0.1" nombre="600">
+				<index-ennemi index="3" />
+			</index-ennemis>
+		</niveau>
+		<niveau index="10" temps="60">
+			<index-armes frequence="11">
+				<index-arme index="6" />
+			</index-armes>
+			<index-boucliers frequence="7">
+				<index-bouclier index="1" />
+			</index-boucliers>
+			<index-ennemis frequence="0.75" nombre="96">
+				<index-ennemi index="13" />
+				<index-ennemi index="14" />
+				<index-ennemi index="17" />
+			</index-ennemis>
+		</niveau>		
+	</niveaux>
+</jeu>

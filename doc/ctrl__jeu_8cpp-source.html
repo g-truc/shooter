@@ -1,0 +1,358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): ctrl_jeu.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>ctrl_jeu.cpp</h1><a href="ctrl__jeu_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="affichage_8h.html">affichage.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="ctrl__fenetre_8h.html">ctrl_fenetre.h</a>"</span>
+00012 <span class="preprocessor">#include "<a class="code" href="ctrl__jeu_8h.html">ctrl_jeu.h</a>"</span>
+00013 <span class="preprocessor">#include "<a class="code" href="ctrl__particule_8h.html">ctrl_particule.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="ctrl__son_8h.html">ctrl_son.h</a>"</span>
+00015 <span class="preprocessor">#include "<a class="code" href="ctrl__entite_8h.html">ctrl_entite.h</a>"</span>
+00016 <span class="preprocessor">#include "<a class="code" href="entite__arme_8h.html">entite_arme.h</a>"</span>
+00017 <span class="preprocessor">#include "<a class="code" href="entite__bonus_8h.html">entite_bonus.h</a>"</span>
+00018 <span class="preprocessor">#include "<a class="code" href="entite__ennemi_8h.html">entite_ennemi.h</a>"</span>
+00019 <span class="preprocessor">#include "<a class="code" href="entite__joueur_8h.html">entite_joueur.h</a>"</span>
+00020 <span class="preprocessor">#include "<a class="code" href="xml__score_8h.html">xml_score.h</a>"</span>
+00021 <span class="preprocessor">#include "<a class="code" href="fx__etoile_8h.html">fx_etoile.h</a>"</span>
+00022 <span class="preprocessor">#include "<a class="code" href="fx__explosion_8h.html">fx_explosion.h</a>"</span>
+00023 <span class="preprocessor">#include "<a class="code" href="texture__manager_8h.html">texture_manager.h</a>"</span>
+00024 
+00025 <a class="code" href="classCGameManager.html">CGameManager</a>* CGameManager::m_pGameManager = 0;
+00026 
+00027 <span class="comment">// On initialise tous les pointeurs à 0. </span>
+00028 <span class="comment">// Ce réflexe permet de vérifier si de la mémoire a été alloué.</span>
+00029 CGameManager::CGameManager ()
+00030 {
+00031         m_pGameManager = 0;
+00032         m_pJoueur1 = 0;
+00033         m_pJoueur2 = 0;
+00034         m_uiNiveau = 0;
+00035         m_bNiveau = <span class="keyword">true</span>;
+00036         m_Etat = <a class="code" href="ctrl__jeu_8h.html#a12a6">ETAT_JEU_JEU</a>;
+00037 
+00038         <span class="comment">// On quite le jeu donc on desactive les canaux utilisés pour le jeu</span>
+00039         <a class="code" href="classCSoundManager.html#e0">CSoundManager::Instance</a> () -&gt;<a class="code" href="classCSoundManager.html#a1">ActiverCanauxJeu</a> ();
+00040 }
+00041 
+00042 CGameManager::~CGameManager ()
+00043 {
+00044         <span class="comment">// On quite le jeu donc on desactive les canaux utilisés pour le jeu</span>
+00045         <a class="code" href="classCSoundManager.html#e0">CSoundManager::Instance</a> () -&gt;<a class="code" href="classCSoundManager.html#a2">DeactiverCanauxJeu</a> ();
+00046 
+00047         <span class="comment">// Libération de la mémoire réservée pour le contrôleur d'entités.</span>
+00048         <a class="code" href="classCEntityManager.html#e1">CEntityManager::Kill</a> ();
+00049         
+00050         <span class="comment">// Libération de la mémoire réservée par le moteur de particules.</span>
+00051         <a class="code" href="classCParticleManager.html#e1">CParticleManager::Kill</a> ();
+00052 }
+00053 
+00054 <span class="comment">// Creation ou récupération de l'instance du gestionnaire de jeu.</span>
+00055 <span class="comment">// Si l'instance n'existe pas (m_pGameManager == 0), on la créé.</span>
+<a name="l00056"></a><a class="code" href="classCGameManager.html#e0">00056</a> <a class="code" href="classCGameManager.html">CGameManager</a>* <a class="code" href="classCGameManager.html#e0">CGameManager::Instance</a> ()
+00057 {
+00058         <span class="keywordflow">if</span> (m_pGameManager == 0)
+00059                 m_pGameManager = <span class="keyword">new</span> <a class="code" href="classCGameManager.html">CGameManager</a>;
+00060         <span class="keywordflow">return</span> m_pGameManager;
+00061 }
+00062 
+00063 <span class="comment">// Suppression de l'instance du gestionnaire de jeu si elle existe.</span>
+<a name="l00064"></a><a class="code" href="classCGameManager.html#e1">00064</a> <span class="keywordtype">void</span> <a class="code" href="classCGameManager.html#e1">CGameManager::Kill</a> ()
+00065 {
+00066         <span class="keywordflow">if</span> (m_pGameManager != 0)
+00067         {
+00068                 <span class="keyword">delete</span> m_pGameManager;
+00069                 m_pGameManager = 0;
+00070         }
+00071 }
+00072 
+<a name="l00073"></a><a class="code" href="classCGameManager.html#e2">00073</a> <span class="keywordtype">bool</span> <a class="code" href="classCGameManager.html#e2">CGameManager::IsCreate</a> ()
+00074 {
+00075         <span class="keywordflow">return</span> m_pGameManager != 0;
+00076 }
+00077 
+00078 <span class="keywordtype">void</span> CGameManager::EnregistrerScore ()
+00079 {
+00080         <a class="code" href="structSScore.html">SScore</a> Score;
+00081 
+00082         <span class="comment">// Chargement du fichier XML contenant les scores</span>
+00083         <a class="code" href="classCXMLScore.html">CXMLScore</a> XMLScore;
+00084         XMLScore.<a class="code" href="classCXMLScore.html#a2">Charger</a> (FICHIER_XML_SCORE);
+00085 
+00086         <span class="comment">// Création d'un résultat pour le joueur 1</span>
+00087         <a class="code" href="structSJoueur.html">SJoueur</a> Joueur1;
+00088         Joueur1.<a class="code" href="structSJoueur.html#o0">m_szNom</a> = m_TypeJoueur[0].<a class="code" href="classCTypeJoueur.html#a13">GetNom</a> ();
+00089         Joueur1.<a class="code" href="structSJoueur.html#o1">m_uiScore</a> = m_TypeJoueur[0].<a class="code" href="classCTypeJoueur.html#a10">GetScore</a> ();
+00090         Joueur1.<a class="code" href="structSJoueur.html#o2">m_uiNiveau</a> = m_TypeJoueur[0].<a class="code" href="classCTypeJoueur.html#a15">GetNiveau</a> ();
+00091         Score.<a class="code" href="structSScore.html#o0">m_Joueur</a>.push_back (Joueur1);
+00092 
+00093         <span class="comment">// Création d'un résultat pour le joueur 2, si c'est une partie pour 2 joueurs</span>
+00094         <span class="keywordflow">if</span> (m_uiTypeJoueur == 2)
+00095         {
+00096                 <a class="code" href="structSJoueur.html">SJoueur</a> Joueur2;
+00097                 Joueur2.<a class="code" href="structSJoueur.html#o0">m_szNom</a> = m_TypeJoueur[1].<a class="code" href="classCTypeJoueur.html#a13">GetNom</a> ();
+00098                 Joueur2.<a class="code" href="structSJoueur.html#o1">m_uiScore</a> = m_TypeJoueur[1].<a class="code" href="classCTypeJoueur.html#a10">GetScore</a> ();
+00099                 Joueur2.<a class="code" href="structSJoueur.html#o2">m_uiNiveau</a> = m_TypeJoueur[1].<a class="code" href="classCTypeJoueur.html#a15">GetNiveau</a> ();
+00100                 Score.<a class="code" href="structSScore.html#o0">m_Joueur</a>.push_back (Joueur2);
+00101         }
+00102 
+00103         <span class="comment">// Enregistrement du score</span>
+00104         XMLScore.<a class="code" href="classCXMLScore.html#a4">AjouterScore</a> (Score);
+00105         XMLScore.<a class="code" href="classCXMLScore.html#a3">Sauver</a> ();
+00106 }
+00107 
+00108 <span class="keywordtype">void</span> CGameManager::GererNiveau ()
+00109 {
+00110         <a class="code" href="classCEntityManager.html">CEntityManager</a> *pControleurEntite = <a class="code" href="classCEntityManager.html#e0">CEntityManager::Instance</a> ();
+00111 
+00112         <span class="comment">// Détermine s'il y a défaite</span>
+00113         <span class="keywordflow">if</span> (m_pJoueur1 == 0 &amp;&amp; m_pJoueur2 == 0 &amp;&amp; m_Etat != <a class="code" href="ctrl__jeu_8h.html#a12a8">ETAT_JEU_DEFAITE</a>)
+00114         {
+00115                 m_Etat = <a class="code" href="ctrl__jeu_8h.html#a12a8">ETAT_JEU_DEFAITE</a>;
+00116                 EnregistrerScore ();
+00117         }
+00118 
+00119         <span class="comment">// Détermine la fin d'un niveau : quand le nombre d'ennemi détruit est égale au nombre d'ennemis dans le niveau</span>
+00120         <span class="keywordflow">if</span> (m_bNiveau &amp;&amp; pControleurEntite-&gt;<a class="code" href="classCEntityManager.html#a5">GetStatistique</a> ().<a class="code" href="structSStatistique.html#o1">m_uiEnnemiDetruit</a> == m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a2">GetEnnemiNombre</a> (m_uiNiveau))
+00121         {
+00122                 m_bNiveau = <span class="keyword">false</span>;
+00123                 m_NiveauTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00124         }
+00125 
+00126         <span class="comment">// Changement de niveau</span>
+00127         <span class="keywordflow">if</span> (!m_bNiveau &amp;&amp; (m_NiveauTimer.<a class="code" href="classCTimer.html#a2">GetTime</a> () &gt; <a class="code" href="ctrl__jeu_8h.html#a0">TEMPS_ENTRE_NIVEAU</a>))
+00128         {
+00129                 m_bNiveau = <span class="keyword">true</span>;
+00130                 m_uiNiveau++;
+00131                 pControleurEntite-&gt;<a class="code" href="classCEntityManager.html#a6">Init</a> ();
+00132                 <span class="comment">// Détermine s'il y a victoire</span>
+00133                 <span class="keywordflow">if</span> (m_uiNiveau &gt;= m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a3">GetNiveauNombre</a> ())
+00134                 {
+00135                         <span class="comment">// Indique pour chaque joueur de la partie le niveau atteint (le dernier)</span>
+00136                         m_uiNiveau = m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a3">GetNiveauNombre</a> () - 1;
+00137                         m_Etat = <a class="code" href="ctrl__jeu_8h.html#a12a7">ETAT_JEU_VICTOIRE</a>;
+00138                         m_TypeJoueur[0].<a class="code" href="classCTypeJoueur.html#a14">SetNiveau</a> (m_uiNiveau + 1);
+00139                         <span class="keywordflow">if</span> (m_uiTypeJoueur == 2)
+00140                                 m_TypeJoueur[1].<a class="code" href="classCTypeJoueur.html#a14">SetNiveau</a> (m_uiNiveau + 1);
+00141                         <span class="comment">// Enregistrement des scores obtenus par les joueurs</span>
+00142                         EnregistrerScore ();
+00143 
+00144                         <span class="comment">// Le bouquet final !</span>
+00145                         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 8; i++)
+00146                         {
+00147                                 <a class="code" href="util_8h.html#a2">CCouleur</a> Couleur (RandFloat (0, 1), RandFloat (0, 1), RandFloat (0, 1));
+00148                                 <a class="code" href="classCExplosion.html#e0">CExplosion::Create</a> (0, 32, <a class="code" href="util_8h.html#a3">CVecteur</a> (RandFloat (0, FENETRE_LARGEUR), RandFloat (0, FENETRE_HAUTEUR)), RandInt (100, 200), RandFloat (1, 4), Couleur);
+00149                         }
+00150                 }
+00151         }
+00152 }
+00153 
+<a name="l00154"></a><a class="code" href="classCGameManager.html#a0">00154</a> <span class="keywordtype">void</span> <a class="code" href="classCGameManager.html#a0">CGameManager::Update</a> ()
+00155 {
+00156         <span class="comment">// S'il n'y a niveau victoire ni défaire, on met à jour le niveau, les entités et les particules</span>
+00157         <span class="keywordflow">if</span> (m_Etat != <a class="code" href="ctrl__jeu_8h.html#a12a8">ETAT_JEU_DEFAITE</a> &amp;&amp; m_Etat != <a class="code" href="ctrl__jeu_8h.html#a12a7">ETAT_JEU_VICTOIRE</a>)
+00158         {
+00159                 GererNiveau ();
+00160                 UpdateEntite ();
+00161 
+00162                 <a class="code" href="classCParticleManager.html#e0">CParticleManager::Instance</a> ()-&gt;<a class="code" href="classCParticleManager.html#a4">Update</a> ();
+00163         }
+00164 
+00165         <a class="code" href="classCAffichage.html">CAffichage</a> *pAffichage = <a class="code" href="classCAffichage.html#e0">CAffichage::Instance</a> ();
+00166         pAffichage-&gt;<a class="code" href="classCAffichage.html#a14">Debut</a> ();
+00167         <span class="comment">// On affiche les particules</span>
+00168         pAffichage-&gt;<a class="code" href="classCAffichage.html#a1">Particule</a> ();
+00169         <span class="comment">// On affciche les entités</span>
+00170         pAffichage-&gt;<a class="code" href="classCAffichage.html#a0">Entite</a> ();
+00171 
+00172         <span class="comment">// On affiche le HUD, suivant l'état du jeu et le nombre de joueurs dans la partie</span>
+00173         <span class="keywordflow">switch</span> (m_Etat)
+00174         {
+00175         <span class="keywordflow">default</span>:
+00176                 <span class="keywordflow">break</span>;
+00177         <span class="keywordflow">case</span> <a class="code" href="ctrl__jeu_8h.html#a12a6">ETAT_JEU_JEU</a>:
+00178                 <span class="keywordflow">if</span> (m_uiTypeJoueur == 2)
+00179                         pAffichage-&gt;<a class="code" href="classCAffichage.html#a2">HUDJeu</a> (m_uiNiveau, m_TypeJoueur[0].GetScore (), m_TypeJoueur[0].GetNom (), m_TypeJoueur[1].GetScore (), m_TypeJoueur[1].GetNom ());
+00180                 <span class="keywordflow">else</span>
+00181                         pAffichage-&gt;<a class="code" href="classCAffichage.html#a2">HUDJeu</a> (m_uiNiveau, m_TypeJoueur[0].GetScore (), m_TypeJoueur[0].GetNom ());
+00182                 <span class="keywordflow">break</span>;
+00183         <span class="keywordflow">case</span> <a class="code" href="ctrl__jeu_8h.html#a12a7">ETAT_JEU_VICTOIRE</a>:
+00184                 <span class="keywordflow">if</span> (m_uiTypeJoueur == 2)
+00185                         pAffichage-&gt;<a class="code" href="classCAffichage.html#a4">HUDVictoire</a> (m_TypeJoueur[0].GetScore (), m_TypeJoueur[0].GetNom (), m_TypeJoueur[1].GetScore (), m_TypeJoueur[1].GetNom ());
+00186                 <span class="keywordflow">else</span>
+00187                         pAffichage-&gt;<a class="code" href="classCAffichage.html#a4">HUDVictoire</a> (m_TypeJoueur[0].GetScore (), m_TypeJoueur[0].GetNom ());
+00188                 <span class="keywordflow">break</span>;
+00189         <span class="keywordflow">case</span> <a class="code" href="ctrl__jeu_8h.html#a12a8">ETAT_JEU_DEFAITE</a>:
+00190                 <span class="keywordflow">if</span> (m_uiTypeJoueur == 2)
+00191                         pAffichage-&gt;<a class="code" href="classCAffichage.html#a6">HUDDefaite</a> (m_TypeJoueur[0].GetScore (), m_TypeJoueur[0].GetNom (), m_TypeJoueur[1].GetScore (), m_TypeJoueur[1].GetNom ());
+00192                 <span class="keywordflow">else</span>
+00193                         pAffichage-&gt;<a class="code" href="classCAffichage.html#a6">HUDDefaite</a> (m_TypeJoueur[0].GetScore (), m_TypeJoueur[0].GetNom ());
+00194                 <span class="keywordflow">break</span>;
+00195         }
+00196         pAffichage-&gt;<a class="code" href="classCAffichage.html#a15">Fin</a> ();
+00197 }
+00198 
+00199 <span class="keywordtype">void</span> CGameManager::UpdateEntite ()
+00200 {
+00201         <span class="comment">// On récupère un pointeur vers l'instance de l'entity manager</span>
+00202         <a class="code" href="classCEntityManager.html">CEntityManager</a> *pEntityManager = <a class="code" href="classCEntityManager.html#e0">CEntityManager::Instance</a> ();
+00203 
+00204         <span class="keywordflow">if</span> (pEntityManager-&gt;<a class="code" href="classCEntityManager.html#a5">GetStatistique</a> ().<a class="code" href="structSStatistique.html#o0">m_uiEnnemiCree</a> &lt; m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a2">GetEnnemiNombre</a> (m_uiNiveau) &amp;&amp; m_bNiveau)
+00205         {
+00206                 <span class="comment">// Ajout des ennemis</span>
+00207                 <span class="comment">// Quand l'intervale de temps entre la création de deux ennemis défini dans le niveau est écoulé, alors on créé une entité ennemi.</span>
+00208                 <span class="keywordflow">if</span> (m_EnnemiTimer.<a class="code" href="classCTimer.html#a2">GetTime</a> () &gt; m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a4">GetEnnemiFrequence</a> (m_uiNiveau))
+00209                 {
+00210                         m_EnnemiTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00211                         <a class="code" href="classCEntiteEnnemi.html#e0">CEntiteEnnemi::Create</a> (m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a9">GetTypeEnnemi</a> (m_uiNiveau), <a class="code" href="util_8h.html#a3">CVecteur</a> (RandFloat (64, FENETRE_LARGEUR - 64), FENETRE_HAUTEUR + 96));
+00212                 }
+00213 
+00214                 <span class="comment">// Ajout des ennemis</span>
+00215                 <span class="comment">// Quand l'intervale de temps entre la création de deux bonus d'arme défini dans le niveau est écoulé, alors on créé une entité bonus d'arme.</span>
+00216                 <span class="keywordflow">if</span> (m_BonusArmeTimer.<a class="code" href="classCTimer.html#a2">GetTime</a> () &gt; m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a5">GetBonusArmeFrequence</a> (m_uiNiveau))
+00217                 {
+00218                         m_BonusArmeTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00219                         <a class="code" href="classCEntiteBonus.html#e0">CEntiteBonus::Create</a> (m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a7">GetTypeBonusArme</a> (m_uiNiveau), <a class="code" href="util_8h.html#a3">CVecteur</a> (RandFloat (64, FENETRE_LARGEUR - 64), FENETRE_HAUTEUR + 96));
+00220                 }
+00221 
+00222                 <span class="comment">// Ajout des ennemis</span>
+00223                 <span class="comment">// Quand l'intervale de temps entre la création de deux bonus de bouclier défini dans le niveau est écoulé, alors on créé une entité bonus de bouclier.</span>
+00224                 <span class="keywordflow">if</span> (m_BonusBouclierTimer.<a class="code" href="classCTimer.html#a2">GetTime</a> () &gt; m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a6">GetBonusBouclierFrequence</a> (m_uiNiveau))
+00225                 {
+00226                         m_BonusBouclierTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00227                         <a class="code" href="classCEntiteBonus.html#e0">CEntiteBonus::Create</a> (m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a8">GetTypeBonusBouclier</a> (m_uiNiveau), <a class="code" href="util_8h.html#a3">CVecteur</a> (RandFloat (64, FENETRE_LARGEUR - 64), FENETRE_HAUTEUR + 96));
+00228                 }
+00229         }
+00230 
+00231         <span class="comment">// Mise à jour des entités</span>
+00232         pEntityManager-&gt;<a class="code" href="classCEntityManager.html#a7">Update</a> ();
+00233 }
+00234 
+<a name="l00235"></a><a class="code" href="classCGameManager.html#a1">00235</a> <span class="keywordtype">bool</span> <a class="code" href="classCGameManager.html#a1">CGameManager::Init</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur2)
+00236 {
+00237         <span class="comment">// Chargement des niveaux, en cas d'echec on renvoie une erreur.</span>
+00238         <span class="keywordflow">if</span> (!m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a10">Charger</a> (<a class="code" href="xml__niveau_8h.html#a0">FICHIER_XML_NIVEAU</a>))
+00239                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+00240 
+00241         <span class="comment">// Creation de l'instance de l'entity manager</span>
+00242         <a class="code" href="classCEntityManager.html#e0">CEntityManager::Instance</a> ();
+00243         <span class="comment">// Creation de l'instance du particle manager</span>
+00244         <a class="code" href="classCParticleManager.html#e0">CParticleManager::Instance</a> ();
+00245 
+00246         <span class="comment">// Initialisation des joueurs, création des entités joueurs</span>
+00247         <a class="code" href="classCGameManager.html#a2">InitJoueur</a> (uiJoueur, szJoueur1, szJoueur2);
+00248 
+00249         <span class="comment">// Création d'une instance d'effet de défilement d'étoiles</span>
+00250         <a class="code" href="classCEtoile.html#e0">CEtoile::Create</a> ();
+00251 
+00252         <span class="comment">// Initialisation des timers</span>
+00253         m_EnnemiTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00254         m_BonusArmeTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00255         m_BonusBouclierTimer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00256 
+00257         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+00258 }
+00259 
+00260 <span class="comment">// Création des entités du joueur</span>
+00261 <span class="keywordtype">void</span> <a class="code" href="classCGameManager.html#a2">CGameManager::InitJoueur</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiJoueur, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur1, <span class="keyword">const</span> <span class="keywordtype">char</span>* szJoueur2)
+00262 {
+00263         m_uiTypeJoueur = uiJoueur;
+00264 
+00265         <span class="comment">// Configuration du joueur 1</span>
+00266         m_TypeJoueur[0].<a class="code" href="classCTypeJoueur.html#a8">SetNumero</a> (1);
+00267         m_TypeJoueur[0].<a class="code" href="classCType.html#a7">SetTexture</a> (CTextureManager::Instance ()-&gt;Texture2D (FIFHIER_TEXTURE_JOUEUR1));
+00268         m_TypeJoueur[0].<a class="code" href="classCTypeJoueur.html#a6">SetTextureBouclier</a> (CTextureManager::Instance ()-&gt;Texture2D (FIFHIER_TEXTURE_BOUCLIER));
+00269         m_TypeJoueur[0].<a class="code" href="classCTypeJoueur.html#a5">SetCouleur</a> (<a class="code" href="util_8h.html#a2">CCouleur</a> (0.5f, 0.5f, 1.0f));
+00270         m_TypeJoueur[0].<a class="code" href="classCTypeJoueur.html#a7">SetDommage</a> (5);
+00271         m_TypeJoueur[0].<a class="code" href="classCType.html#a12">SetTaille</a> (32);
+00272         m_TypeJoueur[0].<a class="code" href="classCType.html#a13">SetSon</a> (FICHIER_SON_EXPLOSION);
+00273         m_TypeJoueur[0].<a class="code" href="classCTypeJoueur.html#a12">SetNom</a> (szJoueur1);
+00274         m_TypeJoueur[0].<a class="code" href="classCTypeJoueur.html#a16">SetPositionSpawn</a> (<a class="code" href="util_8h.html#a3">CVecteur</a> (FENETRE_LARGEUR * 1.f / 3.f, FENETRE_HAUTEUR / 6.f));
+00275 
+00276         <span class="comment">// Configuration du joueur 2</span>
+00277         m_TypeJoueur[1].<a class="code" href="classCTypeJoueur.html#a8">SetNumero</a> (2);
+00278         m_TypeJoueur[1].<a class="code" href="classCType.html#a7">SetTexture</a> (CTextureManager::Instance ()-&gt;Texture2D (FIFHIER_TEXTURE_JOUEUR2));
+00279         m_TypeJoueur[1].<a class="code" href="classCTypeJoueur.html#a6">SetTextureBouclier</a> (CTextureManager::Instance ()-&gt;Texture2D (FIFHIER_TEXTURE_BOUCLIER));
+00280         m_TypeJoueur[1].<a class="code" href="classCTypeJoueur.html#a5">SetCouleur</a> (<a class="code" href="util_8h.html#a2">CCouleur</a> (1.0f, 0.5f, 0.5f));
+00281         m_TypeJoueur[1].<a class="code" href="classCTypeJoueur.html#a7">SetDommage</a> (5);
+00282         m_TypeJoueur[1].<a class="code" href="classCType.html#a12">SetTaille</a> (32);
+00283         m_TypeJoueur[1].<a class="code" href="classCType.html#a13">SetSon</a> (FICHIER_SON_EXPLOSION);
+00284         m_TypeJoueur[1].<a class="code" href="classCTypeJoueur.html#a12">SetNom</a> (szJoueur2);
+00285         m_TypeJoueur[1].<a class="code" href="classCTypeJoueur.html#a16">SetPositionSpawn</a> (<a class="code" href="util_8h.html#a3">CVecteur</a> (FENETRE_LARGEUR * 2.f / 3.f, FENETRE_HAUTEUR / 6.f));
+00286 
+00287         <span class="comment">// Création de l'entité du joueur 1</span>
+00288         m_pJoueur1 = <a class="code" href="classCEntiteJoueur.html#e0">CEntiteJoueur::Create</a> (&amp;m_TypeJoueur[0]);
+00289         m_pJoueur1-&gt;<a class="code" href="classCEntiteJoueur.html#a10">SetArme</a> (m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a7">GetTypeBonusArme</a> (0)-&gt;<a class="code" href="classCTypeBonusArme.html#a4">GetArme</a> ());
+00290 
+00291         <span class="keywordflow">if</span> (m_uiTypeJoueur == 2)
+00292         {
+00293                 <span class="comment">// Création de l'entité du joueur 2</span>
+00294                 m_pJoueur2 = <a class="code" href="classCEntiteJoueur.html#e0">CEntiteJoueur::Create</a> (&amp;m_TypeJoueur[1]);
+00295                 m_pJoueur2-&gt;SetArme (m_XMLNiveaux.<a class="code" href="classCXMLNiveau.html#a7">GetTypeBonusArme</a> (0)-&gt;<a class="code" href="classCTypeBonusArme.html#a4">GetArme</a> ());
+00296         }
+00297 }
+00298 
+00299 <span class="comment">// Commande de tire des joueurs</span>
+<a name="l00300"></a><a class="code" href="classCGameManager.html#a3">00300</a> <span class="keywordtype">void</span> <a class="code" href="classCGameManager.html#a3">CGameManager::Tirer</a> (EJoueur Joueur, <span class="keywordtype">bool</span> bTire)
+00301 {
+00302         <span class="keywordflow">switch</span> (Joueur)
+00303         {
+00304         <span class="keywordflow">default</span>:
+00305                 <span class="keywordflow">break</span>;
+00306         <span class="keywordflow">case</span> <a class="code" href="ctrl__jeu_8h.html#a13a10">JOUEUR_1</a>:
+00307                 <span class="keywordflow">if</span> (m_pJoueur1)
+00308                         m_pJoueur1-&gt;<a class="code" href="classCEntiteJoueur.html#a6">SetTirer</a> (bTire);
+00309                 <span class="keywordflow">break</span>;
+00310         <span class="keywordflow">case</span> <a class="code" href="ctrl__jeu_8h.html#a13a11">JOUEUR_2</a>:
+00311                 <span class="keywordflow">if</span> (m_pJoueur2)
+00312                         m_pJoueur2-&gt;SetTirer (bTire);
+00313                 <span class="keywordflow">break</span>;
+00314         }
+00315 }
+00316 
+00317 <span class="comment">// Commande de positionnement des joueurs</span>
+<a name="l00318"></a><a class="code" href="classCGameManager.html#a4">00318</a> <span class="keywordtype">void</span> <a class="code" href="classCGameManager.html#a4">CGameManager::PositionnerJoueur</a> (EJoueur Joueur, <a class="code" href="util_8h.html#a3">CVecteur</a> Position)
+00319 {
+00320         <span class="keywordflow">switch</span> (Joueur)
+00321         {
+00322         <span class="keywordflow">default</span>:
+00323                 <span class="keywordflow">break</span>;
+00324         <span class="keywordflow">case</span> <a class="code" href="ctrl__jeu_8h.html#a13a10">JOUEUR_1</a>:
+00325                 <span class="keywordflow">if</span> (m_pJoueur1)
+00326                         m_pJoueur1-&gt;<a class="code" href="classCEntite.html#a8">SetPosition</a> (Position);
+00327                 <span class="keywordflow">break</span>;
+00328         <span class="keywordflow">case</span> <a class="code" href="ctrl__jeu_8h.html#a13a11">JOUEUR_2</a>:
+00329                 <span class="keywordflow">if</span> (m_pJoueur2)
+00330                         m_pJoueur2-&gt;SetPosition (Position);
+00331                 <span class="keywordflow">break</span>;
+00332         }
+00333 }
+00334 
+00335 <span class="comment">// Initialisation des joueurs quand les entités joueurs sont détruites</span>
+<a name="l00336"></a><a class="code" href="classCGameManager.html#a2">00336</a> <span class="keywordtype">void</span> <a class="code" href="classCGameManager.html#a2">CGameManager::InitJoueur</a> (<a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a>* pJoueur)
+00337 {
+00338         <span class="keywordflow">if</span> (m_pJoueur1 == pJoueur)
+00339         {
+00340                 <span class="comment">// On indique le niveau atteint pas le joueur 1</span>
+00341                 m_TypeJoueur[0].<a class="code" href="classCTypeJoueur.html#a14">SetNiveau</a> (m_uiNiveau + 1);
+00342                 m_pJoueur1 = 0;
+00343         }
+00344         <span class="keywordflow">if</span> (m_pJoueur2 == pJoueur)
+00345         {
+00346                 <span class="comment">// On indique le niveau atteint pas le joueur 2</span>
+00347                 <span class="keywordflow">if</span> (m_uiTypeJoueur == 2)
+00348                         m_TypeJoueur[1].<a class="code" href="classCTypeJoueur.html#a14">SetNiveau</a> (m_uiNiveau + 1);
+00349                 m_pJoueur2 = 0;
+00350         }
+00351 }
+00352 
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

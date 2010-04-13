@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): texture_2d.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>texture_2d.cpp</h1><a href="texture__2d_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 <span class="preprocessor">#include "<a class="code" href="texture__2d_8h.html">texture_2d.h</a>"</span>
+00002 <span class="preprocessor">#include "<a class="code" href="texture__manager_8h.html">texture_manager.h</a>"</span>
+00003 <span class="preprocessor">#include "<a class="code" href="window__sdl_8h.html">window_sdl.h</a>"</span>
+00004 
+00005 CTexture2D::CTexture2D (<span class="keyword">const</span> <span class="keywordtype">char</span>* szFilename)
+00006 {
+00007         _Load (szFilename);
+00008 }
+00009 
+00010 CTexture2D::~CTexture2D ()
+00011 {
+00012         glDeleteTextures (1, &amp;m_uiTexture);
+00013 }
+00014 
+00015 <span class="keywordtype">void</span> CTexture2D::_Load (<span class="keyword">const</span> <span class="keywordtype">char</span>* szFilename)
+00016 {
+00017         <a class="code" href="classCTexture.html#p5">m_szFilename</a> = szFilename;
+00018 
+00019         <span class="comment">// Groove - 03/03/2004 - Chargement de l'image grâce à GTL, une ligne et c'est fait !</span>
+00020         gtl::CImageTGA Image (szFilename);
+00021         <span class="comment">// Groove - 08/09/2004 - Création d'un objet de texture</span>
+00022         glGenTextures (1, &amp;m_uiTexture);
+00023         <span class="comment">// Groove - 03/03/2004 - La texture indiqué par g_uiTexture est la testure courante.</span>
+00024         glBindTexture (GL_TEXTURE_2D, m_uiTexture);
+00025         <span class="comment">// Groove - 03/03/2004 - Indique le filtre qui sera appliqué à la texture.</span>
+00026         glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+00027         glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+00028         <span class="comment">// Groove - 03/03/2004 - Indique comment la texture sera appliqué en decors des coordonnées de la texture.</span>
+00029         glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+00030         glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+00031         glTexParameteri (GL_TEXTURE_2D, GL_GENERATE_MIPMAP_SGIS, GL_TRUE);
+00032 
+00033         <span class="comment">// Groove - 03/03/2004 - Image.GetSizeX () : Retourne la largeur de l'image</span>
+00034         <span class="comment">// Groove - 03/03/2004 - Image.GetSizeY () : Retourne la hauteur de l'image</span>
+00035         <span class="comment">// Groove - 03/03/2004 - Image.GetData () : Retourne un pointeur vers les données de l'image</span>
+00036         <span class="keywordflow">switch</span> (Image.GetTexelSize ())
+00037         {
+00038         <span class="keywordflow">default</span>:
+00039                 <span class="keywordflow">break</span>;
+00040         <span class="keywordflow">case</span> 24:
+00041                 glTexImage2D (GL_TEXTURE_2D, 0, 3, Image.GetSizeX (), Image.GetSizeY (), 0, <a class="code" href="glext_8h.html#a26">GL_BGR</a>, GL_UNSIGNED_BYTE, Image.GetData ());
+00042                 <span class="keywordflow">break</span>;
+00043         <span class="keywordflow">case</span> 32:
+00044                 glTexImage2D (GL_TEXTURE_2D, 0, 4, Image.GetSizeX (), Image.GetSizeY (), 0, <a class="code" href="glext_8h.html#a27">GL_BGRA</a>, GL_UNSIGNED_BYTE, Image.GetData ());
+00045                 <span class="keywordflow">break</span>;
+00046         }
+00047 }
+00048 
+<a name="l00049"></a><a class="code" href="classCTexture2D.html#a0">00049</a> <span class="keywordtype">void</span> <a class="code" href="classCTexture2D.html#a0">CTexture2D::Bind</a> ()<span class="keyword"> const</span>
+00050 <span class="keyword"></span>{
+00051         glBindTexture (GL_TEXTURE_2D, m_uiTexture);
+00052 }
+00053 
+<a name="l00054"></a><a class="code" href="classCTexture2D.html#a1">00054</a> <a class="code" href="texture_8h.html#a10">ETextureType</a> <a class="code" href="classCTexture2D.html#a1">CTexture2D::Type</a> ()<span class="keyword"> const</span>
+00055 <span class="keyword"></span>{
+00056         <span class="keywordflow">return</span> <a class="code" href="texture_8h.html#a10a7">TEXTURE_TYPE_TEXTURE_2D</a>;
+00057 }
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

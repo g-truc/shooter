@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): entite_arme.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>entite_arme.cpp</h1><a href="entite__arme_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="entite__arme_8h.html">entite_arme.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="ctrl__entite_8h.html">ctrl_entite.h</a>"</span>
+00012 <span class="preprocessor">#include "<a class="code" href="type__arme_8h.html">type_arme.h</a>"</span>
+00013 <span class="preprocessor">#include "<a class="code" href="fx__explosion_8h.html">fx_explosion.h</a>"</span>
+00014 
+00015 CEntiteArme::CEntiteArme ()
+00016 {
+00017         <a class="code" href="classCEntite.html#p7">m_uiPoint</a> = 0;
+00018         <a class="code" href="classCEntite.html#p6">m_iBouclier</a> = 1;
+00019 }
+00020 
+00021 CEntiteArme::~CEntiteArme ()
+00022 {
+00023         <span class="comment">// Si l'arme est dans l'écran de jeu alors on créé un effet d'explosion</span>
+00024         <span class="keywordflow">if</span> (<a class="code" href="classCEntite.html#b0">EstDansEcran</a> (GetPosition (), m_pTypeArme-&gt;<a class="code" href="classCType.html#a5">GetTaille</a> ()))
+00025                 <a class="code" href="classCExplosion.html#e0">CExplosion::Create</a> (0, 8, GetPosition (), 32, 0.5f, <a class="code" href="util_8h.html#a2">CCouleur</a> (1.0f, 0.5f, 0.2f));
+00026 
+00027         <span class="comment">// Si l'entité est lié à un effet de fumee, on indique que l'effet doit être supprimer</span>
+00028         <span class="keywordflow">if</span> (m_pFumee)
+00029                 m_pFumee-&gt;<a class="code" href="classCFumee.html#a2">Supprimer</a> ();
+00030 }
+00031 
+00032 <span class="comment">// Création d'une instance d'entité arme</span>
+<a name="l00033"></a><a class="code" href="classCEntiteArme.html#e0">00033</a> <a class="code" href="classCEntiteArme.html">CEntiteArme</a>* <a class="code" href="classCEntiteArme.html#e0">CEntiteArme::Create</a> (<span class="keyword">const</span> <a class="code" href="classCTypeArme.html">CTypeArme</a>* pTypeArme, <a class="code" href="classCEntite.html">CEntite</a>* pProprietaire, <span class="keyword">const</span> <a class="code" href="util_8h.html#a3">CVecteur</a> &amp; Ancrage)
+00034 {
+00035         <span class="comment">// Demande au gestionnaire d'entités de créer une instance d'arme puis on récupère une pointeur sur elle</span>
+00036         <a class="code" href="classCEntiteArme.html">CEntiteArme</a> *pEntite = <a class="code" href="classCEntityManager.html#e0">CEntityManager::Instance</a> ()-&gt;<a class="code" href="classCEntityManager.html#a0">CreateArme</a> ();
+00037         <span class="keywordflow">if</span> (pEntite == 0)
+00038                 <span class="keywordflow">return</span> 0;
+00039 
+00040         pEntite-&gt;<a class="code" href="classCEntiteArme.html#r2">m_EntiteType</a> = pProprietaire-&gt;<a class="code" href="classCEntite.html#a3">GetType</a> ();
+00041         pEntite-&gt;<a class="code" href="classCEntiteArme.html#r1">m_pProprietaire</a> = pProprietaire;
+00042         pEntite-&gt;<a class="code" href="classCEntiteArme.html#r0">m_pTypeArme</a> = pTypeArme;
+00043         pEntite-&gt;<a class="code" href="classCEntite.html#p1">m_PositionI</a> = pEntite-&gt;<a class="code" href="classCEntite.html#p2">m_PositionF</a> = pProprietaire-&gt;<a class="code" href="classCEntite.html#a7">GetPosition</a> () + Ancrage;
+00044         <span class="keywordtype">float</span> fPrecision = pTypeArme-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::Y) * pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a7">GetPrecision</a> ();
+00045         <span class="keywordtype">float</span> fRand = <a class="code" href="util_8h.html#a4">RandFloat</a> (-fPrecision, fPrecision);
+00046         <a class="code" href="util_8h.html#a3">CVecteur</a> VecteurTemp = <a class="code" href="util_8h.html#a3">CVecteur</a> (
+00047                 <a class="code" href="util_8cpp.html#a0">RandFloat</a> (pTypeArme-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::X) * 0.9f, pTypeArme-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::X) * 1.1f), 
+00048                 <a class="code" href="util_8h.html#a4">RandFloat</a> (pTypeArme-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::Y) * 0.9f, pTypeArme-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::Y) * 1.1f));
+00049         <a class="code" href="util_8h.html#a3">CVecteur</a> Vitesse = VecteurTemp + <a class="code" href="util_8h.html#a3">CVecteur</a> (fRand, fabs (1-fRand));
+00050         pEntite-&gt;<a class="code" href="classCEntite.html#p3">m_VitesseI</a> = pEntite-&gt;<a class="code" href="classCEntite.html#p4">m_VitesseF</a> = Vitesse;
+00051         pEntite-&gt;<a class="code" href="classCEntite.html#p5">m_Acceleration</a> = pTypeArme-&gt;<a class="code" href="classCType.html#a2">GetAcceleration</a> ();
+00052         <span class="comment">// Effectue la liaison de l'entité à un effet de fumée si l'arme est parametré pour en avoir une</span>
+00053         <span class="keywordflow">if</span> (pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a9">GetFumee</a> ())
+00054                 pEntite-&gt;<a class="code" href="classCEntiteArme.html#r3">m_pFumee</a> = <a class="code" href="classCFumee.html#e0">CFumee::Create</a> (pEntite, pTypeArme-&gt;<a class="code" href="classCType.html#a5">GetTaille</a> (), 0, Vitesse (gtl::Y) * 0.25f, 0.5f, pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a8">GetCouleur</a> ());
+00055         <span class="keywordflow">else</span>
+00056                 pEntite-&gt;<a class="code" href="classCEntiteArme.html#r3">m_pFumee</a> = 0;
+00057 
+00058         <span class="keywordflow">return</span> pEntite;
+00059 }
+00060 
+<a name="l00061"></a><a class="code" href="classCEntiteArme.html#a0">00061</a> <span class="keywordtype">int</span> <a class="code" href="classCEntiteArme.html#a0">CEntiteArme::GetDommage</a> ()<span class="keyword"> const</span>
+00062 <span class="keyword"></span>{
+00063         <span class="keywordflow">return</span> m_pTypeArme-&gt;<a class="code" href="classCTypeArme.html#a6">GetDommage</a> ();
+00064 }
+00065 
+<a name="l00066"></a><a class="code" href="classCEntiteArme.html#a3">00066</a> <span class="keywordtype">float</span> <a class="code" href="classCEntiteArme.html#a3">CEntiteArme::GetTaille</a> ()<span class="keyword"> const</span>
+00067 <span class="keyword"></span>{
+00068         <span class="keywordflow">return</span> m_pTypeArme-&gt;<a class="code" href="classCType.html#a5">GetTaille</a> ();
+00069 }
+00070 
+<a name="l00071"></a><a class="code" href="classCEntiteArme.html#a1">00071</a> <a class="code" href="classCTexture.html">CTexture</a>* <a class="code" href="classCEntiteArme.html#a1">CEntiteArme::GetTexture</a> ()<span class="keyword"> const</span>
+00072 <span class="keyword"></span>{
+00073         <span class="keywordflow">return</span> m_pTypeArme-&gt;<a class="code" href="classCType.html#a0">GetTexture</a> ();
+00074 }
+00075 
+00076 
+00077 
+00078 
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): fx_explosion.h Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>fx_explosion.h</h1><a href="fx__explosion_8h.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#ifndef FX_EXPLOSION_H</span>
+00011 <span class="preprocessor"></span><span class="preprocessor">#define FX_EXPLOSION_H</span>
+00012 <span class="preprocessor"></span>
+00013 <span class="preprocessor">#include "<a class="code" href="ctrl__particule_8h.html">ctrl_particule.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="fx_8h.html">fx.h</a>"</span>
+00015 <span class="preprocessor">#include "<a class="code" href="util_8h.html">util.h</a>"</span>
+00016 
+<a name="l00018"></a><a class="code" href="classCExplosion.html">00018</a> <span class="keyword">class </span><a class="code" href="classCExplosion.html">CExplosion</a> : <span class="keyword">public</span> <a class="code" href="classCParticleSystem.html">CParticleSystem</a>
+00019 {
+00020         <span class="keyword">friend</span> <a class="code" href="classCExplosion.html">CExplosion</a>* <a class="code" href="classCParticleManager.html#a3">CParticleManager::CreateExplosion</a> ();
+00021 
+00022 <span class="keyword">private</span>:
+00023         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_uiSon;
+00024         <span class="keywordtype">float</span> m_fDureeVie;
+00025         <a class="code" href="classCTimer.html">CTimer</a> m_DureeVie;
+00026         <a class="code" href="util_8h.html#a3">CVecteur</a> m_Position;
+00027         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_uiForce;
+00028 
+00030         <a class="code" href="classCExplosion.html">CExplosion</a> (<a class="code" href="classCTexture.html">CTexture</a> *pTexture);
+00032         <span class="keyword">virtual</span> ~<a class="code" href="classCExplosion.html">CExplosion</a> ();
+00033 
+00034 <span class="keyword">public</span>:
+00036         <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classCExplosion.html">CExplosion</a>* <a class="code" href="classCExplosion.html#e0">Create</a> (<a class="code" href="classCEntite.html">CEntite</a> *pProprietaire, <span class="keywordtype">float</span> fTailleParticule, <span class="keyword">const</span> <a class="code" href="util_8h.html#a3">CVecteur</a> &amp; Position, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiForce, <span class="keywordtype">float</span> fDureeVie, <a class="code" href="util_8h.html#a2">CCouleur</a> Couleur);
+00037 
+00039         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCExplosion.html#a0">Update</a> ();
+00041         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCExplosion.html#a1">Init</a> ();
+00042 };
+00043 
+00044 <span class="preprocessor">#endif //FX_EXPLOSION_H</span>
+00045 <span class="preprocessor"></span>
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

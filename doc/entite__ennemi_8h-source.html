@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): entite_ennemi.h Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>entite_ennemi.h</h1><a href="entite__ennemi_8h.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#ifndef ENTITE_ENNEMI_H</span>
+00011 <span class="preprocessor"></span><span class="preprocessor">#define ENTITE_ENNEMI_H</span>
+00012 <span class="preprocessor"></span>
+00013 <span class="preprocessor">#include "<a class="code" href="ctrl__entite_8h.html">ctrl_entite.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="entite_8h.html">entite.h</a>"</span>
+00015 <span class="preprocessor">#include "<a class="code" href="type__arme_8h.html">type_arme.h</a>"</span>
+00016 <span class="preprocessor">#include "<a class="code" href="type__ennemi_8h.html">type_ennemi.h</a>"</span>
+00017 
+<a name="l00019"></a><a class="code" href="classCEntiteEnnemi.html">00019</a> <span class="keyword">class </span><a class="code" href="classCEntiteEnnemi.html">CEntiteEnnemi</a> : <span class="keyword">public</span> <a class="code" href="classCEntite.html">CEntite</a>
+00020 {
+00022         <span class="keyword">friend</span> <a class="code" href="classCEntiteEnnemi.html">CEntiteEnnemi</a>* <a class="code" href="classCEntityManager.html#a2">CEntityManager::CreateEnnemi</a> ();
+00023 
+00024 <span class="keyword">private</span>:
+00025         <span class="keyword">const</span> <a class="code" href="classCTypeEnnemi.html">CTypeEnnemi</a>* m_pTypeEnnemi;
+00026         <a class="code" href="classCTimer.html">CTimer</a> m_TireTimer;
+00027 
+00028         <a class="code" href="classCEntiteEnnemi.html">CEntiteEnnemi</a> ();
+00029         <span class="keyword">virtual</span> ~<a class="code" href="classCEntiteEnnemi.html">CEntiteEnnemi</a> ();
+00030 
+00031 <span class="keyword">public</span>:
+00033         <span class="keyword">static</span> <a class="code" href="classCEntiteEnnemi.html">CEntiteEnnemi</a>* <a class="code" href="classCEntiteEnnemi.html#e0">Create</a> (<span class="keyword">const</span> <a class="code" href="classCTypeEnnemi.html">CTypeEnnemi</a>* pTypeEnnemi, <span class="keyword">const</span> <a class="code" href="util_8h.html#a3">CVecteur</a> &amp; Position);
+00034 
+00036         <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classCEntiteEnnemi.html#a0">GetDommage</a> () <span class="keyword">const</span>;
+00038         <span class="keyword">virtual</span> <a class="code" href="classCTexture.html">CTexture</a>* <a class="code" href="classCEntiteEnnemi.html#a1">GetTexture</a> () <span class="keyword">const</span>;
+<a name="l00040"></a><a class="code" href="classCEntiteEnnemi.html#a2">00040</a>         <span class="keyword">virtual</span> <a class="code" href="entite_8h.html#a7">EEntiteType</a> <a class="code" href="classCEntiteEnnemi.html#a2">GetType</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> <a class="code" href="entite_8h.html#a7a4">ENTITE_ENNEMI</a>;}
+00042         <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classCEntiteEnnemi.html#a3">GetTaille</a> () const;
+00043 
+00044     <span class="keywordtype">void</span> Action ();
+00045         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> GetPoint () const;
+00046 };
+00047 
+00048 #endif <span class="comment">//ENTITE_ENNEMI_H</span>
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

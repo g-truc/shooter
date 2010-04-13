@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): ctrl_fenetre.h Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>ctrl_fenetre.h</h1><a href="ctrl__fenetre_8h.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#ifndef CTRL_FENETRE_H</span>
+00011 <span class="preprocessor"></span><span class="preprocessor">#define CTRL_FENETRE_H</span>
+00012 <span class="preprocessor"></span>
+00013 <span class="preprocessor">#include "<a class="code" href="entree__clavier_8h.html">entree_clavier.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="entree__souris_8h.html">entree_souris.h</a>"</span>
+00015 <span class="preprocessor">#include "<a class="code" href="texture_8h.html">texture.h</a>"</span>
+00016 
+00017 <span class="preprocessor">#include "../lib/sdl/include/sdl.h"</span>
+00018 <span class="preprocessor">#ifdef WIN32</span>
+00019 <span class="preprocessor"></span><span class="preprocessor">#include &lt;windows.h&gt;</span>
+00020 <span class="preprocessor">#endif //WIN32</span>
+00021 <span class="preprocessor"></span><span class="preprocessor">#include &lt;GL/gl.h&gt;</span>
+00022 <span class="preprocessor">#include &lt;GL/glu.h&gt;</span>
+00023 <span class="preprocessor">#include "<a class="code" href="glext_8h.html">glext.h</a>"</span>
+00024 
+00025 <span class="preprocessor">#include &lt;string&gt;</span>
+00026 
+<a name="l00027"></a><a class="code" href="ctrl__fenetre_8h.html#a0">00027</a> <span class="preprocessor">#define FENETRE_NOM                     "Shoot(r)"</span>
+<a name="l00028"></a><a class="code" href="ctrl__fenetre_8h.html#a1">00028</a> <span class="preprocessor"></span><span class="preprocessor">#define FENETRE_LARGEUR         800</span>
+<a name="l00029"></a><a class="code" href="ctrl__fenetre_8h.html#a2">00029</a> <span class="preprocessor"></span><span class="preprocessor">#define FENETRE_HAUTEUR         600</span>
+<a name="l00030"></a><a class="code" href="ctrl__fenetre_8h.html#a3">00030</a> <span class="preprocessor"></span><span class="preprocessor">#define FENETRE_COULEUR         24</span>
+00031 <span class="preprocessor"></span>
+<a name="l00032"></a><a class="code" href="ctrl__fenetre_8h.html#a4">00032</a> <span class="preprocessor">#define FICHIER_MUSIQUE_QUITTER                 "./data/musique/quitter.ogg"</span>
+<a name="l00033"></a><a class="code" href="ctrl__fenetre_8h.html#a5">00033</a> <span class="preprocessor"></span><span class="preprocessor">#define FICHIER_MUSIQUE_MENU                    "./data/musique/menu.ogg"</span>
+<a name="l00034"></a><a class="code" href="ctrl__fenetre_8h.html#a6">00034</a> <span class="preprocessor"></span><span class="preprocessor">#define FICHIER_MUSIQUE_JEU                             "./data/musique/jeu.ogg"</span>
+00035 <span class="preprocessor"></span>
+<a name="l00036"></a><a class="code" href="ctrl__fenetre_8h.html#a7">00036</a> <span class="preprocessor">#define FICHIER_TEXTURE_FOND_MENU               "./data/image/menu-fond.tga"</span>
+<a name="l00037"></a><a class="code" href="ctrl__fenetre_8h.html#a8">00037</a> <span class="preprocessor"></span><span class="preprocessor">#define FICHIER_TEXTURE_FOND_QUITTER    "./data/image/menu-quitter.tga"</span>
+00038 <span class="preprocessor"></span>
+<a name="l00040"></a><a class="code" href="ctrl__fenetre_8h.html#a27">00040</a> <span class="keyword">typedef</span> <span class="keyword">enum</span>
+00041 {
+00042         <a class="code" href="ctrl__fenetre_8h.html#a27a9">PAGE_NULL</a> = 0,
+00043         <a class="code" href="ctrl__fenetre_8h.html#a27a10">PAGE_JEU_CHARGEMENT</a>,
+00044         <a class="code" href="ctrl__fenetre_8h.html#a27a11">PAGE_JEU_CHARGEMENT_ERREUR</a>,
+00045         <a class="code" href="ctrl__fenetre_8h.html#a27a12">PAGE_JEU_COMMENCER</a>,
+00046         <a class="code" href="ctrl__fenetre_8h.html#a27a13">PAGE_JEU_ENCOURS</a>,
+00047         <a class="code" href="ctrl__fenetre_8h.html#a27a14">PAGE_PRINCIPALE</a>,
+00048         <a class="code" href="ctrl__fenetre_8h.html#a27a15">PAGE_SCORE</a>,
+00049         <a class="code" href="ctrl__fenetre_8h.html#a27a16">PAGE_QUITTER</a>
+00050 } <a class="code" href="ctrl__fenetre_8h.html#a27">EPage</a>;
+00051 
+<a name="l00053"></a><a class="code" href="ctrl__fenetre_8h.html#a28">00053</a> <span class="keyword">typedef</span> <span class="keyword">enum</span>
+00054 {
+00055         <a class="code" href="ctrl__fenetre_8h.html#a28a17">PAGE_JEU_COMMENCER_NULL</a> = 0,
+00056         <a class="code" href="ctrl__fenetre_8h.html#a28a18">PAGE_JEU_COMMENCER_CHARGEMENT</a>,
+00057         <a class="code" href="ctrl__fenetre_8h.html#a28a19">PAGE_JEU_COMMENCER_JOUEUR2</a>,
+00058         <a class="code" href="ctrl__fenetre_8h.html#a28a20">PAGE_JEU_COMMENCER_JOUEUR1</a>,
+00059         <a class="code" href="ctrl__fenetre_8h.html#a28a21">PAGE_JEU_COMMENCER_NOMBRE_JOUEUR</a>
+00060 } <a class="code" href="ctrl__fenetre_8h.html#a28">EPageJeuCommencer</a>;
+00061 
+<a name="l00063"></a><a class="code" href="ctrl__fenetre_8h.html#a29">00063</a> <span class="keyword">typedef</span> <span class="keyword">enum</span>
+00064 {
+00065         <a class="code" href="ctrl__fenetre_8h.html#a29a22">PAGE_PRINCIPALE_NULL</a> = 0,
+00066         <a class="code" href="ctrl__fenetre_8h.html#a29a23">PAGE_PRINCIPALE_QUITTER</a>,
+00067         <a class="code" href="ctrl__fenetre_8h.html#a29a24">PAGE_PRINCIPALE_SCORES</a>,
+00068         <a class="code" href="ctrl__fenetre_8h.html#a29a25">PAGE_PRINCIPALE_JEU_COMMENCER</a>,
+00069         <a class="code" href="ctrl__fenetre_8h.html#a29a26">PAGE_PRINCIPALE_JEU_REPRENDRE</a>
+00070 } <a class="code" href="ctrl__fenetre_8h.html#a29">EPagePrincipale</a>;
+00071 
+<a name="l00073"></a><a class="code" href="classCFenetre.html">00073</a> <span class="keyword">class </span><a class="code" href="classCFenetre.html">CFenetre</a>
+00074 {
+00075 <span class="keyword">private</span>:
+00076         <a class="code" href="classCEntreeClavier.html">CEntreeClavier</a> m_EntreeClavier;
+00077         <a class="code" href="classCEntreeSouris.html">CEntreeSouris</a> m_EntreeSouris;
+00078 
+00079         std::string m_szNomJoueur1;
+00080         std::string m_szNomJoueur2;
+00081         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_uiNombreJoueur;
+00082 
+00083         <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> m_unPositionX;
+00084         <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> m_unPositionY;
+00085 
+00086         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_uiMenuPrincipal;
+00087         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_uiMenuCommencer;
+00088 <span class="comment">//      unsigned int m_uiImageMenuFond;</span>
+00089         <a class="code" href="classCTexture.html">CTexture</a> *m_pTextureMenuFond;
+00090         <a class="code" href="classCTexture.html">CTexture</a> *m_pTextureMenuQuitter;
+00091 
+00092         <a class="code" href="ctrl__fenetre_8h.html#a27">EPage</a> m_Page;
+00093         <span class="keywordtype">bool</span> m_bEnd;
+00094 
+00096         <span class="keywordtype">bool</span> PageJeuChargement ();
+00098         <span class="keywordtype">void</span> PageJeuChargementErreur ();
+00100         <span class="keywordtype">void</span> PageJeuEnCours ();
+00102         <span class="keywordtype">void</span> PageJeuCommencer ();
+00104         <span class="keywordtype">void</span> PagePrincipale ();
+00106         <span class="keywordtype">void</span> PageScore ();
+00108         <span class="keywordtype">void</span> PageQuitter ();
+00109 
+00111         <span class="keywordtype">void</span> MenuInit ();
+00112 
+00113 <span class="keyword">public</span>:
+00115         <a class="code" href="classCFenetre.html#a0">CFenetre</a> ();
+00117         <a class="code" href="classCFenetre.html#a1">~CFenetre</a> ();
+00118 };
+00119 
+00120 <span class="preprocessor">#endif //CTRL_FENETRE_H</span>
+00121 <span class="preprocessor"></span>
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

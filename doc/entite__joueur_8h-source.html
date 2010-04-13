@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): entite_joueur.h Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>entite_joueur.h</h1><a href="entite__joueur_8h.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#ifndef ENTITE_JOUEUR_H</span>
+00011 <span class="preprocessor"></span><span class="preprocessor">#define ENTITE_JOUEUR_H</span>
+00012 <span class="preprocessor"></span>
+00013 <span class="preprocessor">#include "<a class="code" href="ctrl__entite_8h.html">ctrl_entite.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="entite_8h.html">entite.h</a>"</span>
+00015 <span class="preprocessor">#include "<a class="code" href="fx__fumee_8h.html">fx_fumee.h</a>"</span>
+00016 <span class="preprocessor">#include "<a class="code" href="type__arme_8h.html">type_arme.h</a>"</span>
+00017 <span class="preprocessor">#include "<a class="code" href="type__joueur_8h.html">type_joueur.h</a>"</span>
+00018 
+<a name="l00019"></a><a class="code" href="entite__joueur_8h.html#a0">00019</a> <span class="preprocessor">#define BOUCLIER_TAILLE 2</span>
+00020 <span class="preprocessor"></span>
+<a name="l00022"></a><a class="code" href="classCEntiteJoueur.html">00022</a> <span class="keyword">class </span><a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a> : <span class="keyword">public</span> <a class="code" href="classCEntite.html">CEntite</a>
+00023 {
+00025         <span class="keyword">friend</span> <a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a>* <a class="code" href="classCEntityManager.html#a3">CEntityManager::CreateJoueur</a> ();
+00026 
+00027 <span class="keyword">private</span>:
+00028         <a class="code" href="classCTypeJoueur.html">CTypeJoueur</a>* m_pTypeJoueur;
+00029         <a class="code" href="classCTypeArme.html">CTypeArme</a>* m_pTypeArme;
+00030         <a class="code" href="classCFumee.html">CFumee</a> *m_pFumee;
+00031         <a class="code" href="classCTimer.html">CTimer</a> m_TireTimer;
+00032         <a class="code" href="util_8h.html#a3">CVecteur</a> m_Desceleration;
+00033         <span class="keywordtype">bool</span> m_bTire;
+00034 
+00035         <a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a> ();
+00036         <span class="keyword">virtual</span> ~<a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a> ();
+00037 
+00038 <span class="keyword">public</span>:
+00040         <span class="keyword">static</span> <a class="code" href="classCEntiteJoueur.html">CEntiteJoueur</a>* <a class="code" href="classCEntiteJoueur.html#e0">Create</a> (<a class="code" href="classCTypeJoueur.html">CTypeJoueur</a>* pTypeJoueur);
+00041 
+00043         <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classCEntiteJoueur.html#a0">GetDommage</a> () <span class="keyword">const</span>;
+00045         <span class="keyword">virtual</span> <a class="code" href="classCTexture.html">CTexture</a>* <a class="code" href="classCEntiteJoueur.html#a1">GetTexture</a> () <span class="keyword">const</span>;
+<a name="l00047"></a><a class="code" href="classCEntiteJoueur.html#a2">00047</a>         <span class="keyword">virtual</span> <a class="code" href="entite_8h.html#a7">EEntiteType</a> <a class="code" href="classCEntiteJoueur.html#a2">GetType</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> <a class="code" href="entite_8h.html#a7a5">ENTITE_JOUEUR</a>;}
+00049         <span class="keyword">virtual</span> <span class="keywordtype">float</span> <a class="code" href="classCEntiteJoueur.html#a3">GetTaille</a> () const;
+00051         virtual <span class="keywordtype">void</span> Update ();
+00053         virtual <span class="keywordtype">void</span> AddDommage (<span class="keywordtype">int</span> iDommage);
+00054 
+00056         <span class="keywordtype">void</span> SetTirer (<span class="keywordtype">bool</span> bTire);
+00058         <span class="keywordtype">void</span> Action ();
+<a name="l00060"></a><a class="code" href="classCEntiteJoueur.html#a8">00060</a>         <a class="code" href="util_8h.html#a2">CCouleur</a> GetCouleur ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_pTypeJoueur-&gt;<a class="code" href="classCTypeJoueur.html#a2">GetCouleur</a> ();}
+<a name="l00062"></a><a class="code" href="classCEntiteJoueur.html#a9">00062</a>         <a class="code" href="classCTexture.html">CTexture</a>* <a class="code" href="classCEntiteJoueur.html#a9">GetTextureBouclier</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_pTypeJoueur-&gt;<a class="code" href="classCTypeJoueur.html#a3">GetTextureBouclier</a> ();}
+00064         <span class="keywordtype">void</span> <a class="code" href="classCEntiteJoueur.html#a10">SetArme</a> (<a class="code" href="classCTypeArme.html">CTypeArme</a>* pTypeArme);
+<a name="l00066"></a><a class="code" href="classCEntiteJoueur.html#a11">00066</a>         <span class="keywordtype">void</span> <a class="code" href="classCEntiteJoueur.html#a11">AjouterPoint</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiPoint) {m_pTypeJoueur-&gt;<a class="code" href="classCTypeJoueur.html#a9">AjouterPoint</a> (uiPoint);}
+00067 };
+00068 
+00069 <span class="preprocessor">#endif //ENTITE_JOUEUR_H</span>
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

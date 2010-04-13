@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): Référence de la classe CEntiteEnnemi</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>Référence de la classe CEntiteEnnemi</h1>Entité ennemi.  
+<a href="#_details">Plus de détails...</a>
+<p>
+<code>#include &lt;<a class="el" href="entite__ennemi_8h-source.html">entite_ennemi.h</a>&gt;</code>
+<p>
+<p>Graphe d'héritage de CEntiteEnnemi:
+<p><center><img src="classCEntiteEnnemi.png" usemap="#CEntiteEnnemi_map" border="0" alt=""></center>
+<map name="CEntiteEnnemi_map">
+<area href="classCEntite.html" alt="CEntite" shape="rect" coords="0,0,93,24">
+</map>
+<a href="classCEntiteEnnemi-members.html">Liste de tous les membres</a><table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Fonctions membres publiques</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntiteEnnemi.html#a0">GetDommage</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retourne les dommages provoqués par l'ennemi.  <a href="#a0"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual <a class="el" href="classCTexture.html">CTexture</a> *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntiteEnnemi.html#a1">GetTexture</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retourne la texture de l'entité.  <a href="#a1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual <a class="el" href="entite_8h.html#a7">EEntiteType</a>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntiteEnnemi.html#a2">GetType</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retourne le type de l'entité.  <a href="#a2"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>virtual float&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntiteEnnemi.html#a3">GetTaille</a> () const</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retourne la taille de l'entité.  <a href="#a3"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntiteEnnemi.html#a4">Action</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>unsigned int&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntiteEnnemi.html#a5">GetPoint</a> () const</td></tr>
+
+<tr><td colspan=2><br><h2>Fonctions membres publiques statiques</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="classCEntiteEnnemi.html">CEntiteEnnemi</a> *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntiteEnnemi.html#e0">Create</a> (const <a class="el" href="classCTypeEnnemi.html">CTypeEnnemi</a> *pTypeEnnemi, const <a class="el" href="util_8h.html#a3">CVecteur</a> &amp;Position)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Création d'une instance d'entité ennemi.  <a href="#e0"></a><br></td></tr>
+<tr><td colspan=2><br><h2>Amis</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top><a class="el" href="classCEntiteEnnemi.html">CEntiteEnnemi</a> *&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCEntiteEnnemi.html#n0">CEntityManager::CreateEnnemi</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Seul cette fonction peut accéder aux données membres de la classe, donc c'est le seul qui puisse créer des instances.  <a href="#n0"></a><br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>Description détaillée</h2>
+Entité ennemi. 
+<p>
+Définition à la ligne <a class="el" href="entite__ennemi_8h-source.html#l00019">19</a> du fichier <a class="el" href="entite__ennemi_8h-source.html">entite_ennemi.h</a>.<hr><h2>Documentation des fonctions membres</h2>
+<a class="anchor" name="a4" doxytag="CEntiteEnnemi::Action" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> void CEntiteEnnemi::Action           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="entite__ennemi_8cpp-source.html#l00077">77</a> du fichier <a class="el" href="entite__ennemi_8cpp-source.html">entite_ennemi.cpp</a>.
+<p>
+Références <a class="el" href="entite__arme_8cpp-source.html#l00033">CEntiteArme::Create()</a>, <a class="el" href="entite_8cpp-source.html#l00038">CEntite::EstDansEcran()</a>, <a class="el" href="type__arme_8cpp-source.html#l00025">CTypeArme::GetAncrageNombre()</a>, <a class="el" href="type__arme_8cpp-source.html#l00031">CTypeArme::GetAncrageParIndex()</a>, <a class="el" href="type__arme_8h-source.html#l00052">CTypeArme::GetCadence()</a>, <a class="el" href="util__timer_8cpp-source.html#l00025">CTimer::GetTime()</a>, <a class="el" href="type__ennemi_8h-source.html#l00030">CTypeEnnemi::GetTypeArme()</a>, et <a class="el" href="util__timer_8cpp-source.html#l00019">CTimer::Init()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="e0" doxytag="CEntiteEnnemi::Create" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classCEntiteEnnemi.html">CEntiteEnnemi</a> * CEntiteEnnemi::Create           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top">const <a class="el" href="classCTypeEnnemi.html">CTypeEnnemi</a> *&nbsp;</td>
+          <td class="mdname" nowrap> <em>pTypeEnnemi</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap>const <a class="el" href="util_8h.html#a3">CVecteur</a> &amp;&nbsp;</td>
+          <td class="mdname" nowrap> <em>Position</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"><code> [static]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Création d'une instance d'entité ennemi. 
+<p>
+Définition à la ligne <a class="el" href="entite__ennemi_8cpp-source.html#l00038">38</a> du fichier <a class="el" href="entite__ennemi_8cpp-source.html">entite_ennemi.cpp</a>.
+<p>
+Références <a class="el" href="ctrl__entite_8cpp-source.html#l00080">CEntityManager::CreateEnnemi()</a>, <a class="el" href="util_8h-source.html#l00030">CVecteur</a>, <a class="el" href="type_8h-source.html#l00038">CType::GetAcceleration()</a>, <a class="el" href="type_8h-source.html#l00040">CType::GetBouclier()</a>, <a class="el" href="type_8h-source.html#l00036">CType::GetVitesse()</a>, <a class="el" href="ctrl__entite_8cpp-source.html#l00048">CEntityManager::Instance()</a>, <a class="el" href="entite_8h-source.html#l00038">CEntite::m_Acceleration</a>, <a class="el" href="entite_8h-source.html#l00039">CEntite::m_iBouclier</a>, <a class="el" href="entite_8h-source.html#l00036">CEntite::m_PositionF</a>, <a class="el" href="entite_8h-source.html#l00036">CEntite::m_PositionI</a>, <a class="el" href="entite__ennemi_8h-source.html#l00025">m_pTypeEnnemi</a>, <a class="el" href="entite_8h-source.html#l00037">CEntite::m_VitesseF</a>, <a class="el" href="entite_8h-source.html#l00037">CEntite::m_VitesseI</a>, et <a class="el" href="util_8cpp-source.html#l00014">RandFloat()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a0" doxytag="CEntiteEnnemi::GetDommage" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> int CEntiteEnnemi::GetDommage           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retourne les dommages provoqués par l'ennemi. 
+<p>
+
+<p>
+Implémente <a class="el" href="classCEntite.html#a1">CEntite</a>.
+<p>
+Définition à la ligne <a class="el" href="entite__ennemi_8cpp-source.html#l00062">62</a> du fichier <a class="el" href="entite__ennemi_8cpp-source.html">entite_ennemi.cpp</a>.
+<p>
+Références <a class="el" href="type__ennemi_8h-source.html#l00032">CTypeEnnemi::GetDommage()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a5" doxytag="CEntiteEnnemi::GetPoint" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> unsigned int CEntiteEnnemi::GetPoint           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="entite__ennemi_8cpp-source.html#l00057">57</a> du fichier <a class="el" href="entite__ennemi_8cpp-source.html">entite_ennemi.cpp</a>.
+<p>
+Références <a class="el" href="type__ennemi_8h-source.html#l00034">CTypeEnnemi::GetPoint()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a3" doxytag="CEntiteEnnemi::GetTaille" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> float CEntiteEnnemi::GetTaille           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retourne la taille de l'entité. 
+<p>
+
+<p>
+Implémente <a class="el" href="classCEntite.html#a4">CEntite</a>.
+<p>
+Définition à la ligne <a class="el" href="entite__ennemi_8cpp-source.html#l00072">72</a> du fichier <a class="el" href="entite__ennemi_8cpp-source.html">entite_ennemi.cpp</a>.
+<p>
+Références <a class="el" href="type_8h-source.html#l00044">CType::GetTaille()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a1" doxytag="CEntiteEnnemi::GetTexture" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classCTexture.html">CTexture</a> * CEntiteEnnemi::GetTexture           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retourne la texture de l'entité. 
+<p>
+
+<p>
+Implémente <a class="el" href="classCEntite.html#a0">CEntite</a>.
+<p>
+Définition à la ligne <a class="el" href="entite__ennemi_8cpp-source.html#l00067">67</a> du fichier <a class="el" href="entite__ennemi_8cpp-source.html">entite_ennemi.cpp</a>.
+<p>
+Références <a class="el" href="type_8h-source.html#l00034">CType::GetTexture()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a2" doxytag="CEntiteEnnemi::GetType" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> virtual <a class="el" href="entite_8h.html#a7">EEntiteType</a> CEntiteEnnemi::GetType           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap> const<code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Retourne le type de l'entité. 
+<p>
+
+<p>
+Implémente <a class="el" href="classCEntite.html#a3">CEntite</a>.
+<p>
+Définition à la ligne <a class="el" href="entite__ennemi_8h-source.html#l00040">40</a> du fichier <a class="el" href="entite__ennemi_8h-source.html">entite_ennemi.h</a>.
+<p>
+Références <a class="el" href="entite_8h-source.html#l00017">EEntiteType</a>, et <a class="el" href="entite_8h.html#a7a4">ENTITE_ENNEMI</a>.    </td>
+  </tr>
+</table>
+<hr><h2>Documentation des fonctions amies et associées</h2>
+<a class="anchor" name="n0" doxytag="CEntiteEnnemi::CEntityManager::CreateEnnemi" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> <a class="el" href="classCEntiteEnnemi.html">CEntiteEnnemi</a>* CEntityManager::CreateEnnemi           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [friend]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Seul cette fonction peut accéder aux données membres de la classe, donc c'est le seul qui puisse créer des instances. 
+<p>
+    </td>
+  </tr>
+</table>
+<hr>La documentation de cette classe a été générée à partir des fichiers suivants:<ul>
+<li><a class="el" href="entite__ennemi_8h-source.html">entite_ennemi.h</a><li><a class="el" href="entite__ennemi_8cpp-source.html">entite_ennemi.cpp</a></ul>
+<hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:37:06 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

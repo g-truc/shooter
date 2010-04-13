@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): type_joueur.h Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>type_joueur.h</h1><a href="type__joueur_8h.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#ifndef TYPE_JOUEUR_H</span>
+00011 <span class="preprocessor"></span><span class="preprocessor">#define TYPE_JOUEUR_H</span>
+00012 <span class="preprocessor"></span>
+00013 <span class="preprocessor">#include "<a class="code" href="type_8h.html">type.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="util_8h.html">util.h</a>"</span>
+00015 <span class="preprocessor">#include &lt;string&gt;</span>
+00016 
+<a name="l00019"></a><a class="code" href="classCTypeJoueur.html">00019</a> <span class="keyword">class </span><a class="code" href="classCTypeJoueur.html">CTypeJoueur</a> : <span class="keyword">public</span> <a class="code" href="classCType.html">CType</a>
+00020 {
+00021 <span class="keyword">private</span>:
+00022         std::string m_szNom;
+00023         <a class="code" href="util_8h.html#a2">CCouleur</a> m_Couleur;
+00024         <a class="code" href="classCTexture.html">CTexture</a> *m_pTextureBouclier;
+00025         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_uiScore;
+00026         <span class="keywordtype">int</span> m_iDommage;
+00027         <span class="keywordtype">int</span> m_iNumero;
+00028         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m_uiNiveau;
+00029         <a class="code" href="util_8h.html#a3">CVecteur</a> m_PositionSpawn;
+00030 
+00031 <span class="keyword">public</span>:
+00032         <a class="code" href="classCTypeJoueur.html#a0">CTypeJoueur</a> ();
+00033         <span class="keyword">virtual</span> <a class="code" href="classCTypeJoueur.html#a1">~CTypeJoueur</a> ();
+00034 
+<a name="l00036"></a><a class="code" href="classCTypeJoueur.html#a2">00036</a>         <a class="code" href="util_8h.html#a2">CCouleur</a> <a class="code" href="classCTypeJoueur.html#a2">GetCouleur</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_Couleur;}
+<a name="l00038"></a><a class="code" href="classCTypeJoueur.html#a3">00038</a>         <a class="code" href="classCTexture.html">CTexture</a>* <a class="code" href="classCTypeJoueur.html#a3">GetTextureBouclier</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_pTextureBouclier;}
+<a name="l00040"></a><a class="code" href="classCTypeJoueur.html#a4">00040</a>         <span class="keywordtype">int</span> <a class="code" href="classCTypeJoueur.html#a4">GetDommage</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_iDommage;}
+00041         
+<a name="l00043"></a><a class="code" href="classCTypeJoueur.html#a5">00043</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeJoueur.html#a5">SetCouleur</a> (<a class="code" href="util_8h.html#a2">CCouleur</a> Couleur) {m_Couleur = Couleur;}
+<a name="l00045"></a><a class="code" href="classCTypeJoueur.html#a6">00045</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeJoueur.html#a6">SetTextureBouclier</a> (<a class="code" href="classCTexture.html">CTexture</a> *pTextureBouclier) {m_pTextureBouclier = pTextureBouclier;}
+<a name="l00047"></a><a class="code" href="classCTypeJoueur.html#a7">00047</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeJoueur.html#a7">SetDommage</a> (<span class="keywordtype">int</span> iDommage) {m_iDommage = iDommage;}
+<a name="l00049"></a><a class="code" href="classCTypeJoueur.html#a8">00049</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeJoueur.html#a8">SetNumero</a> (<span class="keywordtype">int</span> iNumero) {m_iNumero = iNumero;}
+00050 
+<a name="l00052"></a><a class="code" href="classCTypeJoueur.html#a9">00052</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeJoueur.html#a9">AjouterPoint</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiPoint) {m_uiScore += uiPoint;}
+<a name="l00054"></a><a class="code" href="classCTypeJoueur.html#a10">00054</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classCTypeJoueur.html#a10">GetScore</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_uiScore;}
+<a name="l00056"></a><a class="code" href="classCTypeJoueur.html#a11">00056</a>         <span class="keywordtype">int</span> <a class="code" href="classCTypeJoueur.html#a11">GetNumero</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_iNumero;}
+00057 
+<a name="l00059"></a><a class="code" href="classCTypeJoueur.html#a12">00059</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeJoueur.html#a12">SetNom</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* szNom) {m_szNom = <a class="code" href="glext_8h.html#a2296">std::string</a> (szNom);}
+<a name="l00061"></a><a class="code" href="classCTypeJoueur.html#a13">00061</a>         <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="classCTypeJoueur.html#a13">GetNom</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_szNom.c_str ();}
+00062 
+<a name="l00064"></a><a class="code" href="classCTypeJoueur.html#a14">00064</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeJoueur.html#a14">SetNiveau</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiNiveau) {m_uiNiveau = uiNiveau;}
+<a name="l00066"></a><a class="code" href="classCTypeJoueur.html#a15">00066</a>         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classCTypeJoueur.html#a15">GetNiveau</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_uiNiveau;}
+00067 
+<a name="l00069"></a><a class="code" href="classCTypeJoueur.html#a16">00069</a>         <span class="keywordtype">void</span> <a class="code" href="classCTypeJoueur.html#a16">SetPositionSpawn</a> (<span class="keyword">const</span> <a class="code" href="util_8h.html#a3">CVecteur</a> &amp; Position) {m_PositionSpawn = Position;}
+<a name="l00071"></a><a class="code" href="classCTypeJoueur.html#a17">00071</a>         <a class="code" href="util_8h.html#a3">CVecteur</a> <a class="code" href="classCTypeJoueur.html#a17">GetPositionSpawn</a> ()<span class="keyword"> const </span>{<span class="keywordflow">return</span> m_PositionSpawn;}
+00072 };
+00073 
+00074 <span class="preprocessor">#endif //TYPE_JOUEUR_H</span>
+00075 <span class="preprocessor"></span>
+00076 
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

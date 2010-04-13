@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): type_arme.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>type_arme.cpp</h1><a href="type__arme_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="type__arme_8h.html">type_arme.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="texture__manager_8h.html">texture_manager.h</a>"</span>
+00012 
+<a name="l00013"></a><a class="code" href="classCTypeArme.html#a1">00013</a> <a class="code" href="classCTypeArme.html#a1">CTypeArme::~CTypeArme</a> ()
+00014 {
+00015         <a class="code" href="classCTextureManager.html#e0">CTextureManager::Instance</a> ()-&gt;<a class="code" href="classCTextureManager.html#a2">Delete</a> (m_pTexture);
+00016 }
+00017 
+00018 <span class="comment">// Ajout d'un ancrage, plus il y a d'ancrages plus il y a d'entités de types armes créés au moment du tire</span>
+<a name="l00019"></a><a class="code" href="classCTypeArme.html#a2">00019</a> <span class="keywordtype">void</span> <a class="code" href="classCTypeArme.html#a2">CTypeArme::AddAncrage</a> (<span class="keyword">const</span> <a class="code" href="util_8h.html#a3">CVecteur</a> &amp; <a class="code" href="glext_8h.html#a2268">v</a>)
+00020 {
+00021         m_Ancrages.push_back (<a class="code" href="glext_8h.html#a2268">v</a>);
+00022 }
+00023 
+00024 <span class="comment">// Retourne le nombre d'ancrages.</span>
+<a name="l00025"></a><a class="code" href="classCTypeArme.html#a3">00025</a> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classCTypeArme.html#a3">CTypeArme::GetAncrageNombre</a> ()<span class="keyword"> const</span>
+00026 <span class="keyword"></span>{
+00027         <span class="keywordflow">return</span> m_Ancrages.size ();
+00028 }
+00029 
+00030 <span class="comment">// Offre un accès aux ancrages de l'arme. </span>
+<a name="l00031"></a><a class="code" href="classCTypeArme.html#a4">00031</a> <a class="code" href="util_8h.html#a3">CVecteur</a> <a class="code" href="classCTypeArme.html#a4">CTypeArme::GetAncrageParIndex</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i)<span class="keyword"> const</span>
+00032 <span class="keyword"></span>{
+00033         <span class="keywordflow">if</span> (i &lt; <a class="code" href="classCTypeArme.html#a3">GetAncrageNombre</a>())
+00034                 <span class="keywordflow">return</span> m_Ancrages[i];
+00035         <span class="keywordflow">return</span> <a class="code" href="util_8h.html#a3">CVecteur</a> (0.f, 0.f);
+00036 }
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

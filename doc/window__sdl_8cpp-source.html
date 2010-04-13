@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): window_sdl.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>window_sdl.cpp</h1><a href="window__sdl_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 <span class="preprocessor">#include "<a class="code" href="window__sdl_8h.html">window_sdl.h</a>"</span>
+00002 
+00003 <a class="code" href="classCWindowSDL.html">CWindowSDL</a>* CWindowSDL::m_pInstance = 0;
+00004 
+00005 CWindowSDL::CWindowSDL ()
+00006 {
+00007         m_pSurface = 0;
+00008 }
+00009 
+00010 CWindowSDL::~CWindowSDL ()
+00011 {
+00012         <span class="keywordflow">if</span> (m_pSurface)
+00013                 SDL_FreeSurface (m_pSurface);
+00014 }
+00015 
+<a name="l00016"></a><a class="code" href="classCWindowSDL.html#e0">00016</a> <a class="code" href="classCWindowSDL.html">CWindowSDL</a>* <a class="code" href="classCWindowSDL.html#e0">CWindowSDL::Instance</a> ()
+00017 {
+00018         <span class="keywordflow">if</span> (m_pInstance == 0)
+00019                 m_pInstance = <span class="keyword">new</span> <a class="code" href="classCWindowSDL.html">CWindowSDL</a>;
+00020         <span class="keywordflow">return</span> m_pInstance;
+00021 }
+00022 
+<a name="l00023"></a><a class="code" href="classCWindowSDL.html#e1">00023</a> <span class="keywordtype">void</span> <a class="code" href="classCWindowSDL.html#e1">CWindowSDL::Kill</a> ()
+00024 {
+00025         <span class="keywordflow">if</span> (m_pInstance != 0)
+00026         {
+00027                 <span class="keyword">delete</span> m_pInstance;
+00028                 m_pInstance = 0;
+00029         }
+00030 }
+00031 
+<a name="l00032"></a><a class="code" href="classCWindowSDL.html#e2">00032</a> <span class="keywordtype">bool</span> <a class="code" href="classCWindowSDL.html#e2">CWindowSDL::IsCreate</a> ()
+00033 {
+00034         <span class="keywordflow">return</span> m_pInstance != 0;
+00035 }
+00036 
+<a name="l00037"></a><a class="code" href="classCWindowSDL.html#a0">00037</a> <span class="keywordtype">void</span> <a class="code" href="classCWindowSDL.html#a0">CWindowSDL::Swap</a> ()
+00038 {
+00039         SDL_GL_SwapBuffers ();
+00040 }
+00041 
+<a name="l00042"></a><a class="code" href="classCWindowSDL.html#a1">00042</a> <span class="keywordtype">bool</span> <a class="code" href="classCWindowSDL.html#a1">CWindowSDL::Create</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* szName, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> unWidth, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> unHeight, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> ucColor, <span class="keywordtype">bool</span> bFullscreen)
+00043 {
+00044     <span class="keywordflow">if</span> (SDL_Init (SDL_INIT_VIDEO) &lt; 0)
+00045     {
+00046         printf (<span class="stringliteral">"Impossible d'initializing SDL Video : %s"</span>, SDL_GetError ());
+00047         <span class="keywordflow">return</span> <span class="keyword">false</span>;
+00048     }
+00049 
+00050         <span class="comment">// Utilise OpenGL avec SDL</span>
+00051         <span class="comment">// Utilise le double buffering</span>
+00052         <span class="comment">// Pas d'approximations pour les couleurs en mode 8 bits</span>
+00053         <span class="comment">// Accepte le redimensionnement de la fenêtre</span>
+00054         <span class="comment">// SDL_NOFRAME : Pas de cadre à la fenetre</span>
+00055         <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> uiVideoFlags = SDL_OPENGL | SDL_DOUBLEBUF | SDL_HWPALETTE | SDL_RESIZABLE;
+00056 
+00057         <span class="keywordflow">if</span> (bFullscreen)
+00058                 uiVideoFlags |= SDL_FULLSCREEN;
+00059 
+00060         <span class="keyword">const</span> SDL_VideoInfo *pVideoInfo = SDL_GetVideoInfo ();
+00061 
+00062         <span class="comment">// Allocation de la surface en mémoire video</span>
+00063         <span class="keywordflow">if</span> (pVideoInfo-&gt;hw_available)
+00064                 uiVideoFlags |= SDL_HWSURFACE;
+00065         <span class="keywordflow">else</span>
+00066                 uiVideoFlags |= SDL_SWSURFACE;
+00067 
+00068         <span class="keywordflow">if</span> (pVideoInfo-&gt;blit_hw)
+00069                 uiVideoFlags |= SDL_HWACCEL;
+00070 
+00071         <span class="comment">// initialisation du double buffering pour OpenGL</span>
+00072     SDL_GL_SetAttribute (SDL_GL_DOUBLEBUFFER, 1);
+00073     SDL_GL_SetAttribute (SDL_GL_DEPTH_SIZE, 24);
+00074     SDL_GL_SetAttribute (SDL_GL_STENCIL_SIZE, 0);
+00075     SDL_GL_SetAttribute (SDL_GL_ACCUM_RED_SIZE, 0);
+00076     SDL_GL_SetAttribute (SDL_GL_ACCUM_GREEN_SIZE, 0);
+00077     SDL_GL_SetAttribute (SDL_GL_ACCUM_BLUE_SIZE, 0);
+00078     SDL_GL_SetAttribute (SDL_GL_ACCUM_ALPHA_SIZE, 0);
+00079 
+00080         <span class="keywordflow">if</span> ((m_pSurface = SDL_SetVideoMode (unWidth, unHeight, ucColor, uiVideoFlags)) == 0)
+00081         {
+00082                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+00083         <span class="comment">//printf ("Impossible de créer une fenetre : %s\n", SDL_GetError());</span>
+00084     }
+00085 
+00086     SDL_WM_SetCaption (szName, szName);
+00087         _Resize (unWidth, unHeight);
+00088 
+00089         <span class="comment">// Le curseur de la souris devient invisible.</span>
+00090         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> pucData[4] = {0, 0, 0, 0};
+00091         SDL_Cursor* pCursor = SDL_CreateCursor (pucData, pucData, 4, 4, 0, 0);
+00092         SDL_SetCursor (pCursor);
+00093 
+00094         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+00095 }
+00096 
+00097 <span class="keywordtype">void</span> CWindowSDL::_Resize (<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> unWidth, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> unHeight)
+00098 {
+00099         <span class="keywordflow">if</span> (unHeight == 0)
+00100                 unHeight = 1;
+00101 
+00102     glViewport (0, 0, unWidth, unHeight);
+00103 
+00104     glMatrixMode (GL_PROJECTION);
+00105     glLoadIdentity ();
+00106 
+00107     gluPerspective (45.f, (<span class="keywordtype">float</span>)unWidth / (<span class="keywordtype">float</span>)unHeight, 0.1f, 512);
+00108 
+00109     glMatrixMode (GL_MODELVIEW);
+00110     glLoadIdentity ();
+00111 }
+00112 
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

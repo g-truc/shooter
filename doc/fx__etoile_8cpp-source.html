@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): fx_etoile.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>fx_etoile.cpp</h1><a href="fx__etoile_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="affichage_8h.html">affichage.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="ctrl__fenetre_8h.html">ctrl_fenetre.h</a>"</span>
+00012 <span class="preprocessor">#include "<a class="code" href="ctrl__particule_8h.html">ctrl_particule.h</a>"</span>
+00013 <span class="preprocessor">#include "<a class="code" href="fx__etoile_8h.html">fx_etoile.h</a>"</span>
+00014 
+00015 CEtoile::CEtoile (<a class="code" href="classCTexture.html">CTexture</a> *pTexture)
+00016 {
+00017         <a class="code" href="classCParticleSystem.html#p3">m_pTexture</a> = pTexture;
+00018 }
+00019 
+00020 CEtoile::~CEtoile ()
+00021 {
+00022 
+00023 }
+00024 
+00025 <span class="comment">// Création d'une instance d'effet de défilement d'étoiles</span>
+<a name="l00026"></a><a class="code" href="classCEtoile.html#e0">00026</a> <span class="keyword">const</span> <a class="code" href="classCEtoile.html">CEtoile</a>* <a class="code" href="classCEtoile.html#e0">CEtoile::Create</a> ()
+00027 {
+00028         <span class="comment">// Demande au gestionnaire d'effets de particules de créer une instance d'effet de particules puis récupère une pointeur sur elle</span>
+00029         <a class="code" href="classCEtoile.html">CEtoile</a>* pGenerateurParticule = <a class="code" href="classCParticleManager.html#e0">CParticleManager::Instance</a> ()-&gt;<a class="code" href="classCParticleManager.html#a1">CreateEtoile</a> ();
+00030         <span class="keywordflow">if</span> (pGenerateurParticule == 0)
+00031                 <span class="keywordflow">return</span> 0;
+00032 
+00033         pGenerateurParticule-&gt;<a class="code" href="classCParticleSystem.html#p2">m_fTailleParticule</a> = 4;
+00034         pGenerateurParticule-&gt;<a class="code" href="classCEtoile.html#r1">m_fVitesseMin</a> = 48;
+00035         pGenerateurParticule-&gt;<a class="code" href="classCEtoile.html#r2">m_fVitesseMax</a> = 96;
+00036         pGenerateurParticule-&gt;<a class="code" href="classCEtoile.html#r3">m_fDureeVie</a> = 100.f;
+00037         pGenerateurParticule-&gt;<a class="code" href="classCParticleSystem.html#p6">m_Couleur</a> = <a class="code" href="util_8h.html#a2">CCouleur</a> (1.0f, 1.0f, 1.0f);
+00038 
+00039         <span class="keywordflow">return</span> pGenerateurParticule;    
+00040 }
+00041 
+00042 <span class="comment">// Initialisation de l'effet de particules</span>
+<a name="l00043"></a><a class="code" href="classCEtoile.html#a1">00043</a> <span class="keywordtype">void</span> <a class="code" href="classCEtoile.html#a1">CEtoile::Init</a> ()
+00044 {
+00045 
+00046 }
+00047 
+00048 <span class="comment">// Mise à jour de l'effet de particules</span>
+<a name="l00049"></a><a class="code" href="classCEtoile.html#a0">00049</a> <span class="keywordtype">void</span> <a class="code" href="classCEtoile.html#a0">CEtoile::Update</a> ()
+00050 {
+00051         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="fx_8h.html#a0">PARTICULE_NOMBRE</a>; i++)
+00052         {
+00053                 <span class="keywordflow">if</span> (m_pParticule[i])
+00054                 {
+00055                         <span class="comment">// Suppression des particules quand elle sorte de l'écran</span>
+00056                         <span class="keywordflow">if</span> (m_pParticule[i]-&gt;<a class="code" href="classCParticule.html#a2">GetPosition</a> () (gtl::Y) &lt; 0)
+00057                         {
+00058                                 <span class="keyword">delete</span> m_pParticule[i];
+00059                                 m_pParticule[i] = 0;
+00060                                 <span class="keywordflow">continue</span>;
+00061                         }
+00062                 }
+00063         }
+00064 
+00065         <span class="keywordflow">if</span> (m_Timer.<a class="code" href="classCTimer.html#a2">GetTime</a> () &gt; 0.1)
+00066         {
+00067                 m_Timer.<a class="code" href="classCTimer.html#a1">Init</a> ();
+00068                 <span class="keywordtype">int</span> iIndex = <a class="code" href="classCParticleSystem.html#b0">GetIndexLibre</a> ();
+00069                 <span class="keywordflow">if</span> (iIndex != -1)
+00070                         m_pParticule[iIndex] = <span class="keyword">new</span> <a class="code" href="classCParticule.html">CParticule</a> (<a class="code" href="util_8h.html#a3">CVecteur</a> (<a class="code" href="util_8cpp.html#a0">RandFloat</a> (0, <a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a>), <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a>), <a class="code" href="util_8h.html#a3">CVecteur</a> (0, -<a class="code" href="util_8cpp.html#a0">RandFloat</a> (m_fVitesseMin, m_fVitesseMax)), <a class="code" href="util_8h.html#a3">CVecteur</a> (0, 0), 5, 10);
+00071         }
+00072 }
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

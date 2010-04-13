@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): Référence du fichier xml_score.h</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>Référence du fichier xml_score.h</h1>Déclaration de la classe <a class="el" href="classCXMLScore.html">CXMLScore</a> permettant le chargement et l'enregistrement des scores. <a href="#_details">Plus de détails...</a>
+<p>
+<code>#include "../lib/libxml2/include/tree.h"</code><br>
+<code>#include "../lib/libxml2/include/xmlmemory.h"</code><br>
+<code>#include "../lib/libxml2/include/parser.h"</code><br>
+<code>#include &lt;string&gt;</code><br>
+<code>#include &lt;list&gt;</code><br>
+<code>#include &lt;set&gt;</code><br>
+
+<p>
+<a href="xml__score_8h-source.html">Aller au code source de ce fichier.</a><table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Classes</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>struct &nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="structSJoueur.html">SJoueur</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Score pour un joueur dans une partie.  <a href="structSJoueur.html#_details">Plus de détails...</a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>struct &nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="structSScore.html">SScore</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Résultats d'une partie.  <a href="structSScore.html#_details">Plus de détails...</a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>class &nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCXMLScore.html">CXMLScore</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Classe de chargement et enregistrement des scores.  <a href="classCXMLScore.html#_details">Plus de détails...</a><br></td></tr>
+<tr><td colspan=2><br><h2>Macros</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>#define&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="xml__score_8h.html#a0">FICHIER_XML_SCORE</a>&nbsp;&nbsp;&nbsp;"./data/score.xml"</td></tr>
+
+<tr><td colspan=2><br><h2>Fonctions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="xml__score_8h.html#a1">operator&lt;</a> (<a class="el" href="structSScore.html">SScore</a> Score1, <a class="el" href="structSScore.html">SScore</a> Score2)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>bool&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="xml__score_8h.html#a2">operator&gt;</a> (<a class="el" href="structSScore.html">SScore</a> Score1, <a class="el" href="structSScore.html">SScore</a> Score2)</td></tr>
+
+</table>
+<hr><a name="_details"></a><h2>Description détaillée</h2>
+Déclaration de la classe <a class="el" href="classCXMLScore.html">CXMLScore</a> permettant le chargement et l'enregistrement des scores. 
+<p>
+<dl compact><dt><b>Auteur:</b></dt><dd>Groove (<a href="http://www.g-truc.net">http://www.g-truc.net</a>) / Code(r) (<a href="http://www.codermag.com">http://www.codermag.com</a>) </dd></dl>
+<dl compact><dt><b>Date:</b></dt><dd>21/05/2004</dd></dl>
+
+<p>
+Définition dans le fichier <a class="el" href="xml__score_8h-source.html">xml_score.h</a>.<hr><h2>Documentation des macro</h2>
+<a class="anchor" name="a0" doxytag="xml_score.h::FICHIER_XML_SCORE" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define FICHIER_XML_SCORE&nbsp;&nbsp;&nbsp;"./data/score.xml"          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="xml__score_8h-source.html#l00021">21</a> du fichier <a class="el" href="xml__score_8h-source.html">xml_score.h</a>.
+<p>
+Référencé par <a class="el" href="affichage_8cpp-source.html#l00381">CAffichage::MenuScore()</a>.    </td>
+  </tr>
+</table>
+<hr><h2>Documentation des fonctions</h2>
+<a class="anchor" name="a1" doxytag="xml_score.h::operator<" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> bool operator&lt;           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top"><a class="el" href="structSScore.html">SScore</a>&nbsp;</td>
+          <td class="mdname" nowrap> <em>Score1</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap><a class="el" href="structSScore.html">SScore</a>&nbsp;</td>
+          <td class="mdname" nowrap> <em>Score2</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="xml__score_8cpp-source.html#l00148">148</a> du fichier <a class="el" href="xml__score_8cpp-source.html">xml_score.cpp</a>.
+<p>
+Références <a class="el" href="xml__score_8h-source.html#l00034">SScore::m_Joueur</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a2" doxytag="xml_score.h::operator>" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> bool operator&gt;           </td>
+          <td class="md" valign="top">(&nbsp;</td>
+          <td class="md" nowrap valign="top"><a class="el" href="structSScore.html">SScore</a>&nbsp;</td>
+          <td class="mdname" nowrap> <em>Score1</em>, </td>
+        </tr>
+        <tr>
+          <td class="md" nowrap align="right"></td>
+          <td></td>
+          <td class="md" nowrap><a class="el" href="structSScore.html">SScore</a>&nbsp;</td>
+          <td class="mdname" nowrap> <em>Score2</em></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="md">)&nbsp;</td>
+          <td class="md" colspan="2"><code> [inline]</code></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="xml__score_8cpp-source.html#l00164">164</a> du fichier <a class="el" href="xml__score_8cpp-source.html">xml_score.cpp</a>.
+<p>
+Références <a class="el" href="xml__score_8h-source.html#l00034">SScore::m_Joueur</a>.    </td>
+  </tr>
+</table>
+<hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:37:06 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): entree_souris.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>entree_souris.cpp</h1><a href="entree__souris_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="ctrl__fenetre_8h.html">ctrl_fenetre.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="entree__souris_8h.html">entree_souris.h</a>"</span>
+00012 
+<a name="l00013"></a><a class="code" href="classCEntreeSouris.html#a1">00013</a> <a class="code" href="classCEntreeSouris.html#a0">CEntreeSouris::CEntreeSouris</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> unPositionX, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> unPositionY)
+00014 {
+00015         m_unPositionX = unPositionX;
+00016         m_unPositionY = unPositionY;
+00017         m_bTirer = <span class="keyword">false</span>;
+00018 
+00019         SDL_WarpMouse (unPositionX, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - unPositionY);
+00020 }
+00021 
+00022 <span class="comment">// Evénement provoqué quand un bouton de souris est pressé</span>
+<a name="l00023"></a><a class="code" href="classCEntreeSouris.html#a2">00023</a> <span class="keywordtype">void</span> <a class="code" href="classCEntreeSouris.html#a2">CEntreeSouris::Event</a> (SDL_MouseButtonEvent *pEvent)
+00024 {
+00025         <span class="keywordflow">if</span> (pEvent-&gt;type == SDL_MOUSEBUTTONDOWN &amp;&amp; pEvent-&gt;button == SDL_BUTTON_LEFT)
+00026                 m_bTirer = <span class="keyword">true</span>;
+00027         <span class="keywordflow">else</span>
+00028                 m_bTirer = <span class="keyword">false</span>;
+00029 }
+00030 
+00031 <span class="comment">// Evénement provoqué quand la souris est déplacé</span>
+<a name="l00032"></a><a class="code" href="classCEntreeSouris.html#a3">00032</a> <span class="keywordtype">void</span> <a class="code" href="classCEntreeSouris.html#a2">CEntreeSouris::Event</a> (SDL_MouseMotionEvent *pEvent)
+00033 {
+00034         <span class="keywordtype">int</span> iLargeur = pEvent-&gt;x;
+00035         <span class="keywordtype">int</span> iHauteur = pEvent-&gt;y;
+00036 
+00037         <span class="comment">// Contrôle la position de la souris et déplace le curseur si nécessaire.</span>
+00038         <span class="keywordflow">if</span> (iHauteur &gt; (<a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - 32))
+00039         {
+00040                 iHauteur = <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - 32;
+00041                 SDL_WarpMouse (iLargeur, iHauteur);
+00042         }       
+00043         <span class="keywordflow">if</span> (iHauteur &lt; (0 + 32))
+00044         {
+00045                 iHauteur = 0 + 32;
+00046                 SDL_WarpMouse (iLargeur, iHauteur);
+00047         }
+00048         <span class="keywordflow">if</span> (iLargeur &gt; (<a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> - 32))
+00049         {
+00050                 iLargeur = <a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a> - 32;
+00051                 SDL_WarpMouse (iLargeur, iHauteur);
+00052         }
+00053         <span class="keywordflow">if</span> (iLargeur &lt; (0 + 32))
+00054         {
+00055                 iLargeur = 0 + 32;
+00056                 SDL_WarpMouse (iLargeur, iHauteur);
+00057         }
+00058         
+00059         <span class="comment">// Indique la position du joueur</span>
+00060         m_unPositionX = static_cast&lt;unsigned short&gt;(iLargeur);
+00061         m_unPositionY = <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a> - static_cast&lt;unsigned short&gt;(iHauteur);
+00062 }
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

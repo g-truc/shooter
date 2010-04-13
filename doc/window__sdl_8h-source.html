@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): window_sdl.h Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>window_sdl.h</h1><a href="window__sdl_8h.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 <span class="preprocessor">#ifndef WINDOW_SDL_H</span>
+00002 <span class="preprocessor"></span><span class="preprocessor">#define WINDOW_SDL_H</span>
+00003 <span class="preprocessor"></span>
+00004 <span class="preprocessor">#include "<a class="code" href="window_8h.html">window.h</a>"</span>
+00005 <span class="preprocessor">#include "../lib/gtl/include/gtl.h"</span>
+00006 <span class="preprocessor">#include "../lib/sdl/include/SDL.h"</span>
+00007 
+<a name="l00008"></a><a class="code" href="classCWindowSDL.html">00008</a> <span class="keyword">class </span><a class="code" href="classCWindowSDL.html">CWindowSDL</a> : <span class="keyword">public</span> <a class="code" href="classCWindow.html">CWindow</a>
+00009 {
+00010         <span class="keyword">static</span> <a class="code" href="classCWindowSDL.html">CWindowSDL</a>* m_pInstance;
+00011 
+00012 <span class="keyword">private</span>:
+00013         SDL_Surface* m_pSurface;
+00014 
+00015         <span class="keywordtype">void</span> _Resize (<span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> unWidth, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> unHeight);
+00016 
+00017         <a class="code" href="classCWindowSDL.html">CWindowSDL</a> ();
+00018         ~<a class="code" href="classCWindowSDL.html">CWindowSDL</a> ();
+00019 
+00020 <span class="keyword">public</span>:
+00021         <span class="keyword">static</span> <a class="code" href="classCWindowSDL.html">CWindowSDL</a>* <a class="code" href="classCWindowSDL.html#e0">Instance</a> ();
+00022         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classCWindowSDL.html#e1">Kill</a> ();
+00023         <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="classCWindowSDL.html#e2">IsCreate</a> ();
+00024 
+00025         <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classCWindowSDL.html#a0">Swap</a> ();
+00026         <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classCWindowSDL.html#a1">Create</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* szName, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> unWidth, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> unHeight, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> ucColor, <span class="keywordtype">bool</span> bFullscreen);
+00027 };
+00028 
+00029 <span class="preprocessor">#endif //WINDOW_SDL_H</span>
+00030 <span class="preprocessor"></span>
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

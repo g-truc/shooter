@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): ctrl_son.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>ctrl_son.cpp</h1><a href="ctrl__son_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="ctrl__son_8h.html">ctrl_son.h</a>"</span>
+00011 
+00012 <a class="code" href="classCSoundManager.html">CSoundManager</a>* CSoundManager::m_pSoundManager = 0;
+00013 
+00014 CSoundManager::CSoundManager ()
+00015 {
+00016         m_bCanauxJeu = <span class="keyword">true</span>;
+00017 
+00018         <span class="comment">// On initialise Fmod : Fréquence de sortie, nombre de canaux utilisés et option (non util pour nous)</span>
+00019         FSOUND_Init (44100, CANAL_MAX, 0);
+00020         FSOUND_SetSFXMasterVolume (64);
+00021 
+00022         <span class="comment">// On initialise tous les canaux de sons à 0 pour pouvoir vérifier qu'ils sont utilisés ou non.</span>
+00023         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> Canal = <a class="code" href="ctrl__son_8h.html#a8a0">CANAL_NULL</a>; Canal &lt; <a class="code" href="ctrl__son_8h.html#a8a7">CANAL_MAX</a>; Canal++)
+00024                 m_pSon[Canal] = 0;
+00025 }
+00026 
+00027 CSoundManager::~CSoundManager ()
+00028 {
+00029         <span class="comment">// On libère tous les canaux</span>
+00030         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> Canal = <a class="code" href="ctrl__son_8h.html#a8a0">CANAL_NULL</a>; Canal &lt; <a class="code" href="ctrl__son_8h.html#a8a7">CANAL_MAX</a>; Canal++)
+00031                 <span class="keywordflow">if</span> (m_pSon[Canal])
+00032                         FSOUND_Stream_Close (m_pSon[Canal]);
+00033 }
+00034 
+00035 <span class="comment">// Creation ou récupération de l'instance du gestionnaire de sons.</span>
+00036 <span class="comment">// Si l'instance n'existe pas (m_pSoundManager == 0), on la créé.</span>
+<a name="l00037"></a><a class="code" href="classCSoundManager.html#e0">00037</a> <a class="code" href="classCSoundManager.html">CSoundManager</a>* <a class="code" href="classCSoundManager.html#e0">CSoundManager::Instance</a> ()
+00038 {
+00039         <span class="keywordflow">if</span> (m_pSoundManager == 0)
+00040                 m_pSoundManager = <span class="keyword">new</span> <a class="code" href="classCSoundManager.html">CSoundManager</a>;
+00041         <span class="keywordflow">return</span> m_pSoundManager;
+00042 }
+00043 
+00044 <span class="comment">// Suppression de l'instance du gestionnaire de sons si elle existe.</span>
+<a name="l00045"></a><a class="code" href="classCSoundManager.html#e1">00045</a> <span class="keywordtype">void</span> <a class="code" href="classCSoundManager.html#e1">CSoundManager::Kill</a> ()
+00046 {
+00047         <span class="keywordflow">if</span> (m_pSoundManager != 0)
+00048         {
+00049                 <span class="keyword">delete</span> m_pSoundManager;
+00050                 m_pSoundManager = 0;
+00051         }
+00052 }
+00053 
+00054 <span class="preprocessor">#include &lt;stdio.h&gt;</span>
+00055 
+00056 <span class="comment">// Lecture des sons. Ils sont lu par streaming c'est à dire qu'ils sont chargés pendant la lecture.</span>
+<a name="l00057"></a><a class="code" href="classCSoundManager.html#a0">00057</a> <span class="keywordtype">void</span> <a class="code" href="classCSoundManager.html#a0">CSoundManager::Jouer</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* szFilename, ECanaux Canal, <span class="keywordtype">bool</span> bLoop)
+00058 {
+00059         <span class="keywordflow">if</span> (!m_bCanauxJeu &amp;&amp; Canal != <a class="code" href="ctrl__son_8h.html#a8a1">CANAL_MUSIQUE</a>)
+00060                 <span class="keywordflow">return</span>;
+00061 
+00062         <span class="keywordflow">if</span> (m_pSon[Canal])
+00063                 FSOUND_Stream_Close (m_pSon[Canal]);
+00064 
+00065         <span class="comment">// Si bLoop == true alors le son boucle.</span>
+00066         <span class="keywordflow">if</span> (bLoop)
+00067         {
+00068                 FSOUND_SetLoopMode (0, FSOUND_LOOP_NORMAL);
+00069                 m_pSon[Canal] = FSOUND_Stream_Open (szFilename, FSOUND_LOOP_NORMAL, 0, 0);
+00070                 FSOUND_SetVolume (Canal, 64);
+00071                 FSOUND_SetVolumeAbsolute (Canal, 64);
+00072         }
+00073         <span class="comment">// Sinon il est jouer une seule fois.</span>
+00074         <span class="keywordflow">else</span>
+00075         {
+00076                 m_pSon[Canal] = FSOUND_Stream_Open (szFilename, FSOUND_NORMAL, 0, 0);
+00077                 FSOUND_SetVolume (Canal, 255);
+00078                 FSOUND_SetVolumeAbsolute (Canal, 255);
+00079         }
+00080 
+00081         FSOUND_Stream_Play (Canal, m_pSon[Canal]);
+00082 }
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

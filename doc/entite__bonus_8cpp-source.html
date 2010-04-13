@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): entite_bonus.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>entite_bonus.cpp</h1><a href="entite__bonus_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="entite__bonus_8h.html">entite_bonus.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="ctrl__entite_8h.html">ctrl_entite.h</a>"</span>
+00012 <span class="preprocessor">#include "<a class="code" href="ctrl__son_8h.html">ctrl_son.h</a>"</span>
+00013 <span class="preprocessor">#include "<a class="code" href="type__bonus_8h.html">type_bonus.h</a>"</span>
+00014 
+00015 CEntiteBonus::CEntiteBonus ()
+00016 {
+00017 
+00018 }
+00019 
+00020 CEntiteBonus::~CEntiteBonus ()
+00021 {
+00022         <span class="comment">// Si le bonus est dans l'écran de jeu alors on emet un son</span>
+00023         <span class="keywordflow">if</span> (<a class="code" href="classCEntite.html#b0">EstDansEcran</a> (GetPosition (), m_pTypeBonus-&gt;<a class="code" href="classCType.html#a5">GetTaille</a> ()))
+00024                 <a class="code" href="classCSoundManager.html#e0">CSoundManager::Instance</a> ()-&gt;<a class="code" href="classCSoundManager.html#a0">Jouer</a> (m_pTypeBonus-&gt;<a class="code" href="classCType.html#a6">GetSon</a> (), <a class="code" href="ctrl__son_8h.html#a8a2">CANAL_ENNEMI</a>);
+00025 }
+00026 
+00027 <span class="comment">// Création d'une instance d'entité bonus</span>
+<a name="l00028"></a><a class="code" href="classCEntiteBonus.html#e0">00028</a> <a class="code" href="classCEntiteBonus.html">CEntiteBonus</a>* <a class="code" href="classCEntiteBonus.html#e0">CEntiteBonus::Create</a> (<a class="code" href="classCTypeBonus.html">CTypeBonus</a>* pTypeBonus, <span class="keyword">const</span> <a class="code" href="util_8h.html#a3">CVecteur</a> &amp; Position)
+00029 {
+00030         <span class="comment">// Demande au gestionnaire d'entités de créer une instance de bonus puis on récupère une pointeur sur elle</span>
+00031         <a class="code" href="classCEntiteBonus.html">CEntiteBonus</a> *pEntite = <a class="code" href="classCEntityManager.html#e0">CEntityManager::Instance</a> ()-&gt;<a class="code" href="classCEntityManager.html#a1">CreateBonus</a> ();
+00032         <span class="keywordflow">if</span> (pEntite == 0)
+00033                 <span class="keywordflow">return</span> 0;
+00034 
+00035         <a class="code" href="util_8h.html#a3">CVecteur</a> Vecteur = <a class="code" href="util_8h.html#a3">CVecteur</a> (
+00036                 <a class="code" href="util_8cpp.html#a0">RandFloat</a> (pTypeBonus-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::X) * 0.75f, pTypeBonus-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::X) * 1.25f), 
+00037                 <a class="code" href="util_8h.html#a4">RandFloat</a> (pTypeBonus-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::Y) * 0.75f, pTypeBonus-&gt;<a class="code" href="classCType.html#a1">GetVitesse</a> () (gtl::Y) * 1.25f));
+00038         pEntite-&gt;<a class="code" href="classCEntiteBonus.html#r0">m_pTypeBonus</a> = pTypeBonus;
+00039         pEntite-&gt;<a class="code" href="classCEntite.html#p6">m_iBouclier</a> = 1;
+00040         pEntite-&gt;<a class="code" href="classCEntite.html#p1">m_PositionI</a> = pEntite-&gt;<a class="code" href="classCEntite.html#p2">m_PositionF</a> = Position;
+00041         pEntite-&gt;<a class="code" href="classCEntite.html#p3">m_VitesseI</a> = pEntite-&gt;<a class="code" href="classCEntite.html#p4">m_VitesseF</a> = Vecteur;
+00042         pEntite-&gt;<a class="code" href="classCEntite.html#p5">m_Acceleration</a> = pTypeBonus-&gt;<a class="code" href="classCType.html#a2">GetAcceleration</a> ();
+00043 
+00044         <span class="keywordflow">return</span> pEntite;
+00045 }
+00046 
+<a name="l00047"></a><a class="code" href="classCEntiteBonus.html#a4">00047</a> <span class="keywordtype">void</span> <a class="code" href="classCEntiteBonus.html#a4">CEntiteBonus::Contact</a> (<a class="code" href="classCEntite.html">CEntite</a>* pEntite)
+00048 {
+00049         m_pTypeBonus-&gt;<a class="code" href="classCTypeBonus.html#a1">Contact</a> (pEntite);
+00050         <span class="comment">// Après chaque contact avec un joueur les bonus sont détruits</span>
+00051         m_iBouclier = 0;
+00052 }
+00053 
+<a name="l00054"></a><a class="code" href="classCEntiteBonus.html#a0">00054</a> <span class="keywordtype">int</span> <a class="code" href="classCEntiteBonus.html#a0">CEntiteBonus::GetDommage</a> ()<span class="keyword"> const</span>
+00055 <span class="keyword"></span>{
+00056         <span class="keywordflow">return</span> m_pTypeBonus-&gt;<a class="code" href="classCType.html#a4">GetDommage</a> ();
+00057 }
+00058 
+<a name="l00059"></a><a class="code" href="classCEntiteBonus.html#a1">00059</a> <a class="code" href="classCTexture.html">CTexture</a>* <a class="code" href="classCEntiteBonus.html#a1">CEntiteBonus::GetTexture</a> ()<span class="keyword"> const</span>
+00060 <span class="keyword"></span>{
+00061         <span class="keywordflow">return</span> m_pTypeBonus-&gt;<a class="code" href="classCType.html#a0">GetTexture</a> ();
+00062 }
+00063 
+<a name="l00064"></a><a class="code" href="classCEntiteBonus.html#a3">00064</a> <span class="keywordtype">float</span> <a class="code" href="classCEntiteBonus.html#a3">CEntiteBonus::GetTaille</a> ()<span class="keyword"> const</span>
+00065 <span class="keyword"></span>{
+00066         <span class="keywordflow">return</span> m_pTypeBonus-&gt;<a class="code" href="classCType.html#a5">GetTaille</a> ();
+00067 }
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

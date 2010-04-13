@@ -1,0 +1,436 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): Référence du fichier ctrl_fenetre.h</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>Référence du fichier ctrl_fenetre.h</h1>Déclaration de la classe <a class="el" href="classCFenetre.html">CFenetre</a> pour la création d'une fenêtre, la gestion des entrées, le menu. <a href="#_details">Plus de détails...</a>
+<p>
+<code>#include "<a class="el" href="entree__clavier_8h-source.html">entree_clavier.h</a>"</code><br>
+<code>#include "<a class="el" href="entree__souris_8h-source.html">entree_souris.h</a>"</code><br>
+<code>#include "<a class="el" href="texture_8h-source.html">texture.h</a>"</code><br>
+<code>#include "../lib/sdl/include/sdl.h"</code><br>
+<code>#include &lt;GL/gl.h&gt;</code><br>
+<code>#include &lt;GL/glu.h&gt;</code><br>
+<code>#include "<a class="el" href="glext_8h-source.html">glext.h</a>"</code><br>
+<code>#include &lt;string&gt;</code><br>
+
+<p>
+<a href="ctrl__fenetre_8h-source.html">Aller au code source de ce fichier.</a><table border=0 cellpadding=0 cellspacing=0>
+<tr><td></td></tr>
+<tr><td colspan=2><br><h2>Classes</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>class &nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classCFenetre.html">CFenetre</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gestionnaire des pages du jeu et controleur principale.  <a href="classCFenetre.html#_details">Plus de détails...</a><br></td></tr>
+<tr><td colspan=2><br><h2>Macros</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>#define&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="ctrl__fenetre_8h.html#a0">FENETRE_NOM</a>&nbsp;&nbsp;&nbsp;"Shoot(<a class="el" href="glext_8h.html#a2270">r</a>)"</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>#define&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a>&nbsp;&nbsp;&nbsp;800</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>#define&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a>&nbsp;&nbsp;&nbsp;600</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>#define&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="ctrl__fenetre_8h.html#a3">FENETRE_COULEUR</a>&nbsp;&nbsp;&nbsp;24</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>#define&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="ctrl__fenetre_8h.html#a4">FICHIER_MUSIQUE_QUITTER</a>&nbsp;&nbsp;&nbsp;"./data/musique/quitter.ogg"</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>#define&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="ctrl__fenetre_8h.html#a5">FICHIER_MUSIQUE_MENU</a>&nbsp;&nbsp;&nbsp;"./data/musique/menu.ogg"</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>#define&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="ctrl__fenetre_8h.html#a6">FICHIER_MUSIQUE_JEU</a>&nbsp;&nbsp;&nbsp;"./data/musique/jeu.ogg"</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>#define&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="ctrl__fenetre_8h.html#a7">FICHIER_TEXTURE_FOND_MENU</a>&nbsp;&nbsp;&nbsp;"./data/<a class="el" href="glext_8h.html#a2252">image</a>/menu-fond.tga"</td></tr>
+
+<tr><td class="memItemLeft" nowrap align=right valign=top>#define&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="ctrl__fenetre_8h.html#a8">FICHIER_TEXTURE_FOND_QUITTER</a>&nbsp;&nbsp;&nbsp;"./data/<a class="el" href="glext_8h.html#a2252">image</a>/menu-quitter.tga"</td></tr>
+
+<tr><td colspan=2><br><h2>Énumérations</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>enum &nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="ctrl__fenetre_8h.html#a27">EPage</a> { <br>
+&nbsp;&nbsp;<a class="el" href="ctrl__fenetre_8h.html#a27a9">PAGE_NULL</a> =  0, 
+<a class="el" href="ctrl__fenetre_8h.html#a27a10">PAGE_JEU_CHARGEMENT</a>, 
+<a class="el" href="ctrl__fenetre_8h.html#a27a11">PAGE_JEU_CHARGEMENT_ERREUR</a>, 
+<a class="el" href="ctrl__fenetre_8h.html#a27a12">PAGE_JEU_COMMENCER</a>, 
+<br>
+&nbsp;&nbsp;<a class="el" href="ctrl__fenetre_8h.html#a27a13">PAGE_JEU_ENCOURS</a>, 
+<a class="el" href="ctrl__fenetre_8h.html#a27a14">PAGE_PRINCIPALE</a>, 
+<a class="el" href="ctrl__fenetre_8h.html#a27a15">PAGE_SCORE</a>, 
+<a class="el" href="ctrl__fenetre_8h.html#a27a16">PAGE_QUITTER</a>
+<br>
+ }</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Identifiants des différentes pages du jeu.  <a href="#a27">Plus de détails...</a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>enum &nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="ctrl__fenetre_8h.html#a28">EPageJeuCommencer</a> { <br>
+&nbsp;&nbsp;<a class="el" href="ctrl__fenetre_8h.html#a28a17">PAGE_JEU_COMMENCER_NULL</a> =  0, 
+<a class="el" href="ctrl__fenetre_8h.html#a28a18">PAGE_JEU_COMMENCER_CHARGEMENT</a>, 
+<a class="el" href="ctrl__fenetre_8h.html#a28a19">PAGE_JEU_COMMENCER_JOUEUR2</a>, 
+<a class="el" href="ctrl__fenetre_8h.html#a28a20">PAGE_JEU_COMMENCER_JOUEUR1</a>, 
+<br>
+&nbsp;&nbsp;<a class="el" href="ctrl__fenetre_8h.html#a28a21">PAGE_JEU_COMMENCER_NOMBRE_JOUEUR</a>
+<br>
+ }</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Identifiants des entrées du menu de création d'une partie.  <a href="#a28">Plus de détails...</a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>enum &nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="ctrl__fenetre_8h.html#a29">EPagePrincipale</a> { <br>
+&nbsp;&nbsp;<a class="el" href="ctrl__fenetre_8h.html#a29a22">PAGE_PRINCIPALE_NULL</a> =  0, 
+<a class="el" href="ctrl__fenetre_8h.html#a29a23">PAGE_PRINCIPALE_QUITTER</a>, 
+<a class="el" href="ctrl__fenetre_8h.html#a29a24">PAGE_PRINCIPALE_SCORES</a>, 
+<a class="el" href="ctrl__fenetre_8h.html#a29a25">PAGE_PRINCIPALE_JEU_COMMENCER</a>, 
+<br>
+&nbsp;&nbsp;<a class="el" href="ctrl__fenetre_8h.html#a29a26">PAGE_PRINCIPALE_JEU_REPRENDRE</a>
+<br>
+ }</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Identifiants des entrées du menu principale.  <a href="#a29">Plus de détails...</a><br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>Description détaillée</h2>
+Déclaration de la classe <a class="el" href="classCFenetre.html">CFenetre</a> pour la création d'une fenêtre, la gestion des entrées, le menu. 
+<p>
+<dl compact><dt><b>Auteur:</b></dt><dd>Groove (<a href="http://www.g-truc.net">http://www.g-truc.net</a>) / Code(r) (<a href="http://www.codermag.com">http://www.codermag.com</a>) </dd></dl>
+<dl compact><dt><b>Date:</b></dt><dd>25/05/2004</dd></dl>
+
+<p>
+Définition dans le fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.<hr><h2>Documentation des macro</h2>
+<a class="anchor" name="a3" doxytag="ctrl_fenetre.h::FENETRE_COULEUR" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define FENETRE_COULEUR&nbsp;&nbsp;&nbsp;24          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="ctrl__fenetre_8h-source.html#l00030">30</a> du fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.
+<p>
+Référencé par <a class="el" href="ctrl__fenetre_8cpp-source.html#l00024">CFenetre::CFenetre()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a2" doxytag="ctrl_fenetre.h::FENETRE_HAUTEUR" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define FENETRE_HAUTEUR&nbsp;&nbsp;&nbsp;600          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="ctrl__fenetre_8h-source.html#l00029">29</a> du fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.
+<p>
+Référencé par <a class="el" href="entree__souris_8cpp-source.html#l00013">CEntreeSouris::CEntreeSouris()</a>, <a class="el" href="ctrl__fenetre_8cpp-source.html#l00024">CFenetre::CFenetre()</a>, <a class="el" href="affichage_8cpp-source.html#l00567">CAffichage::Debut()</a>, <a class="el" href="fx_8cpp-source.html#l00056">CParticleSystem::EstDansEcran()</a>, <a class="el" href="entite_8cpp-source.html#l00038">CEntite::EstDansEcran()</a>, <a class="el" href="entree__souris_8cpp-source.html#l00032">CEntreeSouris::Event()</a>, <a class="el" href="entree__clavier_8cpp-source.html#l00073">CEntreeClavier::GetPosition()</a>, <a class="el" href="affichage_8cpp-source.html#l00473">CAffichage::HUDDefaite()</a>, <a class="el" href="affichage_8cpp-source.html#l00531">CAffichage::HUDJeu()</a>, <a class="el" href="affichage_8cpp-source.html#l00502">CAffichage::HUDVictoire()</a>, <a class="el" href="affichage_8cpp-source.html#l00418">CAffichage::MenuChargement()</a>, <a class="el" href="affichage_8cpp-source.html#l00425">CAffichage::MenuChargementErreur()</a>, <a class="el" href="affichage_8cpp-source.html#l00365">CAffichage::MenuCommencer()</a>, <a class="el" href="affichage_8cpp-source.html#l00433">CAffichage::MenuImageFond()</a>, <a class="el" href="affichage_8cpp-source.html#l00351">CAffichage::MenuPrincipal()</a>, <a class="el" href="affichage_8cpp-source.html#l00381">CAffichage::MenuScore()</a>, <a class="el" href="affichage__font_8cpp-source.html#l00034">CFont::Print()</a>, et <a class="el" href="fx__etoile_8cpp-source.html#l00049">CEtoile::Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a1" doxytag="ctrl_fenetre.h::FENETRE_LARGEUR" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define FENETRE_LARGEUR&nbsp;&nbsp;&nbsp;800          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="ctrl__fenetre_8h-source.html#l00028">28</a> du fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.
+<p>
+Référencé par <a class="el" href="ctrl__fenetre_8cpp-source.html#l00024">CFenetre::CFenetre()</a>, <a class="el" href="affichage_8cpp-source.html#l00567">CAffichage::Debut()</a>, <a class="el" href="fx_8cpp-source.html#l00056">CParticleSystem::EstDansEcran()</a>, <a class="el" href="entite_8cpp-source.html#l00038">CEntite::EstDansEcran()</a>, <a class="el" href="entree__souris_8cpp-source.html#l00032">CEntreeSouris::Event()</a>, <a class="el" href="entree__clavier_8cpp-source.html#l00073">CEntreeClavier::GetPosition()</a>, <a class="el" href="affichage_8cpp-source.html#l00531">CAffichage::HUDJeu()</a>, <a class="el" href="affichage_8cpp-source.html#l00365">CAffichage::MenuCommencer()</a>, <a class="el" href="affichage_8cpp-source.html#l00433">CAffichage::MenuImageFond()</a>, <a class="el" href="affichage_8cpp-source.html#l00351">CAffichage::MenuPrincipal()</a>, <a class="el" href="affichage_8cpp-source.html#l00381">CAffichage::MenuScore()</a>, <a class="el" href="affichage__font_8cpp-source.html#l00034">CFont::Print()</a>, et <a class="el" href="fx__etoile_8cpp-source.html#l00049">CEtoile::Update()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a0" doxytag="ctrl_fenetre.h::FENETRE_NOM" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define FENETRE_NOM&nbsp;&nbsp;&nbsp;"Shoot(<a class="el" href="glext_8h.html#a2270">r</a>)"          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="ctrl__fenetre_8h-source.html#l00027">27</a> du fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.
+<p>
+Référencé par <a class="el" href="ctrl__fenetre_8cpp-source.html#l00024">CFenetre::CFenetre()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a6" doxytag="ctrl_fenetre.h::FICHIER_MUSIQUE_JEU" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define FICHIER_MUSIQUE_JEU&nbsp;&nbsp;&nbsp;"./data/musique/jeu.ogg"          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="ctrl__fenetre_8h-source.html#l00034">34</a> du fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a5" doxytag="ctrl_fenetre.h::FICHIER_MUSIQUE_MENU" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define FICHIER_MUSIQUE_MENU&nbsp;&nbsp;&nbsp;"./data/musique/menu.ogg"          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="ctrl__fenetre_8h-source.html#l00033">33</a> du fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.
+<p>
+Référencé par <a class="el" href="ctrl__fenetre_8cpp-source.html#l00024">CFenetre::CFenetre()</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a4" doxytag="ctrl_fenetre.h::FICHIER_MUSIQUE_QUITTER" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define FICHIER_MUSIQUE_QUITTER&nbsp;&nbsp;&nbsp;"./data/musique/quitter.ogg"          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="ctrl__fenetre_8h-source.html#l00032">32</a> du fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a7" doxytag="ctrl_fenetre.h::FICHIER_TEXTURE_FOND_MENU" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define FICHIER_TEXTURE_FOND_MENU&nbsp;&nbsp;&nbsp;"./data/<a class="el" href="glext_8h.html#a2252">image</a>/menu-fond.tga"          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="ctrl__fenetre_8h-source.html#l00036">36</a> du fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a8" doxytag="ctrl_fenetre.h::FICHIER_TEXTURE_FOND_QUITTER" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> #define FICHIER_TEXTURE_FOND_QUITTER&nbsp;&nbsp;&nbsp;"./data/<a class="el" href="glext_8h.html#a2252">image</a>/menu-quitter.tga"          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Définition à la ligne <a class="el" href="ctrl__fenetre_8h-source.html#l00037">37</a> du fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.    </td>
+  </tr>
+</table>
+<hr><h2>Documentation du type de l'énumération</h2>
+<a class="anchor" name="a27" doxytag="ctrl_fenetre.h::EPage" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> enum <a class="el" href="ctrl__fenetre_8h.html#a27">EPage</a>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Identifiants des différentes pages du jeu. 
+<p>
+<dl compact><dt><b>Valeurs énumérées: </b></dt><dd>
+<table border=0 cellspacing=2 cellpadding=0>
+<tr><td valign=top><em><a class="anchor" name="a27a9" doxytag="PAGE_NULL" ></a>PAGE_NULL</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a27a10" doxytag="PAGE_JEU_CHARGEMENT" ></a>PAGE_JEU_CHARGEMENT</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a27a11" doxytag="PAGE_JEU_CHARGEMENT_ERREUR" ></a>PAGE_JEU_CHARGEMENT_ERREUR</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a27a12" doxytag="PAGE_JEU_COMMENCER" ></a>PAGE_JEU_COMMENCER</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a27a13" doxytag="PAGE_JEU_ENCOURS" ></a>PAGE_JEU_ENCOURS</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a27a14" doxytag="PAGE_PRINCIPALE" ></a>PAGE_PRINCIPALE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a27a15" doxytag="PAGE_SCORE" ></a>PAGE_SCORE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a27a16" doxytag="PAGE_QUITTER" ></a>PAGE_QUITTER</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dl>
+Définition à la ligne <a class="el" href="ctrl__fenetre_8h-source.html#l00040">40</a> du fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a28" doxytag="ctrl_fenetre.h::EPageJeuCommencer" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> enum <a class="el" href="ctrl__fenetre_8h.html#a28">EPageJeuCommencer</a>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Identifiants des entrées du menu de création d'une partie. 
+<p>
+<dl compact><dt><b>Valeurs énumérées: </b></dt><dd>
+<table border=0 cellspacing=2 cellpadding=0>
+<tr><td valign=top><em><a class="anchor" name="a28a17" doxytag="PAGE_JEU_COMMENCER_NULL" ></a>PAGE_JEU_COMMENCER_NULL</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a28a18" doxytag="PAGE_JEU_COMMENCER_CHARGEMENT" ></a>PAGE_JEU_COMMENCER_CHARGEMENT</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a28a19" doxytag="PAGE_JEU_COMMENCER_JOUEUR2" ></a>PAGE_JEU_COMMENCER_JOUEUR2</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a28a20" doxytag="PAGE_JEU_COMMENCER_JOUEUR1" ></a>PAGE_JEU_COMMENCER_JOUEUR1</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a28a21" doxytag="PAGE_JEU_COMMENCER_NOMBRE_JOUEUR" ></a>PAGE_JEU_COMMENCER_NOMBRE_JOUEUR</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dl>
+Définition à la ligne <a class="el" href="ctrl__fenetre_8h-source.html#l00053">53</a> du fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.    </td>
+  </tr>
+</table>
+<a class="anchor" name="a29" doxytag="ctrl_fenetre.h::EPagePrincipale" ></a><p>
+<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
+  <tr>
+    <td class="mdRow">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td class="md" nowrap valign="top"> enum <a class="el" href="ctrl__fenetre_8h.html#a29">EPagePrincipale</a>          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellspacing=5 cellpadding=0 border=0>
+  <tr>
+    <td>
+      &nbsp;
+    </td>
+    <td>
+
+<p>
+Identifiants des entrées du menu principale. 
+<p>
+<dl compact><dt><b>Valeurs énumérées: </b></dt><dd>
+<table border=0 cellspacing=2 cellpadding=0>
+<tr><td valign=top><em><a class="anchor" name="a29a22" doxytag="PAGE_PRINCIPALE_NULL" ></a>PAGE_PRINCIPALE_NULL</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a29a23" doxytag="PAGE_PRINCIPALE_QUITTER" ></a>PAGE_PRINCIPALE_QUITTER</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a29a24" doxytag="PAGE_PRINCIPALE_SCORES" ></a>PAGE_PRINCIPALE_SCORES</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a29a25" doxytag="PAGE_PRINCIPALE_JEU_COMMENCER" ></a>PAGE_PRINCIPALE_JEU_COMMENCER</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign=top><em><a class="anchor" name="a29a26" doxytag="PAGE_PRINCIPALE_JEU_REPRENDRE" ></a>PAGE_PRINCIPALE_JEU_REPRENDRE</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dl>
+Définition à la ligne <a class="el" href="ctrl__fenetre_8h-source.html#l00063">63</a> du fichier <a class="el" href="ctrl__fenetre_8h-source.html">ctrl_fenetre.h</a>.    </td>
+  </tr>
+</table>
+<hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:47 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>

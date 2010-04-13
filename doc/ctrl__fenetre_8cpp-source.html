@@ -1,0 +1,478 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<title>Shoot(r): ctrl_fenetre.cpp Source File</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.3.8 -->
+<div class="qindex"><a class="qindex" href="index.html">Page&nbsp;principale</a> | <a class="qindex" href="hierarchy.html">Hiérarchie&nbsp;des&nbsp;classes</a> | <a class="qindex" href="annotated.html">Liste&nbsp;des&nbsp;classes</a> | <a class="qindex" href="files.html">Liste&nbsp;des&nbsp;fichiers</a> | <a class="qindex" href="functions.html">Membres&nbsp;de&nbsp;classe</a> | <a class="qindex" href="globals.html">Membres&nbsp;de&nbsp;fichier</a></div>
+<h1>ctrl_fenetre.cpp</h1><a href="ctrl__fenetre_8cpp.html">Aller à la documentation de ce fichier.</a><pre class="fragment"><div>00001 
+00002 <span class="comment">//      Shoot(r)</span>
+00009 <span class="comment"></span>
+00010 <span class="preprocessor">#include "<a class="code" href="affichage_8h.html">affichage.h</a>"</span>
+00011 <span class="preprocessor">#include "<a class="code" href="ctrl__fenetre_8h.html">ctrl_fenetre.h</a>"</span>
+00012 <span class="preprocessor">#include "<a class="code" href="ctrl__son_8h.html">ctrl_son.h</a>"</span>
+00013 <span class="preprocessor">#include "<a class="code" href="ctrl__jeu_8h.html">ctrl_jeu.h</a>"</span>
+00014 <span class="preprocessor">#include "<a class="code" href="window__sdl_8h.html">window_sdl.h</a>"</span>
+00015 <span class="preprocessor">#include "<a class="code" href="texture__manager_8h.html">texture_manager.h</a>"</span>
+00016 <span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+00017 
+00018 <span class="preprocessor">#ifdef _DEBUG</span>
+00019 <span class="preprocessor"></span><span class="preprocessor">#define FULLSCREEN false</span>
+00020 <span class="preprocessor"></span><span class="preprocessor">#else </span>
+<a name="l00021"></a><a class="code" href="ctrl__fenetre_8cpp.html#a0">00021</a> <span class="preprocessor"></span><span class="preprocessor">#define FULLSCREEN true</span>
+00022 <span class="preprocessor"></span><span class="preprocessor">#endif //_DEBUG</span>
+00023 <span class="preprocessor"></span>
+<a name="l00024"></a><a class="code" href="classCFenetre.html#a0">00024</a> <a class="code" href="classCFenetre.html#a0">CFenetre::CFenetre</a> ()
+00025 {
+00026         <span class="comment">// Création d'une fenêtre</span>
+00027         <a class="code" href="classCWindowSDL.html#e0">CWindowSDL::Instance</a> ()-&gt;<a class="code" href="classCWindowSDL.html#a1">Create</a> (<a class="code" href="ctrl__fenetre_8h.html#a0">FENETRE_NOM</a>, <a class="code" href="ctrl__fenetre_8h.html#a1">FENETRE_LARGEUR</a>, <a class="code" href="ctrl__fenetre_8h.html#a2">FENETRE_HAUTEUR</a>, <a class="code" href="ctrl__fenetre_8h.html#a3">FENETRE_COULEUR</a>, <a class="code" href="ctrl__fenetre_8cpp.html#a0">FULLSCREEN</a>);
+00028 
+00029         <span class="comment">// Lecture de la musique du menu</span>
+00030         <a class="code" href="classCSoundManager.html#e0">CSoundManager::Instance</a> ()-&gt;<a class="code" href="classCSoundManager.html#a0">Jouer</a> (<a class="code" href="ctrl__fenetre_8h.html#a5">FICHIER_MUSIQUE_MENU</a>, <a class="code" href="ctrl__son_8h.html#a8a1">CANAL_MUSIQUE</a>, <span class="keyword">true</span>);
+00031 
+00032         <span class="comment">// Initialisation du menu</span>
+00033         MenuInit ();
+00034 
+00035         m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a14">PAGE_PRINCIPALE</a>;
+00036         m_bEnd = <span class="keyword">false</span>;
+00037 
+00038         <span class="comment">// La boucle d'affichage</span>
+00039         <span class="keywordflow">while</span> (!m_bEnd)
+00040     {
+00041                 <span class="comment">// On exécute la page sur lequelle on se situe</span>
+00042                 <span class="keywordflow">switch</span> (m_Page)
+00043                 {
+00044                 <span class="keywordflow">default</span>:
+00045                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a27a9">PAGE_NULL</a>:
+00046                         m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a16">PAGE_QUITTER</a>;
+00047                         <span class="keywordflow">break</span>;
+00048                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a27a10">PAGE_JEU_CHARGEMENT</a>:
+00049                         <span class="keywordflow">if</span> (!PageJeuChargement ())
+00050                                 m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a11">PAGE_JEU_CHARGEMENT_ERREUR</a>;
+00051                         <span class="keywordflow">break</span>;
+00052                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a27a11">PAGE_JEU_CHARGEMENT_ERREUR</a>:
+00053                         PageJeuChargementErreur ();
+00054                         <span class="keywordflow">break</span>;
+00055                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a27a13">PAGE_JEU_ENCOURS</a>:
+00056                         PageJeuEnCours ();
+00057                         <span class="keywordflow">break</span>;
+00058                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a27a14">PAGE_PRINCIPALE</a>:
+00059                         PagePrincipale ();
+00060                         <span class="keywordflow">break</span>;
+00061                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a27a12">PAGE_JEU_COMMENCER</a>:
+00062                         PageJeuCommencer ();
+00063                         <span class="keywordflow">break</span>;
+00064                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a27a15">PAGE_SCORE</a>:
+00065                         PageScore ();
+00066                         <span class="keywordflow">break</span>;
+00067                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a27a16">PAGE_QUITTER</a>:
+00068                         PageQuitter ();
+00069                         <span class="keywordflow">break</span>;
+00070                 }
+00071         }
+00072 }
+00073 
+<a name="l00074"></a><a class="code" href="classCFenetre.html#a1">00074</a> <a class="code" href="classCFenetre.html#a1">CFenetre::~CFenetre</a> ()
+00075 {
+00076 <span class="comment">/*</span>
+00077 <span class="comment">        CAffichage *pAffichage = CAffichage::Instance ();</span>
+00078 <span class="comment">        // Déchargement de l'image de fond du menu</span>
+00079 <span class="comment">        pAffichage-&gt;DechargerImage (m_uiImageMenuFond);</span>
+00080 <span class="comment">*/</span>
+00081         <a class="code" href="classCTextureManager.html#e1">CTextureManager::Kill</a> ();
+00082         <a class="code" href="classCGameManager.html#e1">CGameManager::Kill</a> ();
+00083         <a class="code" href="classCAffichage.html#e1">CAffichage::Kill</a> ();
+00084         <a class="code" href="classCSoundManager.html#e1">CSoundManager::Kill</a> ();
+00085         <a class="code" href="classCWindowSDL.html#e1">CWindowSDL::Kill</a> ();
+00086 
+00087         SDL_Quit ();
+00088 }
+00089 
+00090 <span class="keywordtype">void</span> CFenetre::MenuInit ()
+00091 {
+00092         m_uiMenuPrincipal = <a class="code" href="ctrl__fenetre_8h.html#a29a25">PAGE_PRINCIPALE_JEU_COMMENCER</a>;
+00093         m_uiMenuCommencer = <a class="code" href="ctrl__fenetre_8h.html#a28a21">PAGE_JEU_COMMENCER_NOMBRE_JOUEUR</a>;
+00094         m_uiNombreJoueur = 1;
+00095 
+00096         m_pTextureMenuFond = <a class="code" href="classCTextureManager.html#e0">CTextureManager::Instance</a> ()-&gt;<a class="code" href="classCTextureManager.html#a0">Texture2D</a> (FICHIER_TEXTURE_FOND_MENU);
+00097 <span class="comment">/*</span>
+00098 <span class="comment">        CAffichage *pAffichage = CAffichage::Instance ();</span>
+00099 <span class="comment">        // On charge l'image de fond du menu</span>
+00100 <span class="comment">        m_uiImageMenuFond = pAffichage-&gt;ChargerImage24Bits ();</span>
+00101 <span class="comment">*/</span>
+00102 }
+00103 
+00104 <span class="keywordtype">bool</span> CFenetre::PageJeuChargement ()
+00105 {
+00106         <span class="comment">// Affichage de l'image de fond du menu</span>
+00107         <a class="code" href="classCAffichage.html">CAffichage</a> *pAffichage = <a class="code" href="classCAffichage.html#e0">CAffichage::Instance</a> ();
+00108         pAffichage-&gt;<a class="code" href="classCAffichage.html#a14">Debut</a> ();
+00109         <span class="comment">//pAffichage-&gt;MenuImageFond (m_uiImageMenuFond);</span>
+00110         pAffichage-&gt;<a class="code" href="classCAffichage.html#a13">MenuImageFond</a> (m_pTextureMenuFond);
+00111         pAffichage-&gt;<a class="code" href="classCAffichage.html#a9">MenuChargement</a> ();
+00112         pAffichage-&gt;<a class="code" href="classCAffichage.html#a15">Fin</a> ();
+00113 
+00114         <span class="comment">// Initialisation des entrées pour le jeu</span>
+00115         m_EntreeSouris = <a class="code" href="classCEntreeSouris.html">CEntreeSouris</a> (FENETRE_LARGEUR * 1 / 3, FENETRE_HAUTEUR / 6);
+00116         m_EntreeClavier = <a class="code" href="classCEntreeClavier.html">CEntreeClavier</a> (FENETRE_LARGEUR * 2 / 3, FENETRE_HAUTEUR / 6);
+00117 
+00118         <span class="comment">// Création d'une nouvelle instance de Jeu</span>
+00119         <span class="comment">// Nous commencons par détruire l'ancienne, s'il y en avait une</span>
+00120         <a class="code" href="classCGameManager.html#e1">CGameManager::Kill</a> ();
+00121         <span class="comment">// On créé une nouvelle instance de CGameManager.</span>
+00122         <a class="code" href="classCGameManager.html">CGameManager</a> *pJeu = <a class="code" href="classCGameManager.html#e0">CGameManager::Instance</a> ();
+00123 
+00124         <span class="comment">// Initialisation du jeu</span>
+00125         <span class="keywordflow">if</span> (!pJeu-&gt;<a class="code" href="classCGameManager.html#a1">Init</a> (m_uiNombreJoueur, m_szNomJoueur1.c_str (), m_szNomJoueur2.c_str ()))
+00126         {
+00127                 pJeu-&gt;<a class="code" href="classCGameManager.html#e1">Kill</a> ();
+00128                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+00129         }
+00130 
+00131         <span class="comment">// Lecture de la musique du jeu.</span>
+00132         <a class="code" href="classCSoundManager.html#e0">CSoundManager::Instance</a> ()-&gt;<a class="code" href="classCSoundManager.html#a0">Jouer</a> (FICHIER_MUSIQUE_JEU, CANAL_MUSIQUE, <span class="keyword">true</span>);
+00133 
+00134         m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a13">PAGE_JEU_ENCOURS</a>;
+00135         <span class="keywordflow">return</span> <span class="keyword">true</span>;
+00136 }
+00137 
+00138 <span class="keywordtype">void</span> CFenetre::PageJeuChargementErreur ()
+00139 {
+00140         SDL_Event event;
+00141         <span class="keywordtype">bool</span> bFin = <span class="keyword">false</span>;
+00142 
+00143         <span class="comment">// Affichage de l'image de fond</span>
+00144         <a class="code" href="classCAffichage.html">CAffichage</a> *pAffichage = <a class="code" href="classCAffichage.html#e0">CAffichage::Instance</a> ();
+00145         pAffichage-&gt;<a class="code" href="classCAffichage.html#a14">Debut</a> ();
+00146         pAffichage-&gt;<a class="code" href="classCAffichage.html#a13">MenuImageFond</a> (m_pTextureMenuFond);
+00147         pAffichage-&gt;<a class="code" href="classCAffichage.html#a11">MenuChargementErreur</a> ();
+00148         pAffichage-&gt;<a class="code" href="classCAffichage.html#a15">Fin</a> ();
+00149 
+00150         <span class="keywordflow">while</span> (!bFin)
+00151         {
+00152                 <span class="comment">// Récupération des événements provoqués par les utilisateurs</span>
+00153                 <span class="keywordflow">while</span> (SDL_PollEvent (&amp;event))
+00154                 {
+00155                         <span class="keywordflow">switch</span> (event.type)
+00156                         {
+00157                         <span class="keywordflow">case</span> SDL_QUIT:
+00158                         <span class="keywordflow">case</span> SDL_KEYDOWN:
+00159                                 m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a14">PAGE_PRINCIPALE</a>;
+00160                                 bFin = <span class="keyword">true</span>;
+00161                                 <span class="keywordflow">break</span>;
+00162                         <span class="keywordflow">default</span>:
+00163                                 <span class="keywordflow">break</span>;
+00164                         }
+00165                 }
+00166         }
+00167 }
+00168 
+00169 <span class="keywordtype">void</span> CFenetre::PageJeuEnCours ()
+00170 {
+00171         SDL_Event event;
+00172 
+00173         <span class="comment">// Récupération des événements provoqués par les joueurs</span>
+00174         <span class="keywordflow">while</span> (SDL_PollEvent (&amp;event))
+00175         {
+00176                 <span class="keywordflow">switch</span> (event.type)
+00177                 {
+00178                 <span class="keywordflow">case</span> SDL_QUIT:
+00179                         m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a14">PAGE_PRINCIPALE</a>;
+00180                         <span class="keywordflow">break</span>;
+00181                 <span class="keywordflow">case</span> SDL_KEYUP:
+00182                 <span class="keywordflow">case</span> SDL_KEYDOWN:
+00183                         <span class="keywordflow">if</span> (event.key.keysym.sym == SDLK_ESCAPE)
+00184                         {
+00185                                 <span class="comment">// Lecture de la musique du menu</span>
+00186                                 <a class="code" href="classCSoundManager.html#e0">CSoundManager::Instance</a> ()-&gt;<a class="code" href="classCSoundManager.html#a0">Jouer</a> (FICHIER_MUSIQUE_MENU, CANAL_MUSIQUE, <span class="keyword">true</span>);
+00187                                 m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a14">PAGE_PRINCIPALE</a>;
+00188                         }
+00189                         m_EntreeClavier.<a class="code" href="classCEntreeClavier.html#a2">Event</a> ((SDL_KeyboardEvent*) &amp;event);
+00190                         <span class="keywordflow">break</span>;
+00191                 <span class="keywordflow">case</span> SDL_MOUSEMOTION:
+00192                         m_EntreeSouris.<a class="code" href="classCEntreeSouris.html#a2">Event</a> ((SDL_MouseMotionEvent*) &amp;event);
+00193                         <span class="keywordflow">break</span>;
+00194                 <span class="keywordflow">case</span> SDL_MOUSEBUTTONDOWN:
+00195                 <span class="keywordflow">case</span> SDL_MOUSEBUTTONUP:
+00196                         m_EntreeSouris.<a class="code" href="classCEntreeSouris.html#a2">Event</a> ((SDL_MouseButtonEvent*) &amp;event);
+00197                         <span class="keywordflow">break</span>;
+00198                 <span class="keywordflow">default</span>:
+00199                         <span class="keywordflow">break</span>;
+00200                 }
+00201         }
+00202 
+00203         <a class="code" href="classCGameManager.html">CGameManager</a> *pJeu = <a class="code" href="classCGameManager.html#e0">CGameManager::Instance</a> ();
+00204 
+00205         <span class="comment">// Indique si le joueur 1 tire.</span>
+00206         pJeu-&gt;<a class="code" href="classCGameManager.html#a3">Tirer</a> (JOUEUR_1, m_EntreeSouris.<a class="code" href="classCEntree.html#a0">Tirer</a> ());
+00207         <span class="comment">// Positionne le joueur 1 suivant la position de la souris</span>
+00208         pJeu-&gt;<a class="code" href="classCGameManager.html#a4">PositionnerJoueur</a> (JOUEUR_1, m_EntreeSouris.<a class="code" href="classCEntree.html#a1">GetPosition</a> ());
+00209 
+00210         <span class="comment">// Indique si le joueur 2 tire.</span>
+00211         pJeu-&gt;<a class="code" href="classCGameManager.html#a3">Tirer</a> (JOUEUR_2, m_EntreeClavier.<a class="code" href="classCEntree.html#a0">Tirer</a> ());
+00212         <span class="comment">// Positionne le joueur 2 suivant la position obtenu avec le clavier</span>
+00213         pJeu-&gt;<a class="code" href="classCGameManager.html#a4">PositionnerJoueur</a> (JOUEUR_2, m_EntreeClavier.<a class="code" href="classCEntreeClavier.html#a3">GetPosition</a> ());
+00214 
+00215         <span class="comment">// Mise à jour du jeu (niveaux, entités, état du jeu)</span>
+00216         pJeu-&gt;<a class="code" href="classCGameManager.html#a0">Update</a> ();
+00217 }
+00218 
+00219 <span class="keywordtype">void</span> CFenetre::PagePrincipale ()
+00220 {
+00221         SDL_Event event;
+00222         <span class="keywordtype">bool</span> bAction = <span class="keyword">false</span>;
+00223 
+00224         <span class="keywordflow">while</span> (SDL_PollEvent (&amp;event))
+00225         {
+00226                 <span class="comment">// Récupération des événements provoqués par les utilisateurs</span>
+00227                 <span class="keywordflow">switch</span> (event.type)
+00228                 {
+00229                 <span class="keywordflow">case</span> SDL_QUIT:
+00230                         m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a16">PAGE_QUITTER</a>;
+00231                         <span class="keywordflow">break</span>;
+00232                 <span class="keywordflow">case</span> SDL_KEYDOWN:
+00233                         <span class="comment">// Déplacement vers le haut dans le menu</span>
+00234                         <span class="keywordflow">if</span> (event.key.keysym.sym == SDLK_KP8 || event.key.keysym.sym == SDLK_UP)
+00235                         {
+00236                                 <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> iMax = <a class="code" href="classCGameManager.html#e2">CGameManager::IsCreate</a> () != 0 ? <a class="code" href="ctrl__fenetre_8h.html#a29a26">PAGE_PRINCIPALE_JEU_REPRENDRE</a> : <a class="code" href="ctrl__fenetre_8h.html#a29a25">PAGE_PRINCIPALE_JEU_COMMENCER</a>;
+00237                                 m_uiMenuPrincipal++;
+00238                                 <span class="keywordflow">if</span> (m_uiMenuPrincipal &gt; iMax)
+00239                                         m_uiMenuPrincipal = iMax;
+00240                         }
+00241                         <span class="comment">// Déplacement vers la bas dans le menu</span>
+00242                         <span class="keywordflow">if</span> (event.key.keysym.sym == SDLK_KP2 || event.key.keysym.sym == SDLK_DOWN)
+00243                         {
+00244                                 m_uiMenuPrincipal--;
+00245                                 <span class="keywordflow">if</span> (m_uiMenuPrincipal &lt; <a class="code" href="ctrl__fenetre_8h.html#a29a23">PAGE_PRINCIPALE_QUITTER</a>)
+00246                                         m_uiMenuPrincipal = <a class="code" href="ctrl__fenetre_8h.html#a29a23">PAGE_PRINCIPALE_QUITTER</a>;
+00247                         }
+00248                         <span class="comment">// Commande une action, pour le changement de menu par exemple</span>
+00249                         <span class="keywordflow">if</span> (event.key.keysym.sym == SDLK_SPACE
+00250                                 || event.key.keysym.sym == SDLK_RETURN
+00251                                 || event.key.keysym.sym == SDLK_KP_ENTER)
+00252                         {
+00253                                 bAction = <span class="keyword">true</span>;
+00254                         }
+00255                         <span class="keywordflow">if</span> (event.key.keysym.sym == SDLK_ESCAPE)
+00256                                 m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a16">PAGE_QUITTER</a>;
+00257                         <span class="keywordflow">break</span>;
+00258                 <span class="keywordflow">default</span>:
+00259                         <span class="keywordflow">break</span>;
+00260                 }
+00261         }
+00262 
+00263         <span class="comment">// Commence le chargement de page dans le menu</span>
+00264         <span class="keywordflow">if</span> (bAction)
+00265         {
+00266                 <span class="keywordflow">switch</span> (m_uiMenuPrincipal)
+00267                 {
+00268                 <span class="keywordflow">default</span>:
+00269                         <span class="keywordflow">break</span>;
+00270                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a29a23">PAGE_PRINCIPALE_QUITTER</a>:
+00271                         m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a16">PAGE_QUITTER</a>;
+00272                         <span class="keywordflow">break</span>;
+00273                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a29a24">PAGE_PRINCIPALE_SCORES</a>:
+00274                         m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a15">PAGE_SCORE</a>;
+00275                         <span class="keywordflow">break</span>;
+00276                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a29a25">PAGE_PRINCIPALE_JEU_COMMENCER</a>:
+00277                         m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a12">PAGE_JEU_COMMENCER</a>;
+00278                         <span class="keywordflow">break</span>;
+00279                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a29a26">PAGE_PRINCIPALE_JEU_REPRENDRE</a>:
+00280                         m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a13">PAGE_JEU_ENCOURS</a>;
+00281                         <span class="keywordflow">break</span>;
+00282                 }
+00283         }
+00284 
+00285         <span class="comment">// Affichage de la page principale</span>
+00286         <a class="code" href="classCAffichage.html">CAffichage</a> *pAffichage = <a class="code" href="classCAffichage.html#e0">CAffichage::Instance</a> ();
+00287         pAffichage-&gt;<a class="code" href="classCAffichage.html#a14">Debut</a> ();
+00288         pAffichage-&gt;<a class="code" href="classCAffichage.html#a13">MenuImageFond</a> (m_pTextureMenuFond);
+00289         pAffichage-&gt;<a class="code" href="classCAffichage.html#a8">MenuPrincipal</a> (m_uiMenuPrincipal, CGameManager::IsCreate ());
+00290         pAffichage-&gt;<a class="code" href="classCAffichage.html#a15">Fin</a> ();
+00291 }
+00292 
+00293 <span class="keywordtype">void</span> CFenetre::PageJeuCommencer ()
+00294 {
+00295         SDL_Event event;
+00296         <span class="keywordtype">bool</span> bAction = <span class="keyword">false</span>;
+00297 
+00298         <span class="comment">// On active la gestion des charactère unicode pour le clavier. Ainsi sur tous les claviers (azerty, qwerty, etc...) a = a et q = q</span>
+00299         <span class="comment">// C'est plus pratique pour taper le nom des joueurs</span>
+00300         SDL_EnableUNICODE (1);
+00301         SDL_EnableKeyRepeat (SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
+00302 
+00303         <span class="comment">// Récupération des événements provoqués par les utilisateurs</span>
+00304         <span class="keywordflow">while</span> (SDL_PollEvent (&amp;event))
+00305         {
+00306                 <span class="keywordflow">switch</span> (event.type)
+00307                 {
+00308                 <span class="keywordflow">default</span>:
+00309                         <span class="keywordflow">break</span>;
+00310                 <span class="keywordflow">case</span> SDL_QUIT:
+00311                         m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a14">PAGE_PRINCIPALE</a>;
+00312                         SDL_EnableUNICODE (0);
+00313                         <span class="keywordflow">break</span>;
+00314                 <span class="keywordflow">case</span> SDL_KEYDOWN:
+00315                         <span class="keywordflow">if</span> (event.key.keysym.sym == SDLK_ESCAPE)
+00316                         {
+00317                                 m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a14">PAGE_PRINCIPALE</a>;
+00318                                 SDL_EnableUNICODE (0);
+00319                         }
+00320                         <span class="comment">// Efface les noms des joueurs</span>
+00321                         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.key.keysym.sym == SDLK_BACKSPACE)
+00322                         {
+00323                                 <span class="keywordflow">if</span> (m_uiMenuCommencer == <a class="code" href="ctrl__fenetre_8h.html#a28a20">PAGE_JEU_COMMENCER_JOUEUR1</a>)
+00324                                         m_szNomJoueur1.clear ();
+00325                                 <span class="keywordflow">if</span> (m_uiMenuCommencer == <a class="code" href="ctrl__fenetre_8h.html#a28a19">PAGE_JEU_COMMENCER_JOUEUR2</a>)
+00326                                         m_szNomJoueur2.clear ();
+00327                         }
+00328                         <span class="comment">// Déplacement vers le haut dans le menu</span>
+00329                         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.key.keysym.sym == SDLK_KP8 || event.key.keysym.sym == SDLK_UP)
+00330                         {
+00331                                 <span class="keywordflow">if</span> (m_uiNombreJoueur == <a class="code" href="ctrl__fenetre_8h.html#a28a19">PAGE_JEU_COMMENCER_JOUEUR2</a> || m_uiMenuCommencer != <a class="code" href="ctrl__fenetre_8h.html#a28a18">PAGE_JEU_COMMENCER_CHARGEMENT</a>)
+00332                                 {
+00333                                         m_uiMenuCommencer++;
+00334                                         <span class="keywordflow">if</span> (m_uiMenuCommencer &gt; <a class="code" href="ctrl__fenetre_8h.html#a28a21">PAGE_JEU_COMMENCER_NOMBRE_JOUEUR</a>)
+00335                                                 m_uiMenuCommencer = <a class="code" href="ctrl__fenetre_8h.html#a28a21">PAGE_JEU_COMMENCER_NOMBRE_JOUEUR</a>;
+00336                                 }
+00337                                 <span class="keywordflow">else</span>
+00338                                         m_uiMenuCommencer = <a class="code" href="ctrl__fenetre_8h.html#a28a20">PAGE_JEU_COMMENCER_JOUEUR1</a>;
+00339                         }
+00340                         <span class="comment">// Déplacement vers la bas dans le menu</span>
+00341                         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.key.keysym.sym == SDLK_KP2 || event.key.keysym.sym == SDLK_DOWN)
+00342                         {
+00343                                 <span class="keywordflow">if</span> (m_uiNombreJoueur == <a class="code" href="ctrl__fenetre_8h.html#a28a19">PAGE_JEU_COMMENCER_JOUEUR2</a> || m_uiMenuCommencer != <a class="code" href="ctrl__fenetre_8h.html#a28a20">PAGE_JEU_COMMENCER_JOUEUR1</a>)
+00344                                 {
+00345                                         m_uiMenuCommencer--;
+00346                                         <span class="keywordflow">if</span> (m_uiMenuCommencer &lt; <a class="code" href="ctrl__fenetre_8h.html#a28a18">PAGE_JEU_COMMENCER_CHARGEMENT</a>)
+00347                                                 m_uiMenuCommencer = <a class="code" href="ctrl__fenetre_8h.html#a28a18">PAGE_JEU_COMMENCER_CHARGEMENT</a>;
+00348                                 }
+00349                                 <span class="keywordflow">else</span>
+00350                                         m_uiMenuCommencer = <a class="code" href="ctrl__fenetre_8h.html#a28a18">PAGE_JEU_COMMENCER_CHARGEMENT</a>;
+00351                         }
+00352                         <span class="comment">// Commande une action, pour le changement de menu par exemple</span>
+00353                         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.key.keysym.sym == SDLK_SPACE
+00354                                 || event.key.keysym.sym == SDLK_RETURN
+00355                                 || event.key.keysym.sym == SDLK_KP_ENTER)
+00356                         {
+00357                                 bAction = <span class="keyword">true</span>;
+00358                         }
+00359                         <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.key.keysym.unicode &gt; 32 &amp;&amp; event.key.keysym.unicode &lt;= 160)
+00360                         {
+00361                                 <span class="comment">// Saisi des lettres des noms des joueurs</span>
+00362                                 <span class="keywordflow">if</span> (m_uiMenuCommencer == <a class="code" href="ctrl__fenetre_8h.html#a28a20">PAGE_JEU_COMMENCER_JOUEUR1</a>)
+00363                                         m_szNomJoueur1.push_back (static_cast&lt;char&gt; (event.key.keysym.unicode));
+00364                                 <span class="keywordflow">if</span> (m_uiMenuCommencer == <a class="code" href="ctrl__fenetre_8h.html#a28a19">PAGE_JEU_COMMENCER_JOUEUR2</a> &amp;&amp; m_uiNombreJoueur == 2)
+00365                                         m_szNomJoueur2.push_back (static_cast&lt;char&gt; (event.key.keysym.unicode));
+00366                         }
+00367                         <span class="keywordflow">break</span>;
+00368                 }
+00369         }
+00370 
+00371         <span class="keywordflow">if</span> (bAction)
+00372         {
+00373                 <span class="keywordflow">switch</span> (m_uiMenuCommencer)
+00374                 {
+00375                 <span class="keywordflow">case</span> <a class="code" href="ctrl__fenetre_8h.html#a28a18">PAGE_JEU_COMMENCER_CHARGEMENT</a>:
+00376                         m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a10">PAGE_JEU_CHARGEMENT</a>;
+00377                         SDL_EnableUNICODE (0);
+00378                         <span class="keywordflow">break</span>;
+00379                 <span class="keywordflow">case</span> 4:
+00380                         <span class="comment">// on bascule entre ou 2 joueurs</span>
+00381                         m_uiNombreJoueur = m_uiNombreJoueur == 1 ? 2 : 1;
+00382                         <span class="keywordflow">break</span>;
+00383                 }
+00384         }
+00385 
+00386         <span class="comment">// Affichage de la page commencer jeu</span>
+00387         <a class="code" href="classCAffichage.html">CAffichage</a> *pAffichage = <a class="code" href="classCAffichage.html#e0">CAffichage::Instance</a> ();
+00388         pAffichage-&gt;<a class="code" href="classCAffichage.html#a14">Debut</a> ();
+00389         <span class="comment">// Affichage de l'image de fond</span>
+00390         pAffichage-&gt;<a class="code" href="classCAffichage.html#a13">MenuImageFond</a> (m_pTextureMenuFond);
+00391         <span class="comment">// Afficahge du menu de commencemant d'une partie</span>
+00392         pAffichage-&gt;<a class="code" href="classCAffichage.html#a10">MenuCommencer</a> (m_uiMenuCommencer, m_uiNombreJoueur, m_szNomJoueur1, m_szNomJoueur2);
+00393         pAffichage-&gt;<a class="code" href="classCAffichage.html#a15">Fin</a> ();
+00394 }
+00395 
+00396 <span class="keywordtype">void</span> CFenetre::PageScore ()
+00397 {
+00398         SDL_Event event;
+00399         <span class="keywordtype">bool</span> bFin = <span class="keyword">false</span>;
+00400 
+00401         <span class="comment">// Affichage de la page score</span>
+00402         <a class="code" href="classCAffichage.html">CAffichage</a> *pAffichage = <a class="code" href="classCAffichage.html#e0">CAffichage::Instance</a> ();
+00403         pAffichage-&gt;<a class="code" href="classCAffichage.html#a14">Debut</a> ();
+00404         <span class="comment">// Affichage de l'image de fond</span>
+00405         pAffichage-&gt;<a class="code" href="classCAffichage.html#a13">MenuImageFond</a> (m_pTextureMenuFond);
+00406         <span class="comment">// Affichage du menu des scores</span>
+00407         pAffichage-&gt;<a class="code" href="classCAffichage.html#a12">MenuScore</a> ();
+00408         pAffichage-&gt;<a class="code" href="classCAffichage.html#a15">Fin</a> ();
+00409 
+00410         <span class="comment">// On attend que l'utilisateur appui sur une touche pour retourner au menu principal</span>
+00411         <span class="keywordflow">while</span> (!bFin)
+00412         {
+00413                 <span class="comment">// Récupération des événements provoqués par les utilisateurs</span>
+00414                 <span class="keywordflow">while</span> (SDL_PollEvent (&amp;event))
+00415                 {
+00416                         <span class="keywordflow">switch</span> (event.type)
+00417                         {
+00418                         <span class="keywordflow">case</span> SDL_QUIT:
+00419                         <span class="keywordflow">case</span> SDL_KEYDOWN:
+00420                                 m_Page = <a class="code" href="ctrl__fenetre_8h.html#a27a14">PAGE_PRINCIPALE</a>;
+00421                                 bFin = <span class="keyword">true</span>;
+00422                                 <span class="keywordflow">break</span>;
+00423                         <span class="keywordflow">default</span>:
+00424                                 <span class="keywordflow">break</span>;
+00425                         }
+00426                 }
+00427         }
+00428 }
+00429 
+00430 <span class="keywordtype">void</span> CFenetre::PageQuitter ()
+00431 {
+00432         SDL_Event event;
+00433 
+00434         <a class="code" href="classCTextureManager.html">CTextureManager</a> *pTextureManager = <a class="code" href="classCTextureManager.html#e0">CTextureManager::Instance</a> ();
+00435         m_pTextureMenuQuitter = pTextureManager-&gt;<a class="code" href="classCTextureManager.html#a0">Texture2D</a> (FICHIER_TEXTURE_FOND_QUITTER);
+00436 
+00437         <span class="comment">// Affichage de la page quitter</span>
+00438         <a class="code" href="classCAffichage.html">CAffichage</a> *pAffichage = <a class="code" href="classCAffichage.html#e0">CAffichage::Instance</a> ();
+00439         pAffichage-&gt;<a class="code" href="classCAffichage.html#a14">Debut</a> ();
+00440         <span class="comment">// Affichage de l'image de fin</span>
+00441         pAffichage-&gt;<a class="code" href="classCAffichage.html#a13">MenuImageFond</a> (m_pTextureMenuQuitter);
+00442         pAffichage-&gt;<a class="code" href="classCAffichage.html#a15">Fin</a> ();
+00443 
+00444         pTextureManager-&gt;<a class="code" href="classCTextureManager.html#a2">Delete</a> (m_pTextureMenuQuitter);
+00445 
+00446         <span class="comment">// Lecture de la musique de fin</span>
+00447         <a class="code" href="classCSoundManager.html#e0">CSoundManager::Instance</a> ()-&gt;<a class="code" href="classCSoundManager.html#a0">Jouer</a> (FICHIER_MUSIQUE_QUITTER, CANAL_MUSIQUE, <span class="keyword">true</span>);
+00448 
+00449         <span class="comment">// Si une instance de CGameManager a été créé alors on la supprime</span>
+00450         <span class="keywordflow">if</span> (<a class="code" href="classCGameManager.html#e2">CGameManager::IsCreate</a> ())
+00451                 <a class="code" href="classCGameManager.html#e0">CGameManager::Instance</a> ()-&gt;<a class="code" href="classCGameManager.html#e1">Kill</a> ();
+00452 
+00453         <span class="keywordtype">bool</span> bEnd = <span class="keyword">false</span>;
+00454         <span class="comment">// On attend que l'utilisateur appuie sur une touche pour quitter</span>
+00455         <span class="keywordflow">while</span> (!bEnd)
+00456         {
+00457                 <span class="comment">// Récupération des événements provoqués par les utilisateurs</span>
+00458                 <span class="keywordflow">while</span> (SDL_PollEvent (&amp;event))
+00459                 {
+00460                         <span class="keywordflow">switch</span> (event.type)
+00461                         {
+00462                         <span class="keywordflow">case</span> SDL_KEYDOWN:
+00463                                 <span class="comment">//Quitter (0);</span>
+00464                                 bEnd = <span class="keyword">true</span>;
+00465                                 m_bEnd = <span class="keyword">true</span>;
+00466                                 <span class="keywordflow">break</span>;
+00467                         <span class="keywordflow">default</span>:
+00468                                 <span class="keywordflow">break</span>;
+00469                         }
+00470                 }
+00471         }
+00472 }
+</div></pre><hr size="1"><address style="align: right;"><small>Généré le Sun Sep 26 11:36:46 2004 pour Shoot(r) par
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border=0 ></a> 1.3.8 </small></address>
+</body>
+</html>
